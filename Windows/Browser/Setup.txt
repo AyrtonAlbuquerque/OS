@@ -1,0 +1,18 @@
+Zen Setup
+    1. Install "Hide Window Buttons" mod.
+    2. Install "Disable Status Bar" mod.
+    3. Install "Hide Extension Name" mod.
+    4. Install "Disable Rounded Corners" mod.
+    5. Type about:config into your urlbar and go to the page.
+    6. Set zen.theme.content-element-separation to 1.
+    7. Set zen.workspaces.show-workspace-indicator to false
+    8. Copy the userChrome.css file to your Zen "/chrome/zen-themes" folder
+    9. Open the zen-themes.css in the "/chrome" folder and add the following line to the very end:
+        - @import url("file:///C:/Users/$USER/AppData/Roaming/zen/Profiles/$PROFILE/chrome/zen-themes/userChrome.css");
+    10. Restart Zen.
+    11. Done!
+
+Infinity New Tab Setup
+    1. Open Configurations => Home
+    2. In Homepage and New Window choose Personalized URLs and paste: moz-extension://<UUID>/newtab/index.html
+    3. Replace UUID with the extensions ID found at: about:debugging#/runtime/this-firefox
