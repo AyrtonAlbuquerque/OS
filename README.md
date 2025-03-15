@@ -1,165 +1,78 @@
-<!-- ------------------------------------------ Logo ------------------------------------------- -->
-<div align="center">
-    <div><img src="https://i.imgur.com/rQNjkKJ.png" width="160px" height="120px"></div>
-    <div>Your Logo description (Optional)</div>
-</div>
-
-![Version][version.badge]
-
-<!-- ------------------------------------ Table of Content ------------------------------------- -->
-<h1>Table of Content</h1>
-
-- [Overview](#overview)
-- [Setup](#setup)
-  - [Requirements](#requirements)
-  - [Installation](#installation)
-- [Execution](#execution)
-  - [Compiling](#compiling)
-  - [Debugging](#debugging)
-- [Versioning](#versioning)
-  - [Staging](#staging)
-  - [Production](#production)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
-
-<!-- ------------------------------------------------------------------------------------------- -->
-<!--                                          Sections                                           -->
-<!-- ------------------------------------------------------------------------------------------- -->
-
-<!-- ---------------------------------------- Overview ----------------------------------------- -->
 <div align="center">
 
-# Overview
+# 🖥️ Windows Setup Script - User Guide
 
 </div>
 
-Put here a brief description of the project.
+## 📄 Overview
+This PowerShell script is a fully automated setup tool for configuring a fresh Windows installation. It installs essential development tools, configures Git and PowerShell, sets up WSL2, applies themes, and more — all in one pass.
 
-An image is worth a 1000 words, so they are always welcome.
+The script is hosted in this repository:
+👉 [GitHub - OS](https://github.com/AyrtonAlbuquerque/OS/blob/main/Windows/setup.ps1)
 
-<div align="center"><img src="https://i.imgur.com/rQNjkKJ.png"></div>
+---
 
-Tables can be used to show data:
+## ⚙️ Features
+- Installs Git and configures global identity
+- Installs and configures PowerShell with themes, PSReadLine, and posh-git
+- Installs WSL2 (supports version detection)
+- Installs essential developer tools:
+  - Python
+  - Java JDK
+  - .NET SDK and Entity Framework
+  - CMake, MinGW, Docker, NVM
+- Configures StartAllBack UI enhancements
+- Restores Windhawk configuration from backup
+- Installs FiraCode Nerd Font
+- Applies One Dark Windows theme
+- Adds Unite tool to Startup folder
 
-| Column 1 | Column 2 | Column 3 | Column 4 | Column 5 |
-| -------- | -------- | -------- | -------- | -------- |
-| Row 1    |          |          |          |          |
-| Row 2    |          |          |          |          |
-| Row 3    |          |          |          |          |
-| Row 4    |          |          |          |          |
+---
 
-Use [this](https://www.tablesgenerator.com/markdown_tables) site to generate tables automatically.
+## 🚀 How to Use
 
-<!-- ------------------------------------------ Setup ------------------------------------------ -->
-<div align="center">
+### ⚠️ Important: Must run from an **elevated PowerShell terminal (Run as Administrator)**.
 
-# Setup
+### ✅ Step 1: Execute the script from command line
+You can download and run the script directly using the command below:
 
-</div>
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -GitUser "Your Name" -GitEmail "your@email.com" -Java "23" -Python "3.13" -DotNet "9" -Distribution "Ubuntu-24.04"
+```
 
-## Requirements
+You can customize the parameters if needed:
 
-Describe here the tools required for the project. To keep things simple to read and understand use lists and links. You can also use badges for better visual information. You can use [this](https://dev.to/envoy_/150-badges-for-github-pnk) link to get badges for a lot a tools.
+### 🧠 Available Parameters:
+| Parameter        | Description                                 | Default Value               |
+|------------------|---------------------------------------------|-----------------------------|
+| `-GitUser`       | Git global username                         | `ayrton`                    |
+| `-GitEmail`      | Git global email                            | `ayrton_ito@hotmail.com`    |
+| `-Java`          | Java JDK version                            | `23`                        |
+| `-Python`        | Python version                              | `3.13`                      |
+| `-DotNet`        | .NET SDK version                            | `9`                         |
+| `-Distribution`  | WSL2 Linux distribution                     | `Ubuntu-24.04`              |
 
-- [![Angular][angular.badge]][angular.url]
-- [![Node][node.badge]][node.url]
-- [![JavaScript][javascript.badge]][javascript.url]
-- [![.NET][.net.badge]][.net.url]
+### 🧪 Example:
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -GitUser "John Doe" -GitEmail "john@example.com" -Java "21" -Python "3.12" -DotNet "8" -Distribution "Ubuntu-22.04"
+```
 
-## Installation
+---
 
-Describe here the steps necessary to install your project. Prefer the use of lists/commands/images over pure text, for example:
+## 📎 Notes
+- Some installers (e.g., Docker, StartAllBack) may show interactive windows.
+- FiraCode font and Windhawk settings are restored silently.
+- A reboot is recommended at the end of the script.
 
-1. Clone the repository
+---
 
-   ```sh
-   git clone https://github.com/ProjectName/ProjectName.git
-   ```
+## 📬 Feedback / Contributions
+Feel free to fork the repo, suggest improvements, or open issues here:
+👉 [https://github.com/AyrtonAlbuquerque/OS](https://github.com/AyrtonAlbuquerque/OS)
 
-2. Install packages
+---
 
-   ```sh
-   npm install
-   ```
+## 🙌 Credits
+Script and automation created by **Ayrton Albuquerque**.
+Inspired by the best practices of modern Windows provisioning workflows.
 
-3. Configure key in `📜 config.js`
-
-   ```js
-   const KEY = "Value";
-   ```
-
-4. Copy the files at `📁 ./SomeDirectory` to `📁 /Users/Name`
-
-Use emojis like 📁 and 📜 in the example to better describe the type of actions that should be taken. You can access a list of available emojis at [this](https://www.webfx.com/tools/emoji-cheat-sheet/) link.
-
-<!-- ---------------------------------------- Execution ---------------------------------------- -->
-<div align="center">
-
-# Execution
-
-</div>
-
-## Compiling
-
-Describe here the necessary steps to compile parts or the entire project.
-
-## Debugging
-
-Describe here the necessary steps to enable debugging and other error correction methods in the project.
-
-<!-- --------------------------------------- Versioning ---------------------------------------- -->
-<div align="center">
-
-# Versioning
-
-</div>
-
-Describe here the necessary steps to contribute to the project with new versions and adjustments.
-
-## Staging
-
-Describe here the necessary steps for releasing staging versios.
-
-## Production
-
-Describe here the necessary steps for releasing production versios.
-
-<!-- ----------------------------------------- Contact ----------------------------------------- -->
-<div align="center">
-
-# Contact
-
-</div>
-
-<!-- Put in this section the contacts of the team members responsible for the project. -->
-
-- [🐱 Fulano](https://www.linkedin.com/) - fulano@example.com
-- [🐶 Ciclano](https://www.linkedin.com/) - ciclano@example.com
-- [🐯 Beltrano](https://www.linkedin.com/) - beltrano@example.com
-- [🐻 Foo](https://www.linkedin.com/) - foo@example.com
-- [🐺 Bar](https://www.linkedin.com/) - bar@example.com
-
-<!-- ------------------------------------- Acknowledgments ------------------------------------- -->
-<div align="center">
-
-# Acknowledgments
-
-</div>
-
-<!-- Use this section to list resources you find helpful and people you would like to give credit to. Use a list and links to keep it short and simple. -->
-
-- [👦 Fulano](https://www.linkedin.com/) - fulano@example.com
-- [👦 Ciclano](https://www.linkedin.com/) - ciclano@example.com
-- [👦 Beltrano](https://www.linkedin.com/) - beltrano@example.com
-
-<!-- --------------------------------------- References ---------------------------------------- -->
-
-[version.badge]: https://img.shields.io/badge/version-22.07.0901-brightgreen
-[angular.url]: https://angular.io/
-[angular.badge]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[node.url]: https://nodejs.org/en/
-[node.badge]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
-[javascript.url]: https://www.javascript.com/
-[javascript.badge]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
-[.net.url]: https://dotnet.microsoft.com/en-us/
-[.net.badge]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
