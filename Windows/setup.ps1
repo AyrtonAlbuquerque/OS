@@ -121,23 +121,28 @@ function SetupStartAllBack($url) {
 
 function SetupWindHawk($url) {
     try {
-        $root = "C:\ProgramData\Windhawk"
-        $file = "$env:TEMP\windhawk-backup.zip"
-        $folder = Join-Path $env:TEMP "WindhawkRestore"
-    
-        Install "RamenSoftware.Windhawk"
-        Invoke-WebRequest -Uri $url -OutFile $file
-        Expand-Archive -Path $file -DestinationPath $folder -Force
-        Copy-Item "$folder\ModsSource" -Destination $root -Recurse -Force
-    
-        if (!(Test-Path "$root\Engine")) { 
-            New-Item -ItemType Directory -Path "$root\Engine" -Force | Out-Null 
-        }
+        if ((OSVersion) -eq 11) {
+            $root = "C:\ProgramData\Windhawk"
+            $file = "$env:TEMP\windhawk-backup.zip"
+            $folder = Join-Path $env:TEMP "WindhawkRestore"
         
-        Copy-Item "$folder\Engine\Mods" -Destination "$root\Engine" -Recurse -Force
-    
-        if (Test-Path "$folder\Windhawk.reg") { 
-            reg import "$folder\Windhawk.reg" 
+            Install "RamenSoftware.Windhawk"
+            Invoke-WebRequest -Uri $url -OutFile $file
+            Expand-Archive -Path $file -DestinationPath $folder -Force
+            Copy-Item "$folder\ModsSource" -Destination $root -Recurse -Force
+        
+            if (!(Test-Path "$root\Engine")) { 
+                New-Item -ItemType Directory -Path "$root\Engine" -Force | Out-Null 
+            }
+            
+            Copy-Item "$folder\Engine\Mods" -Destination "$root\Engine" -Recurse -Force
+        
+            if (Test-Path "$folder\Windhawk.reg") { 
+                reg import "$folder\Windhawk.reg" 
+            }
+        }
+        else {
+            Write-Host "WindHawk backup mods is only available for Windows 11."
         }
     }
     catch {
