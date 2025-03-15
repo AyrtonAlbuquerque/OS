@@ -63,7 +63,6 @@ function SetupPowerShell() {
 
     Install "Microsoft.PowerShell"
     Install "JanDeDobbeleer.OhMyPosh"
-    Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force -AllowPrerelease -SkipPublisherCheck" }
     Execute { pwsh.exe -noprofile -command "Install-Module oh-my-posh -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module posh-git -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force" }
