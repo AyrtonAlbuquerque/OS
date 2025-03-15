@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🖥️ Windows Setup Script - User Guide
+# 🖥️ Windows Setup Script
 
 </div>
 
