@@ -37,7 +37,7 @@ The script is hosted in this repository:
 You can download and run the script directly using the command below:
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -GitUser "Your Name" -GitEmail "your@email.com" -Java "23" -Python "3.13" -DotNet "9" -Distribution "Ubuntu-24.04"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -GitUser "Your Name" -GitEmail "your@email.com" -Java "23" -Python "3.13" -DotNet "9" -Distribution "Ubuntu-24.04"
 ```
 
 You can customize the parameters if needed:
@@ -51,11 +51,6 @@ You can customize the parameters if needed:
 | `-Python`        | Python version                              | `3.13`                      |
 | `-DotNet`        | .NET SDK version                            | `9`                         |
 | `-Distribution`  | WSL2 Linux distribution                     | `Ubuntu-24.04`              |
-
-### 🧪 Example:
-```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -GitUser "John Doe" -GitEmail "john@example.com" -Java "21" -Python "3.12" -DotNet "8" -Distribution "Ubuntu-22.04"
-```
 
 ---
 
