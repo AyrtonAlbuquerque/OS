@@ -92,8 +92,7 @@ function SetupWSL($distribution) {
             Write-Host "✔ Success. After rebooting, install a distribution: wsl --install -d Ubuntu-24.04"
         }
         else {
-            # wsl --install -d $distribution
-            Write-Host "wsl --install -d $distribution"
+            wsl --install -d $distribution
         }
     }
     catch {
