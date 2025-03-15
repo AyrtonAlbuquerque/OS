@@ -1,0 +1,22 @@
+/* Side Panel */
+#titlebar {
+  outline: none !important;
+  background-color: rgb(40, 44, 52) !important;
+}
+
+/* Top Bar */
+#nav-bar {
+  outline: none !important;
+  background-color: rgb(40, 44, 52) !important;
+}
+
+/* Url Bar */
+#urlbar-background {
+  outline: none !important;
+  background-color: rgb(40, 44, 52) !important;
+}
+
+/* Browser Window */
+#tabbrowser-tabpanels {
+  padding: 0 !important;
+}

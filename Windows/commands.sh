@@ -231,6 +231,15 @@
     -e $ENVIRONMENT_VARIABLE=$VALUE \
     -d $IMAGE_NAME:$TAG
 
+# ----------------------------------- Virtual Box - Docker ---------------------------------- #
+    # To enable Virtualization, execute and reboot
+    bcdedit /set hypervisorlaunchtype off
+    DISM /Online /Disable-Feature:Microsoft-Hyper-V
+
+    # To enable Docker, execute and reboot
+    bcdedit /set hypervisorlaunchtype auto
+    DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
+
 # ------------------------------------------ Neovim ----------------------------------------- #
     # Install latest version of Vim
     https://www.vim.org/download.php
