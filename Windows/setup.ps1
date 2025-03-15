@@ -230,4 +230,4 @@ SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/
 
 Execute { dotnet tool install --global dotnet-ef }
 
-Write-Host "\nSetup completed. You must restart your computer to apply all changes."
+Write-Host "Setup completed. You must restart your computer to apply all changes."
