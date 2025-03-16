@@ -1,38 +1,18 @@
-# -------------------------------------- Initial Setup -------------------------------------- #
-    # Install Windows Terminal with winget
-    winget install Microsoft.WindowsTerminal
-    
+# -------------------------------------- Initial Setup -------------------------------------- #    
     # In a terminal as Administrator
     irm christitus.com/win | iex
 
-    # Install Fira Code Nerd Font
-    https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
-
-    # One Dark Theme
-    # Downlaod and install UltraUXThemePatcher
-    https://mhoefs.eu/software_uxtheme.php?ref=syssel&lang=en
-
-    # Install the One Dark Theme by placing the files at:
-    C:\Windows\Resources\Themes
-
-    # Restart the computer
-
-    # Install the StartAllBack
+    # Apps
+    winget install StartIsBack.StartAllBack
+    winget install RamenSoftware.Windhawk
+    winget install JetBrains.Toolbox
+    winget install Microsoft.VisualStudioCode
+    winget install Stremio.Stremio
+    winget install Stremio.StremioService
     winget install StartIsBack.StartAllBack
 
-    # Configure StartAllBack as follows:
-    # In Taskbar tab
-    Taskbar location on screen: Bottom
-    Combine taskbar buttons: Always, hide labels
-    On secondary taskbars: Always, hide labels
-    Centered taskbar icons: Together with the Start button
-
-    # In Explorer tab
-    Win7 Command Bar
-    Classic search box: checked
-    New icons: checked
-    Classic context menus: unchecked
-    Restore Control Panel applets: checked
+    # To add winget pins
+    winget pin add Zen-Team.Zen-Browser --nowarn
 
 # ------------------------------------------- Git ------------------------------------------- #
     # Install Git
@@ -45,9 +25,6 @@
 # ---------------------------------------- Powershell --------------------------------------- #
     # Install PowerShell with winget (Make sure to check the PATH)
     winget install Microsoft.PowerShell
-
-    # Open a CMD as Administrator, run the following command and close
-    pwsh.exe -noprofile -command "Install-Module PSReadLine -Force -AllowPrerelease -SkipPublisherCheck"
 
     # In PowerShell (As Administrador)
     # Install oh-my-posh
@@ -110,6 +87,11 @@
     wsl --unregister $DISTRO_NAME
 
 # ------------------------------------------ MinGW ------------------------------------------ #
+    # Install MinGW
+    winget install BrechtSanders.WinLibs.POSIX.UCRT
+
+    # Or
+
     # Download the latest version
     https://github.com/niXman/mingw-builds-binaries/releases
 
@@ -230,6 +212,31 @@
     -e $ENVIRONMENT_VARIABLE=$VALUE \
     -e $ENVIRONMENT_VARIABLE=$VALUE \
     -d $IMAGE_NAME:$TAG
+
+# ------------------------------------ Windows Activation ----------------------------------- #
+    # In a terminal as administrator, click Ok when prompted
+    slmgr.vbs /upk
+
+    # Click Ok again
+    slmgr.vbs /cpky
+
+    # Click Ok again
+    slmgr.vbs /ckms
+
+    # If it run an installer and you will see an message:"% complete"
+    # Now wait until it's 100% and it's not weird that you will get an error
+    # When and if you get the error, just click Exit and then reboot your pc.
+    sc config LicenseManager start= auto & net start LicenseManager
+    sc config wuauserv start= auto & net start wuauserv
+    changepk.exe /productkey VK7JG-NPHTM-C97JM-9MPGT-3V66T
+    exit
+
+    # If a reboot was required, run the following commands as administrator
+    slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+    slmgr /skms kms8.msguides.com    
+    slmgr /ato
+
+    # Reboot one more time
 
 # ----------------------------------- Virtual Box - Docker ---------------------------------- #
     # To enable Virtualization, execute and reboot
@@ -565,3 +572,24 @@
     # To remove unused build cache
     docker builder prune
 
+# --------------------------------------- Useful Info --------------------------------------- #
+    # Registry keys for Task Manager Startup Tab entries
+    HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+    HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+    HKEY_CURRENT_USER\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run
+    HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run
+
+    # Windows Theme Folder
+    %WinDir%\Resources\Themes
+
+    # Windows Startup Folder
+    %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
+
+    # Windows Start Menu Folder
+    %ProgramData%\Microsoft\Windows\Start Menu\Programs
+
+    # Fira Code Nerd Font
+    https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
+
+    # UltraUXThemePatcher
+    https://mhoefs.eu/software_uxtheme.php?ref=syssel&lang=en
