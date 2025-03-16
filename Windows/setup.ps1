@@ -9,7 +9,9 @@ param (
     [string]$Java = "23",
     [string]$Python = "3.13",
     [string]$DotNet = "9",
-    [string]$Distribution = "Ubuntu-24.04"
+    [string]$Distribution = "Ubuntu-24.04",
+    [string]$Browser = $null,
+    [string]$BrowserVersion = $null
 )
 
 # ---------------------------------------- Functions ---------------------------------------- #
@@ -23,11 +25,25 @@ function OSVersion() {
     return 11
 }
 
-function Install($package) {
+function Install($package, [string]$version = $null) {
     Write-Host "---------------------- Installing $package ----------------------"
 
     try {
-        Start-Process "winget" -ArgumentList @("install", $package) -Wait
+        $installed = winget list $package 2>$null
+
+        if ($installed -match $package) {
+            Write-Host "✔ $package is already installed."
+            return
+        }
+
+        if ($version)
+        {
+            Start-Process "winget" -ArgumentList @("install", $package, "--version", $version) -Wait
+        }
+        else {
+            Start-Process "winget" -ArgumentList @("install", $package) -Wait
+        }
+        
         Write-Host "✔ Success"
     }
     catch {
@@ -49,8 +65,8 @@ function Execute([scriptblock] $action) {
 
 function SetupGit($name, $email) {
     Install "Git.Git"
-    Execute { git config --global user.name $name }
-    Execute { git config --global user.email $email }
+    Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
+    Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
 }
 
 function SetupPowerShell() {
@@ -92,7 +108,7 @@ function SetupWSL($distribution) {
             Write-Host "✔ Success. After rebooting, install a distribution: wsl --install -d Ubuntu-24.04"
         }
         else {
-            wsl --install -d $distribution
+            Execute { wsl --install -d $distribution }
         }
     }
     catch {
@@ -192,41 +208,56 @@ function SetupUnite($url) {
     }
 }
 
-function SetupTheme($url) {
+function SetupTheme($themeUrl, $regUrl) {
     Write-Host "---------------------- Installing Theme ----------------------"
 
     try {
-        $patcher = "$env:TEMP\ThemePatcher.exe"
         $theme = "$env:TEMP\OneDark.zip"
+        $reg = "$env:TEMP\explorer-colors.reg"
+        $patcher = "$env:TEMP\ThemePatcher.exe"
 
-        Invoke-WebRequest -Uri $url -OutFile $theme
+        Invoke-WebRequest -Uri $regUrl -OutFile $reg
+        Invoke-WebRequest -Uri $themeUrl -OutFile $theme
         Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" -OutFile $patcher
         Start-Process -FilePath $patcher -Wait
+        reg import $reg
     }
     catch {
         Write-Warning "✖ Failed Theme installation: $_"
     }
 }
 
+function SetupBrowser($browser, $version) {
+    try {
+        if ($browser) { 
+            Install $browser $version
+        }
+    }
+    catch {
+        Write-Warning "✖ Failed Browser installation: $_"
+    }
+}
+
 # ---------------------------------------- Execution ---------------------------------------- #
-Install "Oracle.JDK.$Java"
-Install "Python.Python.$Python"
-Install "Microsoft.DotNet.SDK.$DotNet"
-Install "Kitware.CMake"
-Install "Docker.DockerDesktop"
-Install "CoreyButler.NVMforWindows"
-Install "BrechtSanders.WinLibs.POSIX.UCRT"
+# Install "Oracle.JDK.$Java"
+# Install "Python.Python.$Python"
+# Install "Microsoft.DotNet.SDK.$DotNet"
+# Install "Kitware.CMake"
+# Install "Docker.DockerDesktop"
+# Install "CoreyButler.NVMforWindows"
+# Install "BrechtSanders.WinLibs.POSIX.UCRT"
 
-SetupGit $GitUser $GitEmail
-SetupWSL $Distribution
-SetupPowerShell
-SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
-SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
-SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
-SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
-SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
+# SetupGit $GitUser $GitEmail
+# SetupWSL $Distribution
+# SetupPowerShell
+# SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
+# SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+# SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
+# SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
+# SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip" "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg"
+SetupBrowser $Browser $BrowserVersion
 
-Execute { dotnet tool install --global dotnet-ef }
+Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
 
 Write-Host "Setup completed. You must restart your computer to apply all changes."
