@@ -240,22 +240,22 @@ function SetupBrowser($browser, $version) {
 }
 
 # ---------------------------------------- Execution ---------------------------------------- #
-# Install "Oracle.JDK.$Java"
-# Install "Python.Python.$Python"
-# Install "Microsoft.DotNet.SDK.$DotNet"
-# Install "Kitware.CMake"
-# Install "Docker.DockerDesktop"
-# Install "CoreyButler.NVMforWindows"
-# Install "BrechtSanders.WinLibs.POSIX.UCRT"
+Install "Oracle.JDK.$Java"
+Install "Python.Python.$Python"
+Install "Microsoft.DotNet.SDK.$DotNet"
+Install "Kitware.CMake"
+Install "Docker.DockerDesktop"
+Install "CoreyButler.NVMforWindows"
+Install "BrechtSanders.WinLibs.POSIX.UCRT"
 
-# SetupGit $GitUser $GitEmail
-# SetupWSL $Distribution
-# SetupPowerShell
-# SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
-# SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
-# SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
-# SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
-# SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip" "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg"
+SetupGit $GitUser $GitEmail
+SetupWSL $Distribution
+SetupPowerShell
+SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
+SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
+SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
+SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip" "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg"
 SetupBrowser $Browser $BrowserVersion
 
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
