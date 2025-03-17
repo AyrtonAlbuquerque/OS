@@ -1,0 +1,12 @@
+﻿theme
+{
+	name="modern"
+	dark=auto
+	background
+	{
+		color=auto
+		opacity=3
+		effect=3
+	}
+	image.align=2
+}
