@@ -67,8 +67,8 @@ function SetupGit($name, $email) {
     Install "Git.Git"
     # Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
     # Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
-    Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", "git config --global user.name '$GitUser'"
-    Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", "git config --global user.email '$GitEmail'"
+    Start-Process pwsh.exe -ArgumentList "-Command", "git config --global user.name '$GitUser'"
+    Start-Process pwsh.exe -ArgumentList "-Command", "git config --global user.email '$GitEmail'"
 }
 
 function SetupPowerShell() {
@@ -333,7 +333,7 @@ SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/
 SetupBrowser $Browser $BrowserVersion
 
 # Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
-Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", "dotnet tool install --global dotnet-ef"
+Start-Process pwsh.exe -ArgumentList "-Command", "dotnet tool install --global dotnet-ef"
 
 
 Write-Host "Setup completed. You must restart your computer to apply all changes."
