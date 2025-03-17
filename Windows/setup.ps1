@@ -65,8 +65,10 @@ function Execute([scriptblock] $action) {
 
 function SetupGit($name, $email) {
     Install "Git.Git"
-    Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
-    Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
+    # Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
+    # Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
+    Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", "git config --global user.name '$GitUser'"
+    Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", "git config --global user.email '$GitEmail'"
 }
 
 function SetupPowerShell() {
@@ -118,16 +120,11 @@ function SetupWSL($distribution) {
 
 function SetupStartAllBack($url) {
     try {
-        if ((OSVersion) -eq 11) {
-            $file = "$env:TEMP\start-is-back.reg"
+        $file = "$env:TEMP\start-is-back.reg"
 
-            Install "StartIsBack.StartAllBack"
-            Invoke-WebRequest -Uri $url -OutFile $file
-            reg import $file
-        }
-        else {
-            Install "StartIsBack.StartIsBack"
-        }
+        Install "StartIsBack.StartAllBack"
+        Invoke-WebRequest -Uri $url -OutFile $file
+        reg import $file
     }
     catch {
         Write-Warning "✖ Failed StartAllBack installation: $_"
@@ -162,6 +159,84 @@ function SetupWindHawk($url) {
     }
     catch {
         Write-Warning "✖ Failed WindHawk installation: $_"
+    }
+}
+
+function SetupStart11($url) {
+    try {
+        $start11 = "$env:TEMP\Start11.exe"
+        $backup = "$([Environment]::GetFolderPath('Downloads'))\start11-backup.S11Backup"
+        $image = "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
+        $folder = Split-Path $image
+
+        Invoke-WebRequest -Uri $url -OutFile $start11
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" -OutFile $backup -ErrorAction Stop
+
+        if (!(Test-Path $folder)) {
+            New-Item -Path $folder -ItemType Directory -Force | Out-Null
+        }
+
+        Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" -OutFile $image -ErrorAction Stop
+        Start-Process -FilePath $start11 -Wait
+    }
+    catch {
+        Write-Warning "✖ Failed Start11 installation: $_"
+    }
+}
+
+function SetupNilesoft {
+    try {
+        $root = "$env:ProgramFiles\Nilesoft Shell"
+        $imports = "$env:ProgramFiles\Nilesoft Shell\imports"
+        $shell = Join-Path $root "shell.nss"
+        $theme = Join-Path $imports "theme.nss"
+
+        Install "Nilesoft.Shell"
+
+        if ((Test-Path $root)) {
+            Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/shell.nss" -OutFile $shell -ErrorAction Stop
+            Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/theme.nss" -OutFile $theme -ErrorAction Stop
+        }
+    }
+    catch {
+        Write-Warning "✖ Failed Nilesoft installation: $_"
+    }
+}
+
+function SetupExplorer($url) {
+    $zip = "$env:TEMP\OldNewExplorer.zip"
+    $folder = "$env:ProgramFiles\OldNewExplorer"
+
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $zip -ErrorAction Stop
+
+        if (!(Test-Path $folder)) {
+            New-Item -Path $folder -ItemType Directory -Force | Out-Null
+        }
+
+        Expand-Archive -Path $zip -DestinationPath $folder -Force
+    }
+    catch {
+        Write-Warning "✖ Failed OldNewExplorer installation: $_"
+    }
+}
+
+function SetupUI {
+    try {
+        if ((OSVersion) -eq 11) {
+            SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
+            SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+        }
+        else {
+            SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
+            SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
+            SetupNilesoft
+            Install "CharlesMilette.TranslucentTB"
+            Install "chanplecai.smarttaskbar"
+        }
+    }
+    catch {
+        Write-Warning "✖ Failed UI Setup: $_"
     }
 }
 
@@ -208,7 +283,7 @@ function SetupUnite($url) {
     }
 }
 
-function SetupTheme($themeUrl, $regUrl) {
+function SetupTheme($themeUrl) {
     Write-Host "---------------------- Installing Theme ----------------------"
 
     try {
@@ -216,7 +291,7 @@ function SetupTheme($themeUrl, $regUrl) {
         $reg = "$env:TEMP\explorer-colors.reg"
         $patcher = "$env:TEMP\ThemePatcher.exe"
 
-        Invoke-WebRequest -Uri $regUrl -OutFile $reg
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg" -OutFile $reg
         Invoke-WebRequest -Uri $themeUrl -OutFile $theme
         Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" -OutFile $patcher
@@ -251,13 +326,14 @@ Install "BrechtSanders.WinLibs.POSIX.UCRT"
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
 SetupPowerShell
-SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
-SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+SetupUI
 SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
-SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip" "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg"
+SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
 SetupBrowser $Browser $BrowserVersion
 
-Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
+# Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
+Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", "dotnet tool install --global dotnet-ef"
+
 
 Write-Host "Setup completed. You must restart your computer to apply all changes."
