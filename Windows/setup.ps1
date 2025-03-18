@@ -368,11 +368,11 @@ function SetupInsomnia($url) {
     try {
         $insomnia = "$env:TEMP\Insomnia.exe"
         $backup = "$env:USERPROFILE\Downloads\Insomnia"
-        $theme = "${env:AppData}\Insomnia\plugins\insomnia-plugin-theme-onedark-z\index-one-dark.json"
+        $theme = "${env:AppData}\Insomnia\plugins\insomnia-plugin-theme-onedark-z\index-one-dark.js"
 
         Invoke-WebRequest -Uri $url -OutFile $insomnia
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" -OutFile $backup
-        Invoke-WebRequest -Uri $url -OutFile $theme
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/index-one-dark.js" -OutFile $theme
         Start-Process -FilePath $insomnia -Wait
     }
     catch {
