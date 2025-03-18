@@ -163,21 +163,23 @@ function SetupWindHawk($url) {
 }
 
 function SetupStart11($url) {
+    Write-Host "---------------------- Installing Start11 ----------------------"
+
     try {
         $start11 = "$env:TEMP\Start11.exe"
-        $backup = "$([Environment]::GetFolderPath('Downloads'))\start11-backup.S11Backup"
+        $backup = "$env:USERPROFILE\Downloads\start11-backup.S11Backup"
         $image = "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
         $folder = Split-Path $image
 
         Invoke-WebRequest -Uri $url -OutFile $start11
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" -OutFile $backup -ErrorAction Stop
+        Start-Process -FilePath $start11 -Wait
 
         if (!(Test-Path $folder)) {
             New-Item -Path $folder -ItemType Directory -Force | Out-Null
         }
 
         Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" -OutFile $image -ErrorAction Stop
-        Start-Process -FilePath $start11 -Wait
     }
     catch {
         Write-Warning "✖ Failed Start11 installation: $_"
@@ -185,6 +187,8 @@ function SetupStart11($url) {
 }
 
 function SetupNilesoft {
+    Write-Host "---------------------- Installing Nilesoft ----------------------"
+
     try {
         $root = "$env:ProgramFiles\Nilesoft Shell"
         $imports = "$env:ProgramFiles\Nilesoft Shell\imports"
@@ -204,8 +208,10 @@ function SetupNilesoft {
 }
 
 function SetupExplorer($url) {
+    Write-Host "---------------------- Installing Explorer ----------------------"
+
     $zip = "$env:TEMP\OldNewExplorer.zip"
-    $folder = "$env:ProgramFiles\OldNewExplorer"
+    $folder = "$env:ProgramFiles"
 
     try {
         Invoke-WebRequest -Uri $url -OutFile $zip -ErrorAction Stop
@@ -334,6 +340,5 @@ SetupBrowser $Browser $BrowserVersion
 
 # Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
 Start-Process pwsh.exe -ArgumentList "-Command", "dotnet tool install --global dotnet-ef"
-
 
 Write-Host "Setup completed. You must restart your computer to apply all changes."
