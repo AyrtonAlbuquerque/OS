@@ -118,6 +118,30 @@ function SetupWSL($distribution) {
     }
 }
 
+function SetupMinGW($url) {
+    Write-Host "---------------------- Installing MinGW ----------------------"
+
+    try {
+        $mingw = "$env:TEMP\mingwInstaller.exe"
+        $bin = "$env:USERPROFILE\mingw64\bin"
+        $path = [Environment]::GetEnvironmentVariable("Path", "User")
+
+        Invoke-WebRequest -Uri $url -OutFile $mingw
+        Start-Process -FilePath $mingw -Wait
+
+        if ($path -notlike "*$bin*") {
+            $bin = "$path;$bin"
+            [Environment]::SetEnvironmentVariable("Path", $bin, "User")
+        }
+        else {
+            Write-Host "$bin is already in the PATH."
+        }
+    }
+    catch {
+        Write-Warning "✖ Failed MinGW installation: $_"
+    }
+}
+
 function SetupStartAllBack($url) {
     try {
         $file = "$env:TEMP\start-is-back.reg"
@@ -338,6 +362,24 @@ function SetupBrowser($browser, $version) {
     }
 }
 
+function SetupInsomnia($url) {
+    Write-Host "---------------------- Installing Insomnia ----------------------"
+    
+    try {
+        $insomnia = "$env:TEMP\Insomnia.exe"
+        $backup = "$env:USERPROFILE\Downloads\Insomnia"
+        $theme = "${env:AppData}\Insomnia\plugins\insomnia-plugin-theme-onedark-z\index-one-dark.json"
+
+        Invoke-WebRequest -Uri $url -OutFile $insomnia
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" -OutFile $backup
+        Invoke-WebRequest -Uri $url -OutFile $theme
+        Start-Process -FilePath $insomnia -Wait
+    }
+    catch {
+        Write-Warning "✖ Failed Insomnia installation: $_"
+    }
+}
+
 # ---------------------------------------- Execution ---------------------------------------- #
 Install "Oracle.JDK.$Java"
 Install "Python.Python.$Python"
@@ -345,15 +387,34 @@ Install "Microsoft.DotNet.SDK.$DotNet"
 Install "Kitware.CMake"
 Install "Docker.DockerDesktop"
 Install "CoreyButler.NVMforWindows"
-Install "Cygwin.Cygwin"
 
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
 SetupPowerShell
+SetupMinGW "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe"
 SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
 SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
 SetupBrowser $Browser $BrowserVersion
 SetupUI
 
-Write-Host "Setup completed. You must restart your computer to apply all changes."
+Write-Host "Setup completed. Do you wish to install [Visual Studio Code, Insomnia, Tortoise Git, JetBrains Toolbox, Stremio Service]?"
+$action = Read-Host "(y/n)"
+
+switch ($action.ToUpper()) {
+    'Y' {
+        Install "Microsoft.VisualStudioCode"
+        Install "JetBrains.Toolbox"
+        Install "TortoiseGit.TortoiseGit"
+        Install "Stremio.StremioService"
+        SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
+
+        Write-Host "Done! You must restart your computer to apply the changes."
+    }
+    'N' {
+        Write-Host "Done! You must restart your computer to apply the changes."
+    }
+    Default {
+        Write-Host "Invalid input. Exiting."
+    }
+}
