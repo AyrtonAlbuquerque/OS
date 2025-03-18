@@ -315,6 +315,22 @@ function SetupBrowser($browser, $version) {
     try {
         if ($browser) { 
             Install $browser $version
+
+            if ($browser -eq "Zen-Team.Zen-Browser") {
+                $root = "${env:ProgramFiles}\Zen Browser"
+                $icon = Join-Path $root "firefox.ico"
+                $distribution = Join-Path $root "distribution"
+                $policies = Join-Path $distribution "policies.json"
+                $chrome = "$env:USERPROFILE\Downloads\userChrome.css"
+
+                if (!(Test-Path $distribution)) {
+                    New-Item -ItemType Directory -Path $distribution -Force | Out-Null
+                }
+
+                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" -OutFile $policies
+                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" -OutFile $icon
+                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" -OutFile $chrome
+            }
         }
     }
     catch {
