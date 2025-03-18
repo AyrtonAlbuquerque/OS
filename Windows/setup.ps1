@@ -178,7 +178,7 @@ function SetupStart11($url) {
         Invoke-WebRequest -Uri $url -OutFile $start11
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" -OutFile $backup
         Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" -OutFile $image
-        Start-Process -FilePath $start11 -Wait
+        Start-Process -FilePath $start11
     }
     catch {
         Write-Warning "✖ Failed Start11 installation: $_"
