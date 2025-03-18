@@ -288,20 +288,23 @@ function SetupUnite($url) {
     }
 }
 
-function SetupTheme($themeUrl) {
+function SetupTheme($url) {
     Write-Host "---------------------- Installing Theme ----------------------"
 
     try {
         $theme = "$env:TEMP\OneDark.zip"
         $reg = "$env:TEMP\explorer-colors.reg"
+        $remove = "$env:TEMP\remove-folders.reg"
         $patcher = "$env:TEMP\ThemePatcher.exe"
 
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg" -OutFile $reg
-        Invoke-WebRequest -Uri $themeUrl -OutFile $theme
-        Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders.reg" -OutFile $remove
+        Invoke-WebRequest -Uri $url -OutFile $theme
         Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" -OutFile $patcher
+        Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Start-Process -FilePath $patcher -Wait
         reg import $reg
+        reg import $remove
     }
     catch {
         Write-Warning "✖ Failed Theme installation: $_"
