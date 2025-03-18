@@ -321,7 +321,7 @@ Install "Microsoft.DotNet.SDK.$DotNet"
 Install "Kitware.CMake"
 Install "Docker.DockerDesktop"
 Install "CoreyButler.NVMforWindows"
-Install "BrechtSanders.WinLibs.POSIX.UCRT"
+Install "Cygwin.Cygwin"
 
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
