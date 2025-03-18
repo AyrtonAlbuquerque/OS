@@ -171,15 +171,14 @@ function SetupStart11($url) {
         $image = "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
         $folder = Split-Path $image
 
-        Invoke-WebRequest -Uri $url -OutFile $start11
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" -OutFile $backup -ErrorAction Stop
-        Start-Process -FilePath $start11 -Wait
-
         if (!(Test-Path $folder)) {
             New-Item -Path $folder -ItemType Directory -Force | Out-Null
         }
 
-        Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" -OutFile $image -ErrorAction Stop
+        Invoke-WebRequest -Uri $url -OutFile $start11
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" -OutFile $backup
+        Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" -OutFile $image
+        Start-Process -FilePath $start11 -Wait
     }
     catch {
         Write-Warning "✖ Failed Start11 installation: $_"
@@ -234,11 +233,11 @@ function SetupUI {
             SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
         }
         else {
-            SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
+            # Install "CharlesMilette.TranslucentTB"
+            Install "chanplecai.smarttaskbar"
             SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
             SetupNilesoft
-            Install "CharlesMilette.TranslucentTB"
-            Install "chanplecai.smarttaskbar"
+            SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
         }
     }
     catch {
@@ -332,13 +331,10 @@ Install "Cygwin.Cygwin"
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
 SetupPowerShell
-SetupUI
 SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
 SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
 SetupBrowser $Browser $BrowserVersion
-
-# Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
-Start-Process pwsh.exe -ArgumentList "-Command", "dotnet tool install --global dotnet-ef"
+SetupUI
 
 Write-Host "Setup completed. You must restart your computer to apply all changes."
