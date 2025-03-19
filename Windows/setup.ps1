@@ -25,6 +25,10 @@ function OSVersion() {
     return 11
 }
 
+function RefreshPath() {
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+}
+
 function Install($package, [string]$version = $null) {
     Write-Host "---------------------- Installing $package ----------------------"
 
@@ -55,6 +59,7 @@ function Execute([scriptblock] $action) {
     Write-Host "---------------------- Executing $action ----------------------"
 
     try {
+        RefreshPath
         & $action
         Write-Host "✔ Success"
     }
@@ -66,13 +71,24 @@ function Execute([scriptblock] $action) {
 function Download($url, $path) {
     Write-Host "---------------------- Downloading $url ----------------------"
 
-    try {
-        Invoke-WebRequest -Uri $url -OutFile $path
+    $attempt = 0
+    $directory = Split-Path -Path $path -Parent
 
-        return $path
+    if (!(Test-Path -Path $directory)) {
+        New-Item -ItemType Directory -Path $directory -Force | Out-Null
     }
-    catch {
-        Write-Warning "✖ Download Failed: $_"
+
+    while ($attempt -lt 5) {
+        try {
+            Invoke-WebRequest -Uri $url -OutFile $path
+
+            return $path
+        }
+        catch {
+            $attempt++
+            Write-Warning "✖ Download Failed, Retrying in 5 seconds...: $_"
+            Start-Sleep -Seconds 5
+        }
     }
 }
 
@@ -112,11 +128,10 @@ function SetupWSL($distribution) {
     
     try {
         if ((OSVersion) -eq 10) {
-            $installer = "$env:TEMP\wsl_update_x64.msi"
+            $installer = Download "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" "$env:TEMP\wsl_update_x64.msi"
 
             dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
             dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-            Invoke-WebRequest -Uri "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" -OutFile $installer
             Start-Process msiexec.exe -ArgumentList "/i `"$installer`" /quiet /norestart" -Wait
             Write-Host "✔ Success. After rebooting, install a distribution: wsl --install -d Ubuntu-24.04"
         }
@@ -133,11 +148,10 @@ function SetupMinGW($url) {
     Write-Host "---------------------- Installing MinGW ----------------------"
 
     try {
-        $mingw = "$env:TEMP\mingwInstaller.exe"
+        $mingw = Download $url "$env:TEMP\mingwInstaller.exe"
         $bin = "$env:USERPROFILE\mingw64\bin"
         $path = [Environment]::GetEnvironmentVariable("Path", "User")
 
-        Invoke-WebRequest -Uri $url -OutFile $mingw
         Start-Process -FilePath $mingw -Wait
 
         if ($path -notlike "*$bin*") {
@@ -155,10 +169,9 @@ function SetupMinGW($url) {
 
 function SetupStartAllBack($url) {
     try {
-        $file = "$env:TEMP\start-is-back.reg"
+        $file = Download $url "$env:TEMP\start-is-back.reg"
 
         Install "StartIsBack.StartAllBack"
-        Invoke-WebRequest -Uri $url -OutFile $file
         reg import $file
     }
     catch {
@@ -170,11 +183,10 @@ function SetupWindHawk($url) {
     try {
         if ((OSVersion) -eq 11) {
             $root = "C:\ProgramData\Windhawk"
-            $file = "$env:TEMP\windhawk-backup.zip"
+            $file = Download $url "$env:TEMP\windhawk-backup.zip"
             $folder = Join-Path $env:TEMP "WindhawkRestore"
         
             Install "RamenSoftware.Windhawk"
-            Invoke-WebRequest -Uri $url -OutFile $file
             Expand-Archive -Path $file -DestinationPath $folder -Force
             Copy-Item "$folder\ModsSource" -Destination $root -Recurse -Force
         
@@ -201,18 +213,15 @@ function SetupStart11($url) {
     Write-Host "---------------------- Installing Start11 ----------------------"
 
     try {
-        $start11 = "$env:TEMP\Start11.exe"
-        $backup = "$env:USERPROFILE\Downloads\start11-backup.S11Backup"
-        $image = "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
+        $start11 = Download $url "$env:TEMP\Start11.exe"
+        $backup = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" "$env:USERPROFILE\Downloads\start11-backup.S11Backup"
+        $image = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
         $folder = Split-Path $image
 
         if (!(Test-Path $folder)) {
             New-Item -Path $folder -ItemType Directory -Force | Out-Null
         }
 
-        Invoke-WebRequest -Uri $url -OutFile $start11
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" -OutFile $backup
-        Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" -OutFile $image
         Start-Process -FilePath $start11
     }
     catch {
@@ -232,8 +241,8 @@ function SetupNilesoft {
         Install "Nilesoft.Shell"
 
         if ((Test-Path $root)) {
-            Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/shell.nss" -OutFile $shell -ErrorAction Stop
-            Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/theme.nss" -OutFile $theme -ErrorAction Stop
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/shell.nss" $shell
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/theme.nss" $theme
         }
     }
     catch {
@@ -244,11 +253,9 @@ function SetupNilesoft {
 function SetupExplorer($url) {
     Write-Host "---------------------- Installing Explorer ----------------------"
 
-    $zip = "$env:TEMP\OldNewExplorer.zip"
-    $folder = "$env:ProgramFiles"
-
     try {
-        Invoke-WebRequest -Uri $url -OutFile $zip -ErrorAction Stop
+        $zip = Download $url "$env:TEMP\OldNewExplorer.zip"
+        $folder = "$env:ProgramFiles"
 
         if (!(Test-Path $folder)) {
             New-Item -Path $folder -ItemType Directory -Force | Out-Null
@@ -286,10 +293,9 @@ function SetupFont($url) {
     Write-Host "---------------------- Installing Font ----------------------"
 
     try {
-        $file = "$env:TEMP\FiraCode.zip"
+        $file = Download $url "$env:TEMP\FiraCode.zip"
         $folder = "$env:TEMP\FiraCodeFonts"
 
-        Invoke-WebRequest -Uri $url -OutFile $file
         Expand-Archive -Path $file -DestinationPath $folder -Force
 
         $fonts = Get-ChildItem -Path $folder -Recurse -Include *.ttf, *.otf
@@ -314,7 +320,7 @@ function SetupUnite($url) {
         $target = Join-Path $folder "Unite.exe"
 
         if (!(Test-Path $target)) {
-            Invoke-WebRequest -Uri $url -OutFile $target
+            Download $url $target
         }
         else {
             Write-Host "Unite already installed."
@@ -329,15 +335,11 @@ function SetupTheme($url) {
     Write-Host "---------------------- Installing Theme ----------------------"
 
     try {
-        $theme = "$env:TEMP\OneDark.zip"
-        $reg = "$env:TEMP\explorer-colors.reg"
-        $remove = "$env:TEMP\remove-folders.reg"
-        $patcher = "$env:TEMP\ThemePatcher.exe"
+        $theme = Download $url "$env:TEMP\OneDark.zip"
+        $reg = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg" "$env:TEMP\explorer-colors.reg"
+        $remove = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders.reg" "$env:TEMP\remove-folders.reg"
+        $patcher = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" "$env:TEMP\ThemePatcher.exe"
 
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg" -OutFile $reg
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders.reg" -OutFile $remove
-        Invoke-WebRequest -Uri $url -OutFile $theme
-        Invoke-WebRequest -Uri "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" -OutFile $patcher
         Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Start-Process -FilePath $patcher -Wait
         reg import $reg
@@ -355,18 +357,15 @@ function SetupBrowser($browser, $version) {
 
             if ($browser -eq "Zen-Team.Zen-Browser") {
                 $root = "${env:ProgramFiles}\Zen Browser"
-                $icon = Join-Path $root "firefox.ico"
                 $distribution = Join-Path $root "distribution"
-                $policies = Join-Path $distribution "policies.json"
-                $chrome = "$env:USERPROFILE\Downloads\userChrome.css"
 
                 if (!(Test-Path $distribution)) {
                     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
                 }
 
-                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" -OutFile $policies
-                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" -OutFile $icon
-                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" -OutFile $chrome
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" Join-Path $root "firefox.ico"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" Join-Path $distribution "policies.json"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
             }
         }
     }
@@ -379,13 +378,10 @@ function SetupInsomnia($url) {
     Write-Host "---------------------- Installing Insomnia ----------------------"
     
     try {
-        $insomnia = "$env:TEMP\Insomnia.exe"
-        $backup = "$env:USERPROFILE\Downloads\Insomnia"
-        $theme = "${env:AppData}\Insomnia\plugins\insomnia-plugin-theme-onedark-z\index-one-dark.js"
+        $insomnia = Download $url "$env:TEMP\Insomnia.exe"
 
-        Invoke-WebRequest -Uri $url -OutFile $insomnia
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" -OutFile $backup
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/index-one-dark.js" -OutFile $theme
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/index-one-dark.js" "${env:AppData}\Insomnia\plugins\insomnia-plugin-theme-onedark-z\index-one-dark.js"
         Start-Process -FilePath $insomnia -Wait
     }
     catch {
