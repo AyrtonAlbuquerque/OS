@@ -366,6 +366,7 @@ function SetupBrowser($browser, $version) {
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" Join-Path $root "firefox.ico"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" Join-Path $distribution "policies.json"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
+                Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser --nowarn" }
             }
         }
     }
