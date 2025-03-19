@@ -107,7 +107,9 @@ function SetupPowerShell() {
     )
 
     Install "Microsoft.PowerShell"
+    Install "Microsoft.WindowsTerminal"
     Install "JanDeDobbeleer.OhMyPosh"
+    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Terminal/settings.json" "$env:USERPROFILE\Downloads\terminal.json"
     Execute { pwsh.exe -noprofile -command "Install-Module oh-my-posh -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module posh-git -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force" }
@@ -357,15 +359,21 @@ function SetupBrowser($browser, $version) {
 
             if ($browser -eq "Zen-Team.Zen-Browser") {
                 $root = "${env:ProgramFiles}\Zen Browser"
+                $icon = Join-Path $root "firefox.ico"
                 $distribution = Join-Path $root "distribution"
+                $policies = Join-Path $distribution "policies.json"
 
                 if (!(Test-Path $distribution)) {
                     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
                 }
 
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" Join-Path $root "firefox.ico"
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" Join-Path $distribution "policies.json"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" $icon
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" $policies
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
+                Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/AdBlocker.txt" "$env:USERPROFILE\Downloads\AdBlocker.txt"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
                 Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser --nowarn" }
             }
         }
@@ -407,12 +415,14 @@ function SetupApplications($option) {
 }
 
 # ---------------------------------------- Execution ---------------------------------------- #
-Install "Oracle.JDK.$Java"
-Install "Python.Python.$Python"
-Install "Microsoft.DotNet.SDK.$DotNet"
 Install "Kitware.CMake"
 Install "Docker.DockerDesktop"
 Install "CoreyButler.NVMforWindows"
+Install "Oracle.JDK.$Java"
+Install "Python.Python.$Python"
+Install "Microsoft.DotNet.SDK.$DotNet"
+
+Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
 
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
