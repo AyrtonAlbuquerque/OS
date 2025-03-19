@@ -424,8 +424,6 @@ Install "Python.Python.$Python"
 Install "Microsoft.DotNet.SDK.$DotNet"
 
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
-Execute { pwsh.exe -noprofile -command "nvm install node" }
-Execute { pwsh.exe -noprofile -command "nvm use node" }
 
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
