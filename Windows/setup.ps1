@@ -424,6 +424,7 @@ Install "Python.Python.$Python"
 Install "Microsoft.DotNet.SDK.$DotNet"
 
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
+Execute { pwsh.exe -noprofile -command "Get-AppxPackage Microsoft.YourPhone -AllUsers | Remove-AppxPackage" }
 
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
