@@ -81,6 +81,7 @@ function Download($url, $path) {
     while ($attempt -lt 5) {
         try {
             Invoke-WebRequest -Uri $url -OutFile $path
+            Write-Host "✔ Success"
 
             return $path
         }
@@ -109,7 +110,7 @@ function SetupPowerShell() {
     Install "Microsoft.PowerShell"
     Install "Microsoft.WindowsTerminal"
     Install "JanDeDobbeleer.OhMyPosh"
-    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Terminal/settings.json" "$env:USERPROFILE\Downloads\terminal.json"
+    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Terminal/terminal.json" "$env:USERPROFILE\Downloads\terminal.json"
     Execute { pwsh.exe -noprofile -command "Install-Module oh-my-posh -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module posh-git -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force" }
@@ -390,7 +391,7 @@ function SetupInsomnia($url) {
         $insomnia = Download $url "$env:TEMP\Insomnia.exe"
 
         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
-        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/index-one-dark.js" "${env:AppData}\Insomnia\plugins\insomnia-plugin-theme-onedark-z\index-one-dark.js"
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/index.js" "$env:USERPROFILE\Downloads\index.js"
         Start-Process -FilePath $insomnia -Wait
     }
     catch {
@@ -423,6 +424,8 @@ Install "Python.Python.$Python"
 Install "Microsoft.DotNet.SDK.$DotNet"
 
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
+Execute { pwsh.exe -noprofile -command "nvm install node" }
+Execute { pwsh.exe -noprofile -command "nvm use node" }
 
 SetupGit $GitUser $GitEmail
 SetupWSL $Distribution
@@ -434,6 +437,6 @@ SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/
 SetupBrowser $Browser $BrowserVersion
 SetupUI
 
-Write-Host "Setup completed. Do you wish to install [Visual Studio Code, Insomnia, Tortoise Git, JetBrains Toolbox, Stremio Service]?"
+Write-Host "Setup completed. Do you wish to install developer tools?"
 $action = Read-Host "(y/n)"
 SetupApplications $action
