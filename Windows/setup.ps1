@@ -63,12 +63,23 @@ function Execute([scriptblock] $action) {
     }
 }
 
+function Download($url, $path) {
+    Write-Host "---------------------- Downloading $url ----------------------"
+
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $path
+
+        return $path
+    }
+    catch {
+        Write-Warning "✖ Download Failed: $_"
+    }
+}
+
 function SetupGit($name, $email) {
     Install "Git.Git"
-    # Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
-    # Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
-    Start-Process pwsh.exe -ArgumentList "-Command", "git config --global user.name '$GitUser'"
-    Start-Process pwsh.exe -ArgumentList "-Command", "git config --global user.email '$GitEmail'"
+    Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
+    Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
 }
 
 function SetupPowerShell() {
@@ -257,12 +268,14 @@ function SetupUI {
             SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
         }
         else {
-            # Install "CharlesMilette.TranslucentTB"
             Install "chanplecai.smarttaskbar"
             SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
             SetupNilesoft
             SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
         }
+
+        $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Cursor/Modern.zip" "$env:USERPROFILE\Downloads\Modern.zip"
+        Expand-Archive -Path $zip -DestinationPath "$env:USERPROFILE\Downloads\Cursor" -Force
     }
     catch {
         Write-Warning "✖ Failed UI Setup: $_"
@@ -380,6 +393,22 @@ function SetupInsomnia($url) {
     }
 }
 
+function SetupApplications($option) {
+    switch ($option.ToUpper()) {
+        'Y' { 
+            Install "Microsoft.VisualStudioCode"
+            Install "JetBrains.Toolbox"
+            Install "TortoiseGit.TortoiseGit"
+            Install "Stremio.StremioService"
+            SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
+
+            Write-Host "Done! You must restart your computer to apply the changes." 
+        }
+        'N' { Write-Host "Done! You must restart your computer to apply the changes." }
+        Default { Write-Host "Invalid input. Exiting." }
+    }
+}
+
 # ---------------------------------------- Execution ---------------------------------------- #
 Install "Oracle.JDK.$Java"
 Install "Python.Python.$Python"
@@ -400,21 +429,4 @@ SetupUI
 
 Write-Host "Setup completed. Do you wish to install [Visual Studio Code, Insomnia, Tortoise Git, JetBrains Toolbox, Stremio Service]?"
 $action = Read-Host "(y/n)"
-
-switch ($action.ToUpper()) {
-    'Y' {
-        Install "Microsoft.VisualStudioCode"
-        Install "JetBrains.Toolbox"
-        Install "TortoiseGit.TortoiseGit"
-        Install "Stremio.StremioService"
-        SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
-
-        Write-Host "Done! You must restart your computer to apply the changes."
-    }
-    'N' {
-        Write-Host "Done! You must restart your computer to apply the changes."
-    }
-    Default {
-        Write-Host "Invalid input. Exiting."
-    }
-}
+SetupApplications $action
