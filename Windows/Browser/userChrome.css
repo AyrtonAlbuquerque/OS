@@ -20,3 +20,40 @@
 #tabbrowser-tabpanels {
   padding: 0 !important;
 }
+
+/* Status Panel */
+#statuspanel {
+  display: none !important;
+}
+
+@-moz-document url-prefix("chrome:") {
+
+  /* Remove Rounded Corners */
+  :root {
+    --zen-webview-border-radius: 0;
+  }
+
+  /* Remove minimize window button */
+  .titlebar-min {
+    display: none;
+  }
+
+  /* Remove maximize window button */
+  .titlebar-max {
+    display: none;
+  }
+
+  .titlebar-restore {
+    display: none;
+  }
+
+  /* Remove close window button */
+  .titlebar-close {
+    display: none;
+  }
+
+  /* Hide Extension Name */
+  #urlbar #identity-box.extensionPage #identity-icon-label {
+    display: none !important;
+  }
+}
