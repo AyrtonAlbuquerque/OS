@@ -14,6 +14,9 @@
     # To add winget pins
     winget pin add Zen-Team.Zen-Browser --nowarn
 
+    # Uninstall Phone Link
+    Get-AppxPackage Microsoft.YourPhone -AllUsers | Remove-AppxPackage
+
 # ------------------------------------------- Git ------------------------------------------- #
     # Install Git
     winget install Git.Git
