@@ -279,8 +279,14 @@ function SetupExplorer($url) {
 function SetupUI {
     try {
         if ((OSVersion) -eq 11) {
+            $context = 'HKCU:\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}'
+
             SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
             SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+
+            if (Test-Path -Path $context) {
+                Remove-Item -Path $context -Recurse -Force
+            }
         }
         else {
             Install "chanplecai.smarttaskbar"
@@ -291,6 +297,8 @@ function SetupUI {
             Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
         }
 
+        Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Wallpaper/Wallpapper.png" "$env:USERPROFILE\Pictures\Wallpapper.png"
+        Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Wallpaper/Wallpaper.mp4" "$env:USERPROFILE\Videos\Wallpaper.mp4"
         $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Cursor/Modern.zip" "$env:USERPROFILE\Downloads\Modern.zip"
         Expand-Archive -Path $zip -DestinationPath "$env:USERPROFILE\Downloads\Cursor" -Force
     }
