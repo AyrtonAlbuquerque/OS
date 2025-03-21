@@ -4,14 +4,12 @@
 
 # ---------------------------------------- Parameters ---------------------------------------- #
 param (
-    [string]$GitUser = "ayrton",
-    [string]$GitEmail = "ayrton_ito@hotmail.com",
     [string]$Java = "23",
     [string]$Python = "3.13",
     [string]$DotNet = "9",
-    [string]$Distribution = "Ubuntu-24.04",
     [string]$Browser = $null,
-    [string]$BrowserVersion = $null
+    [string]$GitUser = $null,
+    [string]$GitEmail = $null
 )
 
 # ---------------------------------------- Functions ---------------------------------------- #
@@ -95,8 +93,14 @@ function Download($url, $path) {
 
 function SetupGit($name, $email) {
     Install "Git.Git"
-    Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
-    Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
+
+    if ($name) {
+        Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
+    }
+
+    if ($email) {
+        Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
+    }
 }
 
 function SetupPowerShell() {
@@ -126,7 +130,7 @@ function SetupPowerShell() {
     }
 }
 
-function SetupWSL($distribution) {
+function SetupWSL() {
     Write-Host "---------------------- Installing WSL2 ----------------------"
     
     try {
@@ -139,7 +143,8 @@ function SetupWSL($distribution) {
             Write-Host "✔ Success. After rebooting, install a distribution: wsl --install -d Ubuntu-24.04"
         }
         else {
-            Execute { wsl --install -d $distribution }
+            Execute { wsl --install --no-distribution }
+            Execute { wsl --set-default-version 2 }
         }
     }
     catch {
@@ -355,16 +360,16 @@ function SetupTheme($url) {
     }
 }
 
-function SetupBrowser($browser, $version) {
+function SetupBrowser($browser) {
     try {
         if ($browser) { 
-            Install $browser $version
-
             if ($browser -eq "Zen-Team.Zen-Browser") {
                 $root = "${env:ProgramFiles}\Zen Browser"
                 $icon = Join-Path $root "firefox.ico"
                 $distribution = Join-Path $root "distribution"
                 $policies = Join-Path $distribution "policies.json"
+
+                Install $browser "1.0.1-a.22"
 
                 if (!(Test-Path $distribution)) {
                     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
@@ -379,6 +384,9 @@ function SetupBrowser($browser, $version) {
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
                 Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
+            }
+            else {
+                Install $browser
             }
         }
     }
@@ -409,6 +417,7 @@ function SetupApplications($option) {
             Install "JetBrains.Toolbox"
             Install "TortoiseGit.TortoiseGit"
             Install "Stremio.StremioService"
+            Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
 
             Write-Host "Done! You must restart your computer to apply the changes." 
@@ -419,23 +428,22 @@ function SetupApplications($option) {
 }
 
 # ---------------------------------------- Execution ---------------------------------------- #
-Install "Kitware.CMake"
-Install "Docker.DockerDesktop"
-Install "CoreyButler.NVMforWindows"
 Install "Oracle.JDK.$Java"
 Install "Python.Python.$Python"
 Install "Microsoft.DotNet.SDK.$DotNet"
+Install "Kitware.CMake"
+Install "CoreyButler.NVMforWindows"
 
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
 
 SetupGit $GitUser $GitEmail
-SetupWSL $Distribution
+SetupWSL
 SetupPowerShell
 SetupMinGW "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe"
 SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
 SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
-SetupBrowser $Browser $BrowserVersion
+SetupBrowser $Browser
 SetupUI
 
 Write-Host "Setup completed. Do you wish to install developer tools?"

@@ -15,7 +15,7 @@ The script is hosted in this repository:
 ## ⚙️ Features
 - Installs Git and configures global identity
 - Installs and configures PowerShell with themes, PSReadLine, and posh-git
-- Installs WSL2 (supports version detection)
+- Installs WSL2
 - Installs essential developer tools:
   - Python
   - Java JDK
@@ -26,7 +26,7 @@ The script is hosted in this repository:
 - Installs FiraCode Nerd Font
 - Applies One Dark Windows theme
 - Adds Unite tool to Startup folder
-- Install a Brower of choice
+- Install a Browser of choice
 
 ---
 
@@ -38,7 +38,7 @@ The script is hosted in this repository:
 You can download and run the script directly using the command below:
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -GitUser "Your Name" -GitEmail "your@email.com" -Java "23" -Python "3.13" -DotNet "9" -Distribution "Ubuntu-24.04" -Browser "Zen-Team.Zen-Browser" -BrowserVersion "1.0.1-a.22"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -Java "23" -Python "3.13" -DotNet "9" -Browser "Zen-Team.Zen-Browser" -GitUser "name" -GitEmail "your@hotmail.com"
 ```
 
 You can customize the parameters if needed:
@@ -46,21 +46,19 @@ You can customize the parameters if needed:
 ### 🧠 Available Parameters:
 | Parameter        | Description                                 | Default Value               |
 |------------------|---------------------------------------------|-----------------------------|
-| `-GitUser`       | Git global username                         | `ayrton`                    |
-| `-GitEmail`      | Git global email                            | `ayrton_ito@hotmail.com`    |
 | `-Java`          | Java JDK version                            | `23`                        |
 | `-Python`        | Python version                              | `3.13`                      |
 | `-DotNet`        | .NET SDK version                            | `9`                         |
-| `-Distribution`  | WSL2 Linux distribution                     | `Ubuntu-24.04`              |
 | `-Browser`       | Browser of choice (Winget Id)               | `none`                      |
-| `-BrowserVersion`| Browser version                             | `none`                      |
+| `-GitUser`       | Git global username                         | `none`                      |
+| `-GitEmail`      | Git global email                            | `none`                      |
 
 ---
 
 ## 📎 Notes
 - Some installers (e.g., Docker, StartAllBack) may show interactive windows.
 - FiraCode font and Windhawk settings are restored silently.
-- A reboot is recommended at the end of the script.
+- A reboot is necessary after executing  the script.
 
 ---
 
