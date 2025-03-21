@@ -377,7 +377,7 @@ function SetupBrowser($browser, $version) {
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/AdBlocker.txt" "$env:USERPROFILE\Downloads\AdBlocker.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
-                Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser --nowarn" }
+                Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
             }
         }
     }
