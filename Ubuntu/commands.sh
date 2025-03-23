@@ -32,6 +32,10 @@
     # Configure git (replace $USER and $EMAIL with your username and email)
     git config --global user.name "ayrton"
     git config --global user.email "ayrton_ito@hotmail.com"
+    git config --global credential.helper cache
+    
+    # Token example (use this as the password)
+    example_2SZhsrTXZ2ySd8Ec3xZ5JcmLHEVP1Z4Mo25O
     
     # Install Git LFS
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
