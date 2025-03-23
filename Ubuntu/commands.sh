@@ -91,7 +91,7 @@
 
 # -------------------------------------- NodeJs and NPM ------------------------------------- #
     # Install/Update NVM
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
     source ~/.zshrc
 
     # Install Node (this will install the latest version as well as NPM latest version)
@@ -157,7 +157,7 @@
     ./dotnet-install.sh --channel 7.0
 
     # Set PATH to the dotnet folder (replace $USER with your username)
-    echo 'export PATH="$PATH:/home/$USER/.dotnet/"' >> ~/.zshrc
+    echo 'export PATH="$PATH:$HOME/.dotnet/"' >> ~/.zshrc
     echo 'export PATH="$PATH:$HOME/.dotnet/tools"' >> ~/.zshrc
     
     # Install Entity Framework
