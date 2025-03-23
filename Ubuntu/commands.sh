@@ -119,16 +119,16 @@
     sudo apt update
 
     # Install the desired version
-    sudo apt install python3.11
+    sudo apt install python3.13
 
     # Install pip
     sudo apt install python3-pip
 
     # Install python3 venv
-    sudo apt install python3.10-venv
+    sudo apt install python3.13-venv
 
     # Create a symlink from the new version to python
-    sudo ln -s /usr/bin/python3.11 /usr/bin/python
+    sudo ln -s /usr/bin/python3.13 /usr/bin/python
 
 # ------------------------------------------- .NET ------------------------------------------ #
     # Download the dotnet-install.sh script
