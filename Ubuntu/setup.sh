@@ -78,6 +78,10 @@ install_font() {
 install_zsh() {
     echo "[*] Installing Oh My Posh..."
 
+    if [ "$disable_ui" = false ]; then
+        install_font
+    fi
+
     if [[ ! -f "/usr/local/bin/oh-my-posh" ]]; then
         sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
         sudo chmod +x /usr/local/bin/oh-my-posh
@@ -90,7 +94,7 @@ install_zsh() {
 
     if ! grep -q "oh-my-posh init zsh" ~/.zshrc; then
         git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-        
+
         echo 'eval "$(oh-my-posh init zsh --config ~/.poshthemes/craver.omp.json)"' >> ~/.zshrc
         echo 'source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
         source ~/.zshrc
@@ -334,7 +338,6 @@ setup_ui() {
     setup_terminal
     setup_extensions
 
-    install_font
     install_flatpack
     install_apps
 
