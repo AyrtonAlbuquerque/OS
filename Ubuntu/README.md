@@ -33,7 +33,7 @@ The script is hosted in this repository:
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y build-essential curl unzip gnupg ca-certificates software-properties-common gcc g++ gdb cmake gdebi zsh
+sudo apt install -y build-essential curl unzip gnupg ca-certificates software-properties-common git gcc g++ gdb cmake gdebi zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
