@@ -38,7 +38,7 @@ install_core() {
     echo "[*] Installing core packages..."
 
     sudo apt install -y build-essential curl unzip gnupg ca-certificates software-properties-common \
-                        gcc g++ gdb cmake
+                        gcc g++ gdb cmake gdebi
 
     echo "[✔] Success"
 }
@@ -80,6 +80,7 @@ install_font() {
     && rm FiraCode.zip \
     && fc-cache -fv
 
+    cd ~
     echo "[✔] Success"
 }
 
@@ -209,6 +210,45 @@ install_docker() {
     echo "[✔] Success"
 }
 
+install_apps() {
+    echo "[*] Installing Applicatons..."
+
+    # vscode
+    sudo apt-get install wget gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+    rm -f packages.microsoft.gpg
+    sudo apt install apt-transport-https
+    sudo apt update
+    sudo apt install code
+
+    # stremio service
+    wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
+    sudo dpkg -i stremio-service_amd64.deb
+
+    # jetbrains toolbox
+    sudo apt install libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
+    curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash
+
+    # rabbitvcs
+    sudo add-apt-repository ppa:rabbitvcs/ppa
+    sudo apt-get update
+    sudo apt-get install rabbitvcs-nautilus3 rabbitvcs-nautilus rabbitvcs-thunar rabbitvcs-gedit rabbitvcs-cli
+
+    echo "[✔] Success"
+}
+
+install_flatpack() {
+    echo "[*] Installing Flatpack..."
+
+    sudo apt install flatpak
+    sudo apt install gnome-software-plugin-flatpak
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    echo "[✔] Success"
+}
+
 setup_theme() {
     echo "[*] Setting up theme..."
 
@@ -232,6 +272,35 @@ setup_cursor() {
     wget https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Cursor/Bibata-Modern-Ice.zip
     
     unzip Bibata-Modern-Ice.zip -d "$HOME/.icons"
+
+    echo "[✔] Success"
+}
+
+setup_browser() {
+    echo "[*] Setting up browser..."
+
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.ico"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/distribution/policies.json"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Enhancer%20For%20Youtube.xpi"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json"
+
+    chmod +x "$HOME/zen.AppImage"
+
+    echo "[✔] Success"
+}
+
+setup_insomnia() {
+    echo "[*] Setting up Insomnia..."
+
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Programs/Insomnia.deb"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Insomnia/Insomnia"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Insomnia/index.js"
+
+    sudo dpkg -i Insomnia.deb
 
     echo "[✔] Success"
 }
@@ -283,12 +352,18 @@ setup_ui() {
     sudo apt install dconf-editor
     sudo apt install gnome-tweaks
 
-    install_font
-
     setup_theme
     setup_cursor
+    setup_browser
     setup_terminal
     setup_extensions
+
+    install_font
+    install_flatpack
+    install_apps
+
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings.ini"
+    dconf load / < dconf-settings.ini
 
     echo "[✔] Success"
 }
