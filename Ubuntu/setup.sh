@@ -318,7 +318,9 @@ setup_extensions() {
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
 
     git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-47
-    gnome-ext-hanabi/./run.sh install
+    cd gnome-ext-hanabi
+    ./run.sh install
+    cd ..
 
     echo "[✔] Success"
 }
