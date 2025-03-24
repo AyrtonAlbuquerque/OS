@@ -40,7 +40,7 @@ sudo apt install -y build-essential curl unzip gnupg ca-certificates software-pr
 You can download and run the script directly using the command below:
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh) \
+zsh <(wget -qO- https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh) \
   --git_user="nama" \
   --git_email="name@hotmail.com" \
   --git_credencial="store" \
