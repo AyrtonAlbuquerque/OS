@@ -311,7 +311,6 @@ setup_extensions() {
     sudo apt install git meson
     sudo apt install libgtk-4-media-gstreamer
     sudo apt install gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
-    sudo apt install gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
 
     wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v68.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
