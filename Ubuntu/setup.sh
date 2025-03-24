@@ -215,9 +215,8 @@ install_apps() {
     curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash
 
     # rabbitvcs
-    sudo add-apt-repository ppa:rabbitvcs/ppa
     sudo apt-get update
-    sudo apt-get install rabbitvcs-nautilus3 rabbitvcs-nautilus rabbitvcs-thunar rabbitvcs-gedit rabbitvcs-cli
+    sudo apt install rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
 
     echo "[✔] Success"
 }
@@ -262,14 +261,28 @@ setup_cursor() {
 setup_browser() {
     echo "[*] Setting up browser..."
 
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.ico"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/distribution/policies.json"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Enhancer%20For%20Youtube.xpi"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json"
+    sudo apt update
+    sudo apt install -y libfuse2t64
+
+    mkdir -p "$HOME/Zen"
+
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/.local/bin/zen.AppImage"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt" -O "$HOME/Zen/Setup.txt"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Enhancer%20For%20Youtube.xpi" -O "$HOME/Zen/Enhancer For Youtube.xpi"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.ico" -O "$HOME/.icons/firefox.ico"
+
+    chmod +x "$HOME/.local/bin/zen.AppImage"
+    cat <<EOF > ~/.local/share/applications/zen-browser.desktop
+[Desktop Entry]
+Name=Zen Browser
+Exec=$HOME/.local/bin/zen.AppImage
+Icon=$HOME/.icons/firefox.ico
+Type=Application
+Categories=Network;WebBrowser;
+EOF
 
     echo "[✔] Success"
 }
