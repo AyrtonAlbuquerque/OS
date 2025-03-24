@@ -76,9 +76,7 @@ install_font() {
 }
 
 install_zsh() {
-    echo "[*] Installing Zsh..."
-
-    sudo apt install zsh -y
+    echo "[*] Installing Oh My Zsh..."
 
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -277,8 +275,6 @@ setup_browser() {
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Enhancer%20For%20Youtube.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json"
-
-    chmod +x "$HOME/zen.AppImage"
 
     echo "[✔] Success"
 }
