@@ -374,4 +374,4 @@ else
     echo "[*] Skipping UI setup due to --noui flag"
 fi
 
-echo "[✔] Setup complete! Restart your computer to changes to take effect."
+echo "[✔] Setup complete! Restart your computer for changes to take effect."
