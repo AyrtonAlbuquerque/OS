@@ -190,25 +190,25 @@ install_java() {
     echo "[✔] Success"
 }
 
-install_docker() {
-    echo "[*] Installing Docker..."
+# install_docker() {
+#     echo "[*] Installing Docker..."
 
-    sudo apt-get remove docker docker-engine docker.io containerd runc
-    sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
-    sudo rm -rf /var/lib/docker
-    sudo rm -rf /var/lib/containerd
-    sudo apt-get install -y ca-certificates curl gnupg
-    sudo install -m 0755 -d /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    sudo groupadd docker || true
-    sudo usermod -aG docker "$USER"
+#     sudo apt-get remove docker docker-engine docker.io containerd runc
+#     sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+#     sudo rm -rf /var/lib/docker
+#     sudo rm -rf /var/lib/containerd
+#     sudo apt-get install -y ca-certificates curl gnupg
+#     sudo install -m 0755 -d /etc/apt/keyrings
+#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+#     sudo chmod a+r /etc/apt/keyrings/docker.gpg
+#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+#     sudo apt-get update
+#     sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+#     sudo groupadd docker || true
+#     sudo usermod -aG docker "$USER"
 
-    echo "[✔] Success"
-}
+#     echo "[✔] Success"
+# }
 
 install_apps() {
     echo "[*] Installing Applicatons..."
@@ -386,7 +386,7 @@ install_nvm
 install_python
 install_dotnet
 install_java
-install_docker
+# install_docker
 
 if [ "$disable_ui" = false ]; then
     setup_ui
