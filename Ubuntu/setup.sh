@@ -76,12 +76,8 @@ install_font() {
 }
 
 install_zsh() {
-    echo "[*] Installing Oh My Zsh..."
-
-    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    fi
-
+    echo "[*] Installing Oh My Posh..."
+    
     if [[ ! -f "/usr/local/bin/oh-my-posh" ]]; then
         sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
         sudo chmod +x /usr/local/bin/oh-my-posh
@@ -323,7 +319,7 @@ setup_extensions() {
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
 
     git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-47
-    ./run.sh gnome-ext-hanabi/install
+    gnome-ext-hanabi/./run.sh install
 
     echo "[✔] Success"
 }
