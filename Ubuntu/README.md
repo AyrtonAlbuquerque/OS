@@ -29,12 +29,19 @@ The script is hosted in this repository:
 
 ## 🚀 How to Use
 
-### ✅ Step 1: Execute the script from terminal
+### ✅ Step 1: Update and install core libraries
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential curl unzip gnupg ca-certificates software-properties-common gcc g++ gdb cmake gdebi zsh
+```
+
+### ✅ Step 2: Execute the script from terminal
 You can download and run the script directly using the command below:
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh) \
-  --git_user="namae" \
+  --git_user="nama" \
   --git_email="name@hotmail.com" \
   --git_credencial="store" \
   --python="3.13" \

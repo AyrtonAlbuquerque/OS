@@ -34,15 +34,6 @@ for arg in "$@"; do
 done
 
 # ---------------------------------------- Functions ---------------------------------------- #
-install_core() {
-    echo "[*] Installing core packages..."
-
-    sudo apt install -y build-essential curl unzip gnupg ca-certificates software-properties-common \
-                        gcc g++ gdb cmake gdebi
-
-    echo "[✔] Success"
-}
-
 install_git() {
     echo "[*] Installing Git..."
 
@@ -379,7 +370,6 @@ echo "[*] Updating system..."
 
 sudo apt update && sudo apt upgrade -y
 
-install_core
 install_git
 install_zsh
 install_nvm
