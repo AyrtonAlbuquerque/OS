@@ -265,6 +265,7 @@ setup_browser() {
     sudo apt install -y libfuse2t64
 
     mkdir -p "$HOME/Zen"
+    mkdir -p "$HOME/.local/bin"
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/.local/bin/zen.AppImage"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
