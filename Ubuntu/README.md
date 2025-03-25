@@ -32,8 +32,10 @@ The script is hosted in this repository:
 ### ✅ Step 1: Update and install core libraries
 
 ```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y build-essential curl unzip gnupg ca-certificates software-properties-common git gcc g++ gdb cmake gdebi zsh
+sudo apt update && sudo apt upgrade -y &&
+sudo apt install -y build-essential curl unzip gnupg \
+  ca-certificates software-properties-common \
+  git gcc g++ gdb cmake gdebi zsh &&
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
