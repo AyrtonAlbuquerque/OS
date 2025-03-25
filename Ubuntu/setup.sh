@@ -173,25 +173,25 @@ install_java() {
     echo "[✔] Success"
 }
 
-# install_docker() {
-#     echo "[*] Installing Docker..."
+install_docker() {
+    echo "[*] Installing Docker..."
 
-#     sudo apt-get remove docker docker-engine docker.io containerd runc
-#     sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
-#     sudo rm -rf /var/lib/docker
-#     sudo rm -rf /var/lib/containerd
-#     sudo apt-get install -y ca-certificates curl gnupg
-#     sudo install -m 0755 -d /etc/apt/keyrings
-#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-#     sudo chmod a+r /etc/apt/keyrings/docker.gpg
-#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-#     sudo apt-get update
-#     sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-#     sudo groupadd docker || true
-#     sudo usermod -aG docker "$USER"
+    # sudo apt-get remove docker docker-engine docker.io containerd runc
+    # sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+    sudo rm -rf /var/lib/docker
+    sudo rm -rf /var/lib/containerd
+    sudo apt-get install -y ca-certificates curl gnupg
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo groupadd docker || true
+    sudo usermod -aG docker "$USER"
 
-#     echo "[✔] Success"
-# }
+    echo "[✔] Success"
+}
 
 install_apps() {
     echo "[*] Installing Applicatons..."
@@ -266,44 +266,45 @@ setup_browser() {
 
     mkdir -p "$HOME/Zen"
     mkdir -p "$HOME/Applications"
+    mkdir -p "$HOME/Applications/zen"
 
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen.AppImage"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Applications/firefox.png"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen/zen.AppImage"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Applications/zen/firefox.png"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt" -O "$HOME/Zen/Setup.txt"
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Enhancer%20For%20Youtube.xpi" -O "$HOME/Zen/Enhancer For Youtube.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
 
-    chmod +x "$HOME/Applications/zen.AppImage"
-    cat <<EOF > ~/.local/share/applications/zen.desktop
-[Desktop Entry]
-Name=Zen Browser
-Comment=Experience tranquillity while browsing the web without people tracking you!
-Exec=$HOME/Applications/zen/zen.AppImage %u
-Icon=$HOME/Applications/zen/firefox.png
-Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupWMClass=zen-alpha
-Categories=Network;WebBrowser;
-StartupNotify=true
-Terminal=false
-X-MultipleArgs=false
-Keywords=Internet;WWW;Browser;Web;Explorer;
-Actions=new-window;new-private-window;profilemanager;
+    chmod +x "$HOME/Applications/zen/zen.AppImage"
+    cat <<-EOF > ~/.local/share/applications/zen.desktop
+		[Desktop Entry]
+		Name=Zen Browser
+		Comment=Experience tranquillity while browsing the web without people tracking you!
+		Exec=$HOME/Applications/zen/zen.AppImage %u
+		Icon=$HOME/Applications/zen/firefox.png
+		Type=Application
+		MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+		StartupWMClass=zen-alpha
+		Categories=Network;WebBrowser;
+		StartupNotify=true
+		Terminal=false
+		X-MultipleArgs=false
+		Keywords=Internet;WWW;Browser;Web;Explorer;
+		Actions=new-window;new-private-window;profilemanager;
 
-[Desktop Action new-window]
-Name=Open a New Window
-Exec=zen %u
+		[Desktop Action new-window]
+		Name=Open a New Window
+		Exec=$HOME/Applications/zen/zen.AppImage %u
 
-[Desktop Action new-private-window]
-Name=Open a New Private Window
-Exec=zen --private-window %u
+		[Desktop Action new-private-window]
+		Name=Open a New Private Window
+		Exec=$HOME/Applications/zen/zen.AppImage --private-window %u
 
-[Desktop Action profilemanager]
-Name=Open the Profile Manager
-Exec=zen --ProfileManager %u
-EOF
+		[Desktop Action profilemanager]
+		Name=Open the Profile Manager
+		Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
+	EOF
 
     echo "[✔] Success"
 }
@@ -400,7 +401,7 @@ install_nvm
 install_python
 install_dotnet
 install_java
-# install_docker
+install_docker
 
 if [ "$disable_ui" = false ]; then
     setup_ui
