@@ -160,9 +160,11 @@ install_java() {
     if [[ -n "$java" ]]; then
         wget https://download.oracle.com/java/"$java"/latest/jdk-"$java"_linux-x64_bin.deb
         sudo dpkg -i jdk-"$java"_linux-x64_bin.deb
+        rm jdk-"$java"_linux-x64_bin.deb
     else
         wget https://download.oracle.com/java/24/latest/jdk-24_linux-x64_bin.deb
         sudo dpkg -i jdk-24_linux-x64_bin.deb
+        rm jdk-24_linux-x64_bin.deb
     fi
 
     JAVA_HOME_PATH=$(dirname $(dirname $(readlink -f $(which javac))))
@@ -176,8 +178,6 @@ install_java() {
 install_docker() {
     echo "[*] Installing Docker..."
 
-    # sudo apt-get remove docker docker-engine docker.io containerd runc
-    # sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
     sudo rm -rf /var/lib/docker
     sudo rm -rf /var/lib/containerd
     sudo apt-get install -y ca-certificates curl gnupg
@@ -209,6 +209,7 @@ install_apps() {
     # stremio service
     wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
     sudo dpkg -i stremio-service_amd64.deb
+    rm stremio-service_amd64.deb
 
     # jetbrains toolbox
     sudo apt install libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
@@ -243,6 +244,9 @@ setup_theme() {
     unzip Andromeda.zip -d "$HOME/.themes"
     unzip OneDark.zip -d "$HOME/.themes"
 
+    rm Andromeda.zip
+    rm OneDark.zip
+
     echo "[✔] Success"
 }
 
@@ -254,6 +258,8 @@ setup_cursor() {
     wget https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Cursor/Bibata-Modern-Ice.zip
     
     unzip Bibata-Modern-Ice.zip -d "$HOME/.icons"
+
+    rm Bibata-Modern-Ice.zip
 
     echo "[✔] Success"
 }
@@ -317,6 +323,7 @@ setup_insomnia() {
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Insomnia/index.js"
 
     sudo dpkg -i Insomnia.deb
+    rm Insomnia.deb
 
     echo "[✔] Success"
 }
@@ -357,31 +364,45 @@ setup_extensions() {
     ./run.sh install
     cd ..
 
+    rm unite-v82.zip
+    rm -rf gnome-ext-hanabi
+    rm blur-my-shellaunetx.v68.shell-extension.zip
+    rm transparent-top-barftpix.com.v23.shell-extension.zip
+    rm hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
+    rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
+    rm user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
+
     echo "[✔] Success"
 }
 
 setup_ui() {
-    echo "[*] Setting up UI..."
+    if [ "$disable_ui" = false ]; then
+        echo "[*] Setting up UI..."
 
-    sudo apt install gnome-software
-    sudo apt install gnome-shell-extension-manager
-    sudo apt install x11-utils
-    sudo apt install dconf-editor
-    sudo apt install gnome-tweaks
+        sudo apt install gnome-software
+        sudo apt install gnome-shell-extension-manager
+        sudo apt install x11-utils
+        sudo apt install dconf-editor
+        sudo apt install gnome-tweaks
 
-    setup_theme
-    setup_cursor
-    setup_browser
-    setup_terminal
-    setup_extensions
+        setup_theme
+        setup_cursor
+        setup_browser
+        setup_insomnia
+        setup_terminal
+        setup_extensions
 
-    install_flatpack
-    install_apps
+        install_flatpack
+        install_apps
 
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings.ini"
-    dconf load / < dconf-settings.ini
+        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings.ini"
+        dconf load / < dconf-settings.ini
+        rm dconf-settings.ini
 
-    echo "[✔] Success"
+        echo "[✔] Success"
+    else
+        echo "[*] Skipping UI setup due to --noui flag"
+    fi
 }
 
 # ---------------------------------------- Execution ---------------------------------------- #
@@ -403,10 +424,6 @@ install_dotnet
 install_java
 install_docker
 
-if [ "$disable_ui" = false ]; then
-    setup_ui
-else
-    echo "[*] Skipping UI setup due to --noui flag"
-fi
+setup_ui
 
 echo "[✔] Setup complete! Restart your computer for changes to take effect."
