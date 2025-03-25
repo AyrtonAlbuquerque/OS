@@ -265,24 +265,44 @@ setup_browser() {
     sudo apt install -y libfuse2t64
 
     mkdir -p "$HOME/Zen"
-    mkdir -p "$HOME/.local/bin"
+    mkdir -p "$HOME/Applications"
 
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/.local/bin/zen.AppImage"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen.AppImage"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Applications/firefox.png"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt" -O "$HOME/Zen/Setup.txt"
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Enhancer%20For%20Youtube.xpi" -O "$HOME/Zen/Enhancer For Youtube.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.ico" -O "$HOME/.icons/firefox.ico"
 
-    chmod +x "$HOME/.local/bin/zen.AppImage"
-    cat <<EOF > ~/.local/share/applications/zen-browser.desktop
+    chmod +x "$HOME/Applications/zen.AppImage"
+    cat <<EOF > ~/.local/share/applications/zen.desktop
 [Desktop Entry]
 Name=Zen Browser
-Exec=$HOME/.local/bin/zen.AppImage
-Icon=$HOME/.icons/firefox.ico
+Comment=Experience tranquillity while browsing the web without people tracking you!
+Exec=$HOME/Applications/zen/zen.AppImage %u
+Icon=$HOME/Applications/zen/firefox.png
 Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupWMClass=zen-alpha
 Categories=Network;WebBrowser;
+StartupNotify=true
+Terminal=false
+X-MultipleArgs=false
+Keywords=Internet;WWW;Browser;Web;Explorer;
+Actions=new-window;new-private-window;profilemanager;
+
+[Desktop Action new-window]
+Name=Open a New Window
+Exec=zen %u
+
+[Desktop Action new-private-window]
+Name=Open a New Private Window
+Exec=zen --private-window %u
+
+[Desktop Action profilemanager]
+Name=Open the Profile Manager
+Exec=zen --ProfileManager %u
 EOF
 
     echo "[✔] Success"
