@@ -41,17 +41,8 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 You can download and run the script directly using the command below:
 
 ```bash
-wget -O setup.sh https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh && \
+wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh && \
 zsh setup.sh \
-  --git_user="nama" \
-  --git_email="name@hotmail.com" \
-  --git_credencial="store" \
-  --python="3.13" \
-  --dotnet="9" \
-  --java="24" \
-  --noui
-
-zsh <(wget -qO- https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh) \
   --git_user="nama" \
   --git_email="name@hotmail.com" \
   --git_credencial="store" \
