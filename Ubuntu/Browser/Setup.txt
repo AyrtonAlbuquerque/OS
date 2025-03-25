@@ -4,7 +4,7 @@ Zen Setup
     3. Set zen.workspaces.show-workspace-indicator to false
     4. Copy the userChrome.css file to your Zen "/chrome/zen-themes" folder
     5. Open the zen-themes.css in the "/chrome" folder and add the following line to the very end (use %20 for spaces):
-        - @import url("file:///C:/Users/$USER/AppData/Roaming/zen/Profiles/$PROFILE/chrome/zen-themes/userChrome.css");
+        - @import url("file:///home/$USER/.zen/$PROFILE/chrome/zen-themes/userChrome.css");
     6. Restart Zen.
     7. Done!
 
