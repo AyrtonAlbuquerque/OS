@@ -41,7 +41,7 @@ executed() {
     [[ -f "$MARKERS/$1" ]]
 }
 
-done() {
+finished() {
     touch "$MARKERS/$1"
 }
 
@@ -85,7 +85,7 @@ install_git() {
     sudo apt-get install git-lfs
     git-lfs install
 
-    done "install_git"
+    finished "install_git"
     echo "[✔] Success"
 }
 
@@ -104,7 +104,7 @@ install_font() {
     && fc-cache -fv
 
     cd ~
-    done "install_font"
+    finished "install_font"
     echo "[✔] Success"
 }
 
@@ -138,7 +138,7 @@ install_zsh() {
         source ~/.zshrc
     fi
 
-    done "install_zsh"
+    finished "install_zsh"
     echo "[✔] Success"
 }
 
@@ -153,7 +153,7 @@ install_nvm() {
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
     source ~/.zshrc
 
-    done "install_nvm"
+    finished "install_nvm"
     echo "[✔] Success"
 }
 
@@ -180,7 +180,7 @@ install_python() {
         sudo ln -s /usr/bin/python3.13 /usr/bin/python
     fi
 
-    done "install_python"
+    finished "install_python"
     echo "[✔] Success"
 }
 
@@ -207,7 +207,7 @@ install_dotnet() {
     source ~/.zshrc
     dotnet tool install --global dotnet-ef
 
-    done "install_dotnet"
+    finished "install_dotnet"
     echo "[✔] Success"
 }
 
@@ -234,7 +234,7 @@ install_java() {
     echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.zshrc
     source ~/.zshrc
 
-    done "install_java"
+    finished "install_java"
     echo "[✔] Success"
 }
 
@@ -258,7 +258,7 @@ install_docker() {
     sudo groupadd docker || true
     sudo usermod -aG docker "$USER"
 
-    done "install_docker"
+    finished "install_docker"
     echo "[✔] Success"
 }
 
@@ -293,7 +293,7 @@ install_apps() {
     sudo apt-get update
     sudo apt install rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
 
-    done "install_apps"
+    finished "install_apps"
     echo "[✔] Success"
 }
 
@@ -309,7 +309,7 @@ install_flatpack() {
     sudo apt install gnome-software-plugin-flatpak
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-    done "install_flatpack"
+    finished "install_flatpack"
     echo "[✔] Success"
 }
 
@@ -333,7 +333,7 @@ setup_theme() {
     rm Andromeda.zip
     rm OneDark.zip
 
-    done "setup_theme"
+    finished "setup_theme"
     echo "[✔] Success"
 }
 
@@ -353,7 +353,7 @@ setup_cursor() {
 
     rm Bibata-Modern-Ice.zip
 
-    done "setup_cursor"
+    finished "setup_cursor"
     echo "[✔] Success"
 }
 
@@ -410,7 +410,7 @@ setup_browser() {
 		Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
 	EOF
 
-    done "setup_browser"
+    finished "setup_browser"
     echo "[✔] Success"
 }
 
@@ -429,7 +429,7 @@ setup_insomnia() {
     sudo dpkg -i Insomnia.deb
     rm Insomnia.deb
 
-    done "setup_insomnia"
+    finished "setup_insomnia"
     echo "[✔] Success"
 }
 
@@ -444,7 +444,7 @@ setup_terminal() {
     gnome-terminal --geometry=192x26+0+0 &
     wget https://raw.githubusercontent.com/safesintesi/terminal-guillotine/main/guillotine.sh -qO- | bash
 
-    done "setup_terminal"
+    finished "setup_terminal"
     echo "[✔] Success"
 }
 
@@ -488,7 +488,7 @@ setup_extensions() {
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     rm user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
 
-    done "setup_extensions"
+    finished "setup_extensions"
     echo "[✔] Success"
 }
 
@@ -521,7 +521,7 @@ setup_ui() {
         dconf load / < dconf-settings.ini
         rm dconf-settings.ini
 
-        done "setup_ui"
+        finished "setup_ui"
         echo "[✔] Success"
     else
         echo "[*] Skipping UI setup due to --noui flag"
