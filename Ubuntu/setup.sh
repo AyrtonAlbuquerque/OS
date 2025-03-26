@@ -33,8 +33,34 @@ for arg in "$@"; do
     esac
 done
 
+# ----------------------------------------- Markers ----------------------------------------- #
+MARKERS="$HOME/.setup-markers"
+mkdir -p "$MARKERS"
+
+executed() {
+    [[ -f "$MARKERS/$1" ]]
+}
+
+done() {
+    touch "$MARKERS/$1"
+}
+
+cleanup() {
+    echo "[*] Cleaning up marker files..."
+    rm -rf "$MARKERS"
+    echo "[✔] Markers cleared"
+}
+
+trap 'echo "[!] Script interrupted. Partial state saved in $MARKERS"' ERR
+trap cleanup EXIT
+
 # ---------------------------------------- Functions ---------------------------------------- #
 install_git() {
+    if executed "install_git"; then
+        echo "[✔] Git already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Git..."
 
     sudo add-apt-repository -y ppa:git-core/ppa
@@ -59,10 +85,16 @@ install_git() {
     sudo apt-get install git-lfs
     git-lfs install
 
+    done "install_git"
     echo "[✔] Success"
 }
 
 install_font() {
+    if executed "install_font"; then
+        echo "[✔] Font already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Fira Code Nerd Font..."
 
     wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip \
@@ -72,10 +104,16 @@ install_font() {
     && fc-cache -fv
 
     cd ~
+    done "install_font"
     echo "[✔] Success"
 }
 
 install_zsh() {
+    if executed "install_zsh"; then
+        echo "[✔] ZSH already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Oh My Posh..."
 
     if [ "$disable_ui" = false ]; then
@@ -100,19 +138,31 @@ install_zsh() {
         source ~/.zshrc
     fi
 
+    done "install_zsh"
     echo "[✔] Success"
 }
 
 install_nvm() {
+    if executed "install_nvm"; then
+        echo "[✔] NVM already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing NVM..."
     
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
     source ~/.zshrc
 
+    done "install_nvm"
     echo "[✔] Success"
 }
 
 install_python() {
+    if executed "install_python"; then
+        echo "[✔] Python already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Python..."
     
     sudo add-apt-repository ppa:deadsnakes/ppa
@@ -130,10 +180,16 @@ install_python() {
         sudo ln -s /usr/bin/python3.13 /usr/bin/python
     fi
 
+    done "install_python"
     echo "[✔] Success"
 }
 
 install_dotnet() {
+    if executed "install_dotnet"; then
+        echo "[✔] .NET already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing .NET..."
     
     wget https://dot.net/v1/dotnet-install.sh
@@ -151,10 +207,16 @@ install_dotnet() {
     source ~/.zshrc
     dotnet tool install --global dotnet-ef
 
+    done "install_dotnet"
     echo "[✔] Success"
 }
 
 install_java() {
+    if executed "install_java"; then
+        echo "[✔] Java already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Java..."
 
     if [[ -n "$java" ]]; then
@@ -172,10 +234,16 @@ install_java() {
     echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.zshrc
     source ~/.zshrc
 
+    done "install_java"
     echo "[✔] Success"
 }
 
 install_docker() {
+    if executed "install_docker"; then
+        echo "[✔] Docker already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Docker..."
 
     sudo rm -rf /var/lib/docker
@@ -190,10 +258,16 @@ install_docker() {
     sudo groupadd docker || true
     sudo usermod -aG docker "$USER"
 
+    done "install_docker"
     echo "[✔] Success"
 }
 
 install_apps() {
+    if executed "install_apps"; then
+        echo "[✔] Applications already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Applicatons..."
 
     # vscode
@@ -219,20 +293,32 @@ install_apps() {
     sudo apt-get update
     sudo apt install rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
 
+    done "install_apps"
     echo "[✔] Success"
 }
 
 install_flatpack() {
+    if executed "install_flatpack"; then
+        echo "[✔] Flatpack already installed, skipping"
+        return
+    fi
+
     echo "[*] Installing Flatpack..."
 
     sudo apt install flatpak
     sudo apt install gnome-software-plugin-flatpak
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+    done "install_flatpack"
     echo "[✔] Success"
 }
 
 setup_theme() {
+    if executed "setup_theme"; then
+        echo "[✔] Theme already installed, skipping"
+        return
+    fi
+
     echo "[*] Setting up theme..."
 
     mkdir -p "$HOME/.themes"
@@ -247,10 +333,16 @@ setup_theme() {
     rm Andromeda.zip
     rm OneDark.zip
 
+    done "setup_theme"
     echo "[✔] Success"
 }
 
 setup_cursor() {
+    if executed "setup_cursor"; then
+        echo "[✔] Cursor already installed, skipping"
+        return
+    fi
+
     echo "[*] Setting up cursor..."
 
     mkdir -p "$HOME/.icons"
@@ -261,10 +353,16 @@ setup_cursor() {
 
     rm Bibata-Modern-Ice.zip
 
+    done "setup_cursor"
     echo "[✔] Success"
 }
 
 setup_browser() {
+    if executed "setup_browser"; then
+        echo "[✔] Browser already installed, skipping"
+        return
+    fi
+
     echo "[*] Setting up browser..."
 
     sudo apt update
@@ -312,10 +410,16 @@ setup_browser() {
 		Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
 	EOF
 
+    done "setup_browser"
     echo "[✔] Success"
 }
 
 setup_insomnia() {
+    if executed "setup_insomnia"; then
+        echo "[✔] Insomnia already installed, skipping"
+        return
+    fi
+
     echo "[*] Setting up Insomnia..."
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Programs/Insomnia.deb"
@@ -325,19 +429,31 @@ setup_insomnia() {
     sudo dpkg -i Insomnia.deb
     rm Insomnia.deb
 
+    done "setup_insomnia"
     echo "[✔] Success"
 }
 
 setup_terminal() {
+    if executed "setup_terminal"; then
+        echo "[✔] Terminal already installed, skipping"
+        return
+    fi
+
     echo "[*] Setting up terminal..."
 
     gnome-terminal --geometry=192x26+0+0 &
     wget https://raw.githubusercontent.com/safesintesi/terminal-guillotine/main/guillotine.sh -qO- | bash
 
+    done "setup_terminal"
     echo "[✔] Success"
 }
 
 setup_extensions() {
+    if executed "setup_extensions"; then
+        echo "[✔] Extensions already installed, skipping"
+        return
+    fi
+
     echo "[*] Setting up extensions..."
 
     sudo apt install -y ubuntu-restricted-extras
@@ -372,11 +488,17 @@ setup_extensions() {
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     rm user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
 
+    done "setup_extensions"
     echo "[✔] Success"
 }
 
 setup_ui() {
     if [ "$disable_ui" = false ]; then
+        if executed "setup_ui"; then
+            echo "[✔] UI already installed, skipping"
+            return
+        fi
+
         echo "[*] Setting up UI..."
 
         sudo apt install gnome-software
@@ -399,6 +521,7 @@ setup_ui() {
         dconf load / < dconf-settings.ini
         rm dconf-settings.ini
 
+        done "setup_ui"
         echo "[✔] Success"
     else
         echo "[*] Skipping UI setup due to --noui flag"
