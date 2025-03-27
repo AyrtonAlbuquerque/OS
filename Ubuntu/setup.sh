@@ -471,9 +471,9 @@ setup_extensions() {
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v68.shell-extension.zip
     gnome-extensions install unite-v82.zip
-    gnome-extensions install transparent-top-barftpix.com.v23.shell-extension.zip
+    gnome-extensions install transparent-top-barftpix.com.v20.shell-extension.zip
     gnome-extensions install hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
-    gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
+    gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
 
     git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-47
     cd gnome-ext-hanabi
@@ -483,10 +483,10 @@ setup_extensions() {
     rm unite-v82.zip
     rm -rf gnome-ext-hanabi
     rm blur-my-shellaunetx.v68.shell-extension.zip
-    rm transparent-top-barftpix.com.v23.shell-extension.zip
+    rm transparent-top-barftpix.com.v20.shell-extension.zip
     rm hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
-    rm user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
+    rm user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
 
     finished "setup_extensions"
     echo "[✔] Success"
