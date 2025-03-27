@@ -82,7 +82,7 @@ install_git() {
     echo "[*] Installing Git LFS..."
 
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-    sudo apt-get install git-lfs
+    sudo apt-get install git-lfs -y
     git-lfs install
 
     finished "install_git"
@@ -169,14 +169,14 @@ install_python() {
     sudo apt update
 
     if [[ -n "$python" ]]; then
-        sudo apt install python"$python"
-        sudo apt install python3-pip
-        sudo apt install python"$python"-venv
+        sudo apt install python"$python" -y
+        sudo apt install python3-pip -y
+        sudo apt install python"$python"-venv -y
         sudo ln -s /usr/bin/python"$python" /usr/bin/python
     else
-        sudo apt install python3.13
-        sudo apt install python3-pip
-        sudo apt install python3.13-venv
+        sudo apt install python3.13 -y
+        sudo apt install python3-pip -y
+        sudo apt install python3.13-venv -y
         sudo ln -s /usr/bin/python3.13 /usr/bin/python
     fi
 
@@ -271,14 +271,14 @@ install_apps() {
     echo "[*] Installing Applicatons..."
 
     # vscode
-    sudo apt-get install wget gpg
+    sudo apt-get install -y wget gpg
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
     echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
     rm -f packages.microsoft.gpg
-    sudo apt install apt-transport-https
+    sudo apt install apt-transport-https -y
     sudo apt update
-    sudo apt install code
+    sudo apt install code -y
 
     # stremio service
     wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
@@ -286,12 +286,12 @@ install_apps() {
     rm stremio-service_amd64.deb
 
     # jetbrains toolbox
-    sudo apt install libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
+    sudo apt install -y libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
     curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash
 
     # rabbitvcs
     sudo apt-get update
-    sudo apt install rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
+    sudo apt install -y rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
 
     finished "install_apps"
     echo "[✔] Success"
@@ -305,8 +305,8 @@ install_flatpack() {
 
     echo "[*] Installing Flatpack..."
 
-    sudo apt install flatpak
-    sudo apt install gnome-software-plugin-flatpak
+    sudo apt install flatpak -y
+    sudo apt install gnome-software-plugin-flatpak -y
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     finished "install_flatpack"
@@ -457,16 +457,16 @@ setup_extensions() {
     echo "[*] Setting up extensions..."
 
     sudo apt install -y ubuntu-restricted-extras
-    sudo apt install git meson
-    sudo apt install libgtk-4-media-gstreamer
-    sudo apt install gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
+    sudo apt install -y git meson
+    sudo apt install -y libgtk-4-media-gstreamer
+    sudo apt install -y gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
 
     wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v68.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     wget https://github.com/hardpixel/unite-shell/releases/download/v82/unite-v82.zip
-    wget https://extensions.gnome.org/extension-data/transparent-top-barftpix.com.v23.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/transparent-top-barftpix.com.v20.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v63.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v68.shell-extension.zip
@@ -501,11 +501,11 @@ setup_ui() {
 
         echo "[*] Setting up UI..."
 
-        sudo apt install gnome-software
-        sudo apt install gnome-shell-extension-manager
-        sudo apt install x11-utils
-        sudo apt install dconf-editor
-        sudo apt install gnome-tweaks
+        sudo apt install gnome-software -y
+        sudo apt install gnome-shell-extension-manager -y
+        sudo apt install x11-utils -y
+        sudo apt install dconf-editor -y
+        sudo apt install gnome-tweaks -y
 
         setup_theme
         setup_cursor
