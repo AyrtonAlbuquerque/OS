@@ -290,6 +290,7 @@ function SetupUI {
         }
         else {
             Install "chanplecai.smarttaskbar"
+            Install "gerardog.gsudo"
             SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
             SetupNilesoft
             SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
