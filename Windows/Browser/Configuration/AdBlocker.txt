@@ -94,9 +94,11 @@ discord.com##.channelNotice__4c43d
 ! Feb 11, 2025 https://hianime.to
 hianime.to###footer-about
 
-! Apr 1, 2025 https://github.com
-github.com##li.source.public:nth-of-type(7)
-github.com##ul.list-style-none:nth-of-type(2) > li.source.public:nth-of-type(2)
+! May 1, 2025 https://www.youtube.com
+www.youtube.com##.ytd-app.style-scope.with-chipbar
+
+! May 1, 2025 https://github.com
 github.com##ul.list-style-none:nth-of-type(2) > .no-description.source.public > .mt-2.d-flex.width-full
+github.com##li.source.public:nth-of-type(7)
 github.com##.height-full.position-relative.loading-context > div > .mt-5.js-repos-container.Details > .js-repos-container > ul.list-style-none:nth-of-type(1) > li.source.public:nth-of-type(5) > .mt-2.d-flex.width-full
 
