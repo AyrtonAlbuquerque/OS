@@ -102,3 +102,6 @@ github.com##ul.list-style-none:nth-of-type(2) > .no-description.source.public > 
 github.com##li.source.public:nth-of-type(7)
 github.com##.height-full.position-relative.loading-context > div > .mt-5.js-repos-container.Details > .js-repos-container > ul.list-style-none:nth-of-type(1) > li.source.public:nth-of-type(5) > .mt-2.d-flex.width-full
 
+! Jun 13, 2025 https://github.com
+github.com##.height-full.position-relative.loading-context > div > .p-md-0.p-2.mt-md-2.mt-0.js-repos-container.Details > .js-repos-container > ul.list-style-none:nth-of-type(1) > li.source.public:nth-of-type(5) > .mt-2.d-flex.width-full
+
