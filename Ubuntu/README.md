@@ -45,9 +45,8 @@ You can download and run the script directly using the command below:
 ```bash
 wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh && \
 zsh setup.sh \
-  --git_user="nama" \
-  --git_email="name@hotmail.com" \
-  --git_credencial="store" \
+  --git_user="ayrton" \
+  --git_email="ayrton_ito@hotmail.com" \
   --python="3.13" \
   --dotnet="9" \
   --java="24" \
