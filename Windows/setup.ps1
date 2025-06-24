@@ -135,7 +135,7 @@ function SetupWSL() {
     
     try {
         if ((OSVersion) -eq 10) {
-            $installer = Download "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" "$env:TEMP\wsl_update_x64.msi"
+            $installer = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/WSL%20Update.msi" "$env:TEMP\wsl_update_x64.msi"
 
             dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
             dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
