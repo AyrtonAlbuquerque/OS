@@ -4,7 +4,7 @@
 
 # ---------------------------------------- Parameters ---------------------------------------- #
 param (
-    [string]$Java = "23",
+    [string]$Java = "24",
     [string]$Python = "3.13",
     [string]$DotNet = "9",
     [string]$Browser = $null,
@@ -426,6 +426,7 @@ function SetupApplications($option) {
             Install "JetBrains.Toolbox"
             Install "TortoiseGit.TortoiseGit"
             Install "Stremio.StremioService"
+            Install "BlastApps.FluentSearch"
             Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
 
