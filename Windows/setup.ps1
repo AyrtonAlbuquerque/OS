@@ -114,10 +114,10 @@ function SetupPowerShell() {
     Install "Microsoft.PowerShell"
     Install "Microsoft.WindowsTerminal"
     Install "JanDeDobbeleer.OhMyPosh"
-    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Terminal/terminal.json" "$env:USERPROFILE\Downloads\terminal.json"
     Execute { pwsh.exe -noprofile -command "Install-Module oh-my-posh -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module posh-git -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force" }
+    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Terminal/terminal.json" "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
     try {
         if (!(Test-Path $PROFILE)) { 
@@ -218,22 +218,24 @@ function SetupWindHawk($url) {
 }
 
 function SetupStart11($url) {
-    Write-Host "---------------------- Installing Start11 ----------------------"
+    if ((OSVersion) -eq 10) {
+        Write-Host "---------------------- Installing Start11 ----------------------"
 
-    try {
-        $start11 = Download $url "$env:TEMP\Start11.exe"
-        $backup = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" "$env:USERPROFILE\Downloads\start11-backup.S11Backup"
-        $image = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
-        $folder = Split-Path $image
+        try {
+            $start11 = Download $url "$env:TEMP\Start11.exe"
+            $backup = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" "$env:USERPROFILE\Downloads\start11-backup.S11Backup"
+            $image = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
+            $folder = Split-Path $image
 
-        if (!(Test-Path $folder)) {
-            New-Item -Path $folder -ItemType Directory -Force | Out-Null
+            if (!(Test-Path $folder)) {
+                New-Item -Path $folder -ItemType Directory -Force | Out-Null
+            }
+
+            Start-Process -FilePath $start11
         }
-
-        Start-Process -FilePath $start11
-    }
-    catch {
-        Write-Warning "✖ Failed Start11 installation: $_"
+        catch {
+            Write-Warning "✖ Failed Start11 installation: $_"
+        }           
     }
 }
 
@@ -293,7 +295,6 @@ function SetupUI {
             Install "gerardog.gsudo"
             SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
             SetupNilesoft
-            SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
             Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7TSP%20Windows%2011.7z" "$env:USERPROFILE\Downloads\7TSP Windows 11.7z"
             Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
         }
@@ -386,13 +387,45 @@ function SetupBrowser($browser) {
 
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" $icon
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" $policies
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
                 Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/AdBlocker.txt" "$env:USERPROFILE\Downloads\AdBlocker.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
                 Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
+
+                $profiles = "$env:APPDATA\zen\Profiles"
+
+                if (Test-Path $profiles) {
+                    $defaultProfile = Get-ChildItem -Path $profiles -Directory | Where-Object { $_.Name -like "*(alpha)" } | Select-Object -First 1
+                    
+                    if ($defaultProfile) {
+                        $chromeFolder = Join-Path $defaultProfile.FullName "chrome"
+                        $zenThemesFolder = Join-Path $chromeFolder "zen-themes"
+                        
+                        if (!(Test-Path $chromeFolder)) {
+                            New-Item -ItemType Directory -Path $chromeFolder -Force | Out-Null
+                        }
+                        
+                        if (!(Test-Path $zenThemesFolder)) {
+                            New-Item -ItemType Directory -Path $zenThemesFolder -Force | Out-Null
+                        }
+                        
+                        $userChromeFile = Join-Path $zenThemesFolder "userChrome.css"
+                        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
+                        
+                        $profileName = $defaultProfile.Name -replace " ", "%20"
+                        $content = "@import url(`"file:///C:/Users/$env:USERNAME/AppData/Roaming/zen/Profiles/$profileName/chrome/zen-themes/userChrome.css`");"
+                        $cssFile = Join-Path $chromeFolder "zen-themes.css"
+                        Set-Content -Path $cssFile -Value $content -Encoding UTF8
+                    }
+                    else {
+                        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
+                    }
+                }
+                else {
+                    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
+                }
             }
             else {
                 Install $browser
@@ -429,6 +462,7 @@ function SetupApplications($option) {
             Install "BlastApps.FluentSearch"
             Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
+            SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
 
             Write-Host "Done! You must restart your computer to apply the changes." 
         }
@@ -456,6 +490,6 @@ SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/
 SetupBrowser $Browser
 SetupUI
 
-Write-Host "Setup completed. Do you wish to install developer tools?"
+Write-Host "Setup completed. Do you wish to install extra tools?"
 $action = Read-Host "(y/n)"
 SetupApplications $action
