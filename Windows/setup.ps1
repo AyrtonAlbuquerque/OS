@@ -394,6 +394,14 @@ function SetupBrowser($browser) {
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
                 Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
 
+                $zen = Join-Path $root "zen.exe"
+
+                if (Test-Path $zen) {
+                    Start-Process -FilePath $zen -WindowStyle Minimized
+                    Start-Sleep -Seconds 5
+                    Get-Process -Name "zen" -ErrorAction SilentlyContinue | Stop-Process -Force
+                }
+
                 $profiles = "$env:APPDATA\zen\Profiles"
 
                 if (Test-Path $profiles) {
@@ -401,23 +409,13 @@ function SetupBrowser($browser) {
                     
                     if ($defaultProfile) {
                         $chromeFolder = Join-Path $defaultProfile.FullName "chrome"
-                        $zenThemesFolder = Join-Path $chromeFolder "zen-themes"
                         
                         if (!(Test-Path $chromeFolder)) {
                             New-Item -ItemType Directory -Path $chromeFolder -Force | Out-Null
                         }
-                        
-                        if (!(Test-Path $zenThemesFolder)) {
-                            New-Item -ItemType Directory -Path $zenThemesFolder -Force | Out-Null
-                        }
-                        
-                        $userChromeFile = Join-Path $zenThemesFolder "userChrome.css"
+
+                        $userChromeFile = Join-Path $chromeFolder "userChrome.css"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
-                        
-                        $profileName = $defaultProfile.Name -replace " ", "%20"
-                        $content = "@import url(`"file:///C:/Users/$env:USERNAME/AppData/Roaming/zen/Profiles/$profileName/chrome/zen-themes/userChrome.css`");"
-                        $cssFile = Join-Path $chromeFolder "zen-themes.css"
-                        Set-Content -Path $cssFile -Value $content -Encoding UTF8
                     }
                     else {
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
