@@ -2,11 +2,8 @@ Zen Setup
     1. Type about:config into your urlbar and go to the page.
     2. Set zen.theme.content-element-separation to 1.
     3. Set zen.workspaces.show-workspace-indicator to false
-    4. Copy the userChrome.css file to your Zen "/chrome/zen-themes" folder
-    5. Open the zen-themes.css in the "/chrome" folder and add the following line to the very end (use %20 for spaces):
-        - @import url("file:///C:/Users/$USER/AppData/Roaming/zen/Profiles/$PROFILE/chrome/zen-themes/userChrome.css");
-    6. Restart Zen.
-    7. Done!
+    4. Copy the userChrome.css file to your Zen "chrome" folder
+    5. Restart Zen.
 
 Infinity New Tab Setup
     1. Open Configurations => Home
