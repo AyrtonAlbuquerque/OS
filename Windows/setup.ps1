@@ -442,7 +442,6 @@ function SetupInsomnia($url) {
         $insomnia = Download $url "$env:TEMP\Insomnia.exe"
 
         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
-        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/index.js" "$env:USERPROFILE\Downloads\index.js"
         Start-Process -FilePath $insomnia -Wait
     }
     catch {

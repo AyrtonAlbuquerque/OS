@@ -192,13 +192,13 @@ install_dotnet() {
 
     echo "[*] Installing .NET..."
     
-    wget https://dot.net/v1/dotnet-install.sh
-    sudo chmod +x ./dotnet-install.sh
+    wget https://dot.net/v1/dotnet-install.sh -O .dotnet-install.sh
+    sudo chmod +x ./.dotnet-install.sh
 
     if [[ -n "$dotnet" ]]; then
-        ./dotnet-install.sh --channel "$dotnet".0 
+        ./.dotnet-install.sh --channel "$dotnet".0
     else
-        ./dotnet-install.sh --channel 9.0 
+        ./.dotnet-install.sh --channel 9.0
     fi
 
     echo 'export PATH="$PATH:$HOME/.dotnet/"' >> ~/.zshrc
@@ -421,7 +421,7 @@ setup_browser() {
     wait $zen_pid 2>/dev/null || true
 
     profiles_dir="$HOME/.zen"
-    
+
     if [[ -d "$profiles_dir" ]]; then
         default_profile=$(find "$profiles_dir" -type d -name "*.default" | head -1)
         
@@ -433,13 +433,10 @@ setup_browser() {
             fi
 
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
-            echo "[*] userChrome.css installed in profile chrome folder"
         else
-            echo "[!] Default profile not found, downloading userChrome.css to Zen folder as fallback"
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
         fi
     else
-        echo "[!] Zen profile directory not found, downloading userChrome.css to Zen folder as fallback"
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
     fi
 
@@ -457,7 +454,6 @@ setup_insomnia() {
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Programs/Insomnia.deb"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Insomnia/Insomnia"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Insomnia/index.js"
 
     sudo dpkg -i Insomnia.deb
     rm Insomnia.deb
