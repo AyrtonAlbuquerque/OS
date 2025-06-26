@@ -158,30 +158,34 @@ install_nvm() {
 }
 
 install_python() {
-    if executed "install_python"; then
-        echo "[✔] Python already installed, skipping"
-        return
-    fi
+    {
+        if executed "install_python"; then
+            echo "[✔] Python already installed, skipping"
+            return
+        fi
 
-    echo "[*] Installing Python..."
-    
-    sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt update
+        echo "[*] Installing Python..."
+        
+        sudo add-apt-repository ppa:deadsnakes/ppa
+        sudo apt update
 
-    if [[ -n "$python" ]]; then
-        sudo apt install python"$python" -y
-        sudo apt install python3-pip -y
-        sudo apt install python"$python"-venv -y
-        sudo ln -s /usr/bin/python"$python" /usr/bin/python
-    else
-        sudo apt install python3.13 -y
-        sudo apt install python3-pip -y
-        sudo apt install python3.13-venv -y
-        sudo ln -s /usr/bin/python3.13 /usr/bin/python
-    fi
+        if [[ -n "$python" ]]; then
+            sudo apt install python"$python" -y
+            sudo apt install python3-pip -y
+            sudo apt install python"$python"-venv -y
+            sudo ln -s /usr/bin/python"$python" /usr/bin/python
+        else
+            sudo apt install python3.13 -y
+            sudo apt install python3-pip -y
+            sudo apt install python3.13-venv -y
+            sudo ln -s /usr/bin/python3.13 /usr/bin/python
+        fi
 
-    finished "install_python"
-    echo "[✔] Success"
+        finished "install_python"
+        echo "[✔] Success" &&
+    } || {
+        echo "[!] Failed to install Python. Most likely reason is that your distribution is not supported by the deadsnakes PPA."
+    }
 }
 
 install_dotnet() {
@@ -496,6 +500,7 @@ setup_extensions() {
     wget https://extensions.gnome.org/extension-data/transparent-top-barftpix.com.v20.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/search-lighticedman.github.com.v37.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v68.shell-extension.zip
@@ -503,6 +508,7 @@ setup_extensions() {
     gnome-extensions install transparent-top-barftpix.com.v20.shell-extension.zip
     gnome-extensions install hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
+    gnome-extensions install search-lighticedman.github.com.v37.shell-extension.zip
 
     git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-47
     cd gnome-ext-hanabi
@@ -516,6 +522,7 @@ setup_extensions() {
     rm hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     rm user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
+    rm search-lighticedman.github.com.v37.shell-extension.zip
 
     finished "setup_extensions"
     echo "[✔] Success"
