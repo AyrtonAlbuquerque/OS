@@ -289,7 +289,7 @@ install_apps() {
     sudo apt install -y libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
     {
         echo "[*] Installing JetBrains Toolbox..."
-        curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash &&
+        curl -fsSL https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Toolbox/toolbox-install.sh | bash &&
     } || {
         echo "[!] Failed to install JetBrains Toolbox"
     }
