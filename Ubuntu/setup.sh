@@ -379,7 +379,6 @@ setup_browser() {
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen/zen.AppImage"
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Applications/zen/firefox.png"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt" -O "$HOME/Zen/Setup.txt"
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Infinity%20New%20Tab.xpi" -O "$HOME/Zen/Infinity New Tab.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
@@ -414,6 +413,35 @@ setup_browser() {
 		Name=Open the Profile Manager
 		Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
 	EOF
+
+    "$HOME/Applications/zen/zen.AppImage" &
+    zen_pid=$!
+    sleep 5
+    kill $zen_pid 2>/dev/null || true
+    wait $zen_pid 2>/dev/null || true
+
+    profiles_dir="$HOME/.zen"
+    
+    if [[ -d "$profiles_dir" ]]; then
+        default_profile=$(find "$profiles_dir" -type d -name "*.default" | head -1)
+        
+        if [[ -n "$default_profile" ]]; then
+            chrome_folder="$default_profile/chrome"
+            
+            if [[ ! -d "$chrome_folder" ]]; then
+                mkdir -p "$chrome_folder"
+            fi
+
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
+            echo "[*] userChrome.css installed in profile chrome folder"
+        else
+            echo "[!] Default profile not found, downloading userChrome.css to Zen folder as fallback"
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
+        fi
+    else
+        echo "[!] Zen profile directory not found, downloading userChrome.css to Zen folder as fallback"
+        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
+    fi
 
     finished "setup_browser"
     echo "[✔] Success"
