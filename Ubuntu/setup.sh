@@ -35,6 +35,7 @@ done
 
 # ----------------------------------------- Markers ----------------------------------------- #
 MARKERS="$HOME/.setup-markers"
+OS_Version=$(lsb_release -rs)
 mkdir -p "$MARKERS"
 
 executed() {
@@ -166,7 +167,10 @@ install_python() {
 
         echo "[*] Installing Python..."
         
-        sudo add-apt-repository ppa:deadsnakes/ppa
+        if [[ "$os_version" =~ ^[0-9]{2}\.04$ ]]; then
+            sudo add-apt-repository ppa:deadsnakes/ppa -y
+        fi
+        
         sudo apt update
 
         if [[ -n "$python" ]]; then
