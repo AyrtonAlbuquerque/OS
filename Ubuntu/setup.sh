@@ -167,7 +167,7 @@ install_python() {
 
         echo "[*] Installing Python..."
         
-        if [[ "$os_version" =~ ^[0-9]{2}\.04$ ]]; then
+        if [[ "$OS_Version" =~ ^[0-9]{2}\.04$ ]]; then
             sudo add-apt-repository ppa:deadsnakes/ppa -y
         fi
         
