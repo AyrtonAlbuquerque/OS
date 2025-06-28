@@ -35,7 +35,6 @@ done
 
 # ----------------------------------------- Markers ----------------------------------------- #
 MARKERS="$HOME/.setup-markers"
-OS_Version=$(lsb_release -rs)
 mkdir -p "$MARKERS"
 
 executed() {
@@ -159,37 +158,38 @@ install_nvm() {
 }
 
 install_python() {
-    {
-        if executed "install_python"; then
-            echo "[✔] Python already installed, skipping"
-            return
-        fi
+    if executed "install_python"; then
+        echo "[✔] Python already installed, skipping"
+        return
+    fi
 
-        echo "[*] Installing Python..."
-        
-        if [[ "$OS_Version" =~ ^[0-9]{2}\.04$ ]]; then
+    echo "[*] Installing Python..."
+
+    if lsb_release -d | grep -q "LTS"; then
+        {
             sudo add-apt-repository ppa:deadsnakes/ppa -y
-        fi
-        
-        sudo apt update
+            sudo apt update &&
+        } || {
+            echo "[!] Failed to install Python. Most likely reason is that your distribution is not supported by the deadsnakes PPA."
+            sudo add-apt-repository --remove ppa:deadsnakes/ppa -y
+            sudo apt update
+        }
+    fi
 
-        if [[ -n "$python" ]]; then
-            sudo apt install python"$python" -y
-            sudo apt install python3-pip -y
-            sudo apt install python"$python"-venv -y
-            sudo ln -s /usr/bin/python"$python" /usr/bin/python
-        else
-            sudo apt install python3.13 -y
-            sudo apt install python3-pip -y
-            sudo apt install python3.13-venv -y
-            sudo ln -s /usr/bin/python3.13 /usr/bin/python
-        fi
+    if [[ -n "$python" ]]; then
+        sudo apt install python"$python" -y
+        sudo apt install python3-pip -y
+        sudo apt install python"$python"-venv -y
+        sudo ln -s /usr/bin/python"$python" /usr/bin/python
+    else
+        sudo apt install python3.13 -y
+        sudo apt install python3-pip -y
+        sudo apt install python3.13-venv -y
+        sudo ln -s /usr/bin/python3.13 /usr/bin/python
+    fi
 
-        finished "install_python"
-        echo "[✔] Success" &&
-    } || {
-        echo "[!] Failed to install Python. Most likely reason is that your distribution is not supported by the deadsnakes PPA."
-    }
+    finished "install_python"
+    echo "[✔] Success"
 }
 
 install_dotnet() {
