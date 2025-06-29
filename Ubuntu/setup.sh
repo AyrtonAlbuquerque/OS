@@ -335,6 +335,7 @@ setup_theme() {
     echo "[*] Setting up theme..."
 
     mkdir -p "$HOME/.themes"
+    mkdir -p "$HOME/.config/gtk-4.0"
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/OneDark.zip" -O OneDark.zip
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
