@@ -337,13 +337,11 @@ setup_theme() {
     mkdir -p "$HOME/.themes"
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/Andromeda.zip"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/One%20Dark.zip" -O OneDark.zip
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/OneDark.zip" -O OneDark.zip
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
 
-    unzip Andromeda.zip -d "$HOME/.themes"
     unzip OneDark.zip -d "$HOME/.themes"
 
-    rm Andromeda.zip
     rm OneDark.zip
 
     finished "setup_theme"
