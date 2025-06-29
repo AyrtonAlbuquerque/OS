@@ -341,6 +341,8 @@ setup_theme() {
 
     unzip OneDark.zip -d "$HOME/.themes"
 
+    cp -r "$HOME/.themes/OneDark/gtk-4.0/"* "$HOME/.config/gtk-4.0/"
+
     rm OneDark.zip
 
     finished "setup_theme"
