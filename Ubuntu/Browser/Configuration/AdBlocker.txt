@@ -76,17 +76,17 @@ www.youtube.com##ytd-mini-guide-renderer.ytd-app.style-scope
 ! Nov 15, 2024 https://outlook.live.com
 outlook.live.com##.IjQyD.iIsOF.lHRXq.kk1xx
 
-! Feb 5, 2025 https://kaa.mx
-kaa.mx##.theme--dark.v-sheet--outlined.v-sheet.v-card
-kaa.mx##.transparent.theme--dark.v-sheet.d-block.mt-10.v-footer
-kaa.mx###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.v-card.v-sheet.v-sheet--outlined.theme--dark:first-child > div.v-card__text.pa-0 > div.v-list.v-sheet.theme--dark.v-list--dense.transparent
-kaa.mx###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.v-card.v-sheet.v-sheet--outlined.theme--dark:first-child
-kaa.mx###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-3.col-12:last-child
-kaa.mx###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > footer.v-footer.mt-10.d-block.v-sheet.theme--dark.transparent:last-child > div.az-list.mb-3:first-child
-kaa.mx###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.latest-update.mt-2:last-child > div.row.mt-0:nth-child(2) > div.col-md-6.col-lg-4.col-12:nth-child(5)
-kaa.mx###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.latest-update.mt-2:last-child > div.row.mt-0:nth-child(2) > div.col-md-6.col-lg-4.col-12:nth-child(11)
-kaa.mx###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.text-center.rs.mt-6:nth-child(2) > div.hide-button
-kaa.mx###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.container.container--fluid:first-child > div.row:nth-child(2) > div.d-flex.flex-column.col-md-3.col-12:last-child > div.episode-list > div.episode-list-container.mt-1.v-card.v-sheet.theme--dark:last-child > div.v-card__text.episode-list-content:last-child > div.row.episode-list-items.pa-3.pt-0.row--dense > div.col.col-12:first-child
+! Feb 5, 2025 https://kaa.to
+kaa.to##.theme--dark.v-sheet--outlined.v-sheet.v-card
+kaa.to##.transparent.theme--dark.v-sheet.d-block.mt-10.v-footer
+kaa.to###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.v-card.v-sheet.v-sheet--outlined.theme--dark:first-child > div.v-card__text.pa-0 > div.v-list.v-sheet.theme--dark.v-list--dense.transparent
+kaa.to###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.v-card.v-sheet.v-sheet--outlined.theme--dark:first-child
+kaa.to###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-3.col-12:last-child
+kaa.to###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > footer.v-footer.mt-10.d-block.v-sheet.theme--dark.transparent:last-child > div.az-list.mb-3:first-child
+kaa.to###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.latest-update.mt-2:last-child > div.row.mt-0:nth-child(2) > div.col-md-6.col-lg-4.col-12:nth-child(5)
+kaa.to###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.latest-update.mt-2:last-child > div.row.mt-0:nth-child(2) > div.col-md-6.col-lg-4.col-12:nth-child(11)
+kaa.to###app > div.v-application--wrap:first-child > main.v-main:last-child > div.v-main__wrap > div.home-page:first-child > div.container.container--fluid > div.row.justify-center > div.col-md-9.col-12:first-child > div.text-center.rs.mt-6:nth-child(2) > div.hide-button
+kaa.to###app > div.v-application--wrap > main.v-main:last-child > div.v-main__wrap > div.container.container--fluid:first-child > div.row:nth-child(2) > div.d-flex.flex-column.col-md-3.col-12:last-child > div.episode-list > div.episode-list-container.mt-1.v-card.v-sheet.theme--dark:last-child > div.v-card__text.episode-list-content:last-child > div.row.episode-list-items.pa-3.pt-0.row--dense > div.col.col-12:first-child
 
 ! Feb 5, 2025 https://discord.com
 discord.com##.channelNotice__4c43d
