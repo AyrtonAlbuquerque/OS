@@ -113,7 +113,8 @@ function SetupPowerShell() {
 
     Install "Microsoft.PowerShell"
     Install "Microsoft.WindowsTerminal"
-    Install "JanDeDobbeleer.OhMyPosh"
+    # Install "JanDeDobbeleer.OhMyPosh"
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
     Execute { pwsh.exe -noprofile -command "Install-Module oh-my-posh -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module posh-git -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force" }
@@ -480,9 +481,9 @@ Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" 
 
 SetupGit $GitUser $GitEmail
 SetupWSL
+SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupPowerShell
 SetupMinGW "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe"
-SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
 SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
 SetupBrowser $Browser
