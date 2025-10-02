@@ -446,7 +446,7 @@ function SetupInsomnia($url) {
         Start-Process -FilePath $insomnia -Wait
 
         $plugin = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Utilities/Insomnia/insomnia-plugin-one-dark-theme.zip" "$env:TEMP\insomnia-plugin-one-dark-theme.zip"
-        $folder = Join-Path $env:LOCALAPPDATA "Roaming\Insomnia\plugins"
+        $folder = Join-Path $env:APPDATA "Insomnia\plugins"
 
         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
         Expand-Archive -Path $plugin -DestinationPath $folder -Force
