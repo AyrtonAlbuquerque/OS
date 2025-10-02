@@ -450,6 +450,8 @@ function SetupInsomnia($url) {
 
         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
         Expand-Archive -Path $theme -DestinationPath $folder -Force
+        git clone "https://github.com/fabiosousapro/insomnia-plugin-query-parameter-tag.git" "$folder\insomnia-plugin-query-parameter-tag"
+        New-Item -ItemType Directory -Path "$folder\insomnia-plugin-save-variables" -Force | Out-Null
     }
     catch {
         Write-Warning "✖ Failed Insomnia installation: $_"
