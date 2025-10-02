@@ -450,7 +450,7 @@ function SetupInsomnia($url) {
 
         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
         Expand-Archive -Path $plugin -DestinationPath $folder -Force
-        git clone "https://github.com/georgeflug/insomnia-plugin-save-variables.git" "$folder\insomnia-plugin-save-variables"
+        New-Item -ItemType Directory -Path "$folder\insomnia-plugin-save-variables" -Force | Out-Null
     }
     catch {
         Write-Warning "✖ Failed Insomnia installation: $_"
@@ -483,6 +483,8 @@ Install "Microsoft.DotNet.SDK.$DotNet"
 Install "Kitware.CMake"
 Install "CoreyButler.NVMforWindows"
 
+Execute { pwsh.exe -noprofile -command "nvm install node" }
+Execute { pwsh.exe -noprofile -command "nvm use node" }
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
 
 SetupGit $GitUser $GitEmail
