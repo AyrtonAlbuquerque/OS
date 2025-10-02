@@ -483,8 +483,6 @@ Install "Microsoft.DotNet.SDK.$DotNet"
 Install "Kitware.CMake"
 Install "CoreyButler.NVMforWindows"
 
-Execute { pwsh.exe -noprofile -command "nvm install node" }
-Execute { pwsh.exe -noprofile -command "nvm use node" }
 Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
 
 SetupGit $GitUser $GitEmail
