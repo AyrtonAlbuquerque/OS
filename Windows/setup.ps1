@@ -445,12 +445,13 @@ function SetupInsomnia($url) {
 
         Start-Process -FilePath $insomnia -Wait
 
-        $plugin = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Utilities/Insomnia/insomnia-plugin-one-dark-theme.zip" "$env:TEMP\insomnia-plugin-one-dark-theme.zip"
+        $theme = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Utilities/Insomnia/insomnia-plugin-one-dark-theme.zip" "$env:TEMP\insomnia-plugin-one-dark-theme.zip"
+        $plugin = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Utilities/Insomnia/insomnia-plugin-save-variables.zip" "$env:TEMP\insomnia-plugin-save-variables.zip"
         $folder = Join-Path $env:APPDATA "Insomnia\plugins"
 
         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Utilities/Insomnia/Insomnia" "$env:USERPROFILE\Downloads\Insomnia"
+        Expand-Archive -Path $theme -DestinationPath $folder -Force
         Expand-Archive -Path $plugin -DestinationPath $folder -Force
-        New-Item -ItemType Directory -Path "$folder\insomnia-plugin-save-variables" -Force | Out-Null
     }
     catch {
         Write-Warning "✖ Failed Insomnia installation: $_"
