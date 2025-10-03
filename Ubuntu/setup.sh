@@ -466,6 +466,12 @@ setup_insomnia() {
     sudo dpkg -i Insomnia.deb
     rm Insomnia.deb
 
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Utilities/Insomnia/insomnia-plugin-one-dark-theme.zip"
+    unzip insomnia-plugin-one-dark-theme.zip -d "$HOME/.config/Insomnia/plugins"
+    rm insomnia-plugin-one-dark-theme.zip
+    git clone "https://github.com/fabiosousapro/insomnia-plugin-query-parameter-tag.git" "$HOME/.config/Insomnia/plugins/insomnia-plugin-query-parameter-tag"
+    mkdir -p "$HOME/.config/Insomnia/plugins/insomnia-plugin-save-variables"
+
     finished "setup_insomnia"
     echo "[✔] Success"
 }
