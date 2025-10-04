@@ -515,6 +515,7 @@ setup_extensions() {
     wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/search-lighticedman.github.com.v37.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/quake-terminaldiegodario88.github.io.v22.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v68.shell-extension.zip
@@ -523,6 +524,7 @@ setup_extensions() {
     gnome-extensions install hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
     gnome-extensions install search-lighticedman.github.com.v37.shell-extension.zip
+    gnome-extensions install quake-terminaldiegodario88.github.io.v22.shell-extension.zip
 
     {
         git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-"$version"
@@ -542,6 +544,7 @@ setup_extensions() {
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
     rm user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
     rm search-lighticedman.github.com.v37.shell-extension.zip
+    rm quake-terminaldiegodario88.github.io.v22.shell-extension.zip
 
     finished "setup_extensions"
     echo "[✔] Success"
