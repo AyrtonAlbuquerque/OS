@@ -492,12 +492,16 @@ setup_terminal() {
 }
 
 setup_extensions() {
+    local version
+
     if executed "setup_extensions"; then
         echo "[✔] Extensions already installed, skipping"
         return
     fi
 
     echo "[*] Setting up extensions..."
+
+    version=$(gnome-shell --version | awk '{print $3}' | cut -d'.' -f1)
 
     sudo apt install -y ubuntu-restricted-extras
     sudo apt install -y git meson
@@ -520,7 +524,12 @@ setup_extensions() {
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
     gnome-extensions install search-lighticedman.github.com.v37.shell-extension.zip
 
-    git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-47
+    {
+        git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-"$version"
+    } || {
+        git clone https://github.com/jeffshee/gnome-ext-hanabi.git
+    }
+
     cd gnome-ext-hanabi
     ./run.sh install
     cd ..
