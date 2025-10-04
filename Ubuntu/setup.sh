@@ -10,7 +10,7 @@ git_email=""
 git_credencial=""
 python="3.13"
 dotnet="9"
-java="24"
+java="25"
 disable_ui=false
 
 for arg in "$@"; do
@@ -232,9 +232,9 @@ install_java() {
         sudo dpkg -i jdk-"$java"_linux-x64_bin.deb
         rm jdk-"$java"_linux-x64_bin.deb
     else
-        wget https://download.oracle.com/java/24/latest/jdk-24_linux-x64_bin.deb
-        sudo dpkg -i jdk-24_linux-x64_bin.deb
-        rm jdk-24_linux-x64_bin.deb
+        wget https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.deb
+        sudo dpkg -i jdk-25_linux-x64_bin.deb
+        rm jdk-25_linux-x64_bin.deb
     fi
 
     JAVA_HOME_PATH=$(dirname $(dirname $(readlink -f $(which javac))))
