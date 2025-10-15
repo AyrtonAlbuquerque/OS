@@ -8,7 +8,7 @@ set -e
 git_user=""
 git_email=""
 git_credencial=""
-python="3.13"
+python="3.14"
 dotnet="9"
 java="25"
 disable_ui=false
