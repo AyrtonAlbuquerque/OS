@@ -378,8 +378,20 @@ setup_browser() {
 
     echo "[*] Setting up browser..."
 
+    sudo add-apt-repository universe
     sudo apt update
-    sudo apt install -y libfuse2t64
+
+    {
+        sudo apt install -y libfuse2
+    } || {
+        echo "[!] Failed to install libfuse2"
+    }
+
+    {
+        sudo apt install -y libfuse2t64
+    } || {
+        echo "[!] Failed to install libfuse2t64"
+    }
 
     mkdir -p "$HOME/Zen"
     mkdir -p "$HOME/Applications"

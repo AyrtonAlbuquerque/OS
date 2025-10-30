@@ -47,7 +47,7 @@ wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Ubuntu/setup.sh
 zsh setup.sh \
   --git_user="ayrton" \
   --git_email="ayrton_ito@hotmail.com" \
-  --python="3.13" \
+  --python="3.14" \
   --dotnet="9" \
   --java="25" \
   --noui
@@ -59,7 +59,7 @@ You can customize the parameters if needed:
 | Parameter         | Description                                 | Default Value               |
 |-------------------|---------------------------------------------|-----------------------------|
 | `--java`          | Java JDK version                            | `25`                        |
-| `--python`        | Python version                              | `3.13`                      |
+| `--python`        | Python version                              | `3.14`                      |
 | `--dotnet`        | .NET SDK version                            | `9`                         |
 | `--git_user`      | Git global username                         | `none`                      |
 | `--git_email`     | Git global email                            | `none`                      |
