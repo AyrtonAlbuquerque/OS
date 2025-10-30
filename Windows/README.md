@@ -38,7 +38,7 @@ The script is hosted in this repository:
 You can download and run the script directly using the command below:
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -Java "25" -Python "3.13" -DotNet "9" -Browser "Zen-Team.Zen-Browser" -GitUser "name" -GitEmail "your@hotmail.com"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -Java "25" -Python "3.14" -DotNet "9" -Browser "Zen-Team.Zen-Browser" -GitUser "name" -GitEmail "your@hotmail.com"
 ```
 
 You can customize the parameters if needed:
@@ -47,7 +47,7 @@ You can customize the parameters if needed:
 | Parameter        | Description                                 | Default Value               |
 |------------------|---------------------------------------------|-----------------------------|
 | `-Java`          | Java JDK version                            | `25`                        |
-| `-Python`        | Python version                              | `3.13`                      |
+| `-Python`        | Python version                              | `3.14`                      |
 | `-DotNet`        | .NET SDK version                            | `9`                         |
 | `-Browser`       | Browser of choice (Winget Id)               | `none`                      |
 | `-GitUser`       | Git global username                         | `none`                      |
