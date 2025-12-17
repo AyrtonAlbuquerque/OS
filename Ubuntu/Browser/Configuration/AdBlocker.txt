@@ -111,3 +111,9 @@ github.com##li.no-description.source.public:nth-of-type(9)
 ! Oct 14, 2025 https://github.com
 github.com##.px-4 > .p-md-0.p-2.mt-md-2.mt-0.js-repos-container.Details > .js-repos-container > .js-dashboard-repos-list.list-style-none > li.source.public:nth-of-type(5) > .mt-2.d-flex.width-full
 
+! Nov 3, 2025 https://github.com
+github.com##.px-4 > .p-md-0.p-2.mt-md-2.mt-0.js-repos-container.Details > .js-repos-container > .js-dashboard-repos-list.list-style-none > li.source.public:nth-of-type(6)
+
+! Dec 17, 2025 https://kickass-anime.ru
+kickass-anime.ru###adOverlay
+
