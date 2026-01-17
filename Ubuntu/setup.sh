@@ -9,7 +9,7 @@ git_user=""
 git_email=""
 git_credencial=""
 python="3.14"
-dotnet="9"
+dotnet="10"
 java="25"
 disable_ui=false
 
@@ -132,9 +132,11 @@ install_zsh() {
 
     if ! grep -q "oh-my-posh init zsh" ~/.zshrc; then
         git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
 
         echo 'eval "$(oh-my-posh init zsh --config ~/.poshthemes/craver.omp.json)"' >> ~/.zshrc
         echo 'source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
+        echo 'source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
         source ~/.zshrc
     fi
 

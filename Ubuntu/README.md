@@ -48,7 +48,7 @@ zsh setup.sh \
   --git_user="ayrton" \
   --git_email="ayrton_ito@hotmail.com" \
   --python="3.14" \
-  --dotnet="9" \
+  --dotnet="10" \
   --java="25" \
   --noui
 ```
@@ -56,15 +56,15 @@ zsh setup.sh \
 You can customize the parameters if needed:
 
 ### 🧠 Available Parameters:
-| Parameter         | Description                                 | Default Value               |
-|-------------------|---------------------------------------------|-----------------------------|
-| `--java`          | Java JDK version                            | `25`                        |
-| `--python`        | Python version                              | `3.14`                      |
-| `--dotnet`        | .NET SDK version                            | `9`                         |
-| `--git_user`      | Git global username                         | `none`                      |
-| `--git_email`     | Git global email                            | `none`                      |
-| `--git_credencial`| Git credential                              | `none`                      |
-| `--noui`          | Skips UI related settings (WSL2 setup)      | `none`                      |
+| Parameter          | Description                            | Default Value |
+| ------------------ | -------------------------------------- | ------------- |
+| `--java`           | Java JDK version                       | `25`          |
+| `--python`         | Python version                         | `3.14`        |
+| `--dotnet`         | .NET SDK version                       | `10`          |
+| `--git_user`       | Git global username                    | `none`        |
+| `--git_email`      | Git global email                       | `none`        |
+| `--git_credencial` | Git credential                         | `none`        |
+| `--noui`           | Skips UI related settings (WSL2 setup) | `none`        |
 
 ---
 

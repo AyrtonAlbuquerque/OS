@@ -6,7 +6,7 @@
 param (
     [string]$Java = "25",
     [string]$Python = "3.14",
-    [string]$DotNet = "9",
+    [string]$DotNet = "10",
     [string]$Browser = $null,
     [string]$GitUser = $null,
     [string]$GitEmail = $null
