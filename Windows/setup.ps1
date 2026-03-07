@@ -248,12 +248,14 @@ function SetupNilesoft {
         $imports = "$env:ProgramFiles\Nilesoft Shell\imports"
         $shell = Join-Path $root "shell.nss"
         $theme = Join-Path $imports "theme.nss"
+        $modify = Join-Path $imports "modify.nss"
 
         Install "Nilesoft.Shell"
 
         if ((Test-Path $root)) {
             Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/shell.nss" $shell
             Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/theme.nss" $theme
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nilesoft/modify.nss" $modify
         }
     }
     catch {
