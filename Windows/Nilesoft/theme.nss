@@ -5,7 +5,7 @@
 	background
 	{
 		color=auto
-		opacity=3
+		opacity=25
 		effect=3
 	}
 	image.align=2
