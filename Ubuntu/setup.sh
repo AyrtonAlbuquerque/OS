@@ -522,43 +522,43 @@ setup_extensions() {
     sudo apt install -y libgtk-4-media-gstreamer
     sudo apt install -y gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
 
-    wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v68.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
-    wget https://github.com/hardpixel/unite-shell/releases/download/v82/unite-v82.zip
-    wget https://extensions.gnome.org/extension-data/transparent-top-barftpix.com.v20.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/search-lighticedman.github.com.v37.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/quake-terminaldiegodario88.github.io.v22.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v47.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/unitehardpixel.eu.v72.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/transparent-top-barftpix.com.v16.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/search-lighticedman.github.com.v17.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/quake-terminaldiegodario88.github.io.v17.shell-extension.zip
     
-    gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
-    gnome-extensions install blur-my-shellaunetx.v68.shell-extension.zip
-    gnome-extensions install unite-v82.zip
-    gnome-extensions install transparent-top-barftpix.com.v20.shell-extension.zip
-    gnome-extensions install hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
-    gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
-    gnome-extensions install search-lighticedman.github.com.v37.shell-extension.zip
-    gnome-extensions install quake-terminaldiegodario88.github.io.v22.shell-extension.zip
+    gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
+    gnome-extensions install blur-my-shellaunetx.v47.shell-extension.zip
+    gnome-extensions install unitehardpixel.eu.v72.shell-extension.zip
+    gnome-extensions install transparent-top-barftpix.com.v16.shell-extension.zip
+    gnome-extensions install hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
+    gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
+    gnome-extensions install search-lighticedman.github.com.v17.shell-extension.zip
+    gnome-extensions install quake-terminaldiegodario88.github.io.v17.shell-extension.zip
 
-    {
-        git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b gnome-"$version"
-    } || {
+    if [ "$version" -le 44 ]; then
+        git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b legacy
+    else
         git clone https://github.com/jeffshee/gnome-ext-hanabi.git
-    }
+    fi
 
     cd gnome-ext-hanabi
     ./run.sh install
     cd ..
 
-    rm unite-v82.zip
+    rm unitehardpixel.eu.v72.shell-extension.zip
     rm -rf gnome-ext-hanabi
-    rm blur-my-shellaunetx.v68.shell-extension.zip
-    rm transparent-top-barftpix.com.v20.shell-extension.zip
-    rm hidetopbarmathieu.bidon.ca.v119.shell-extension.zip
-    rm compiz-alike-magic-lamp-effecthermes83.github.com.v21.shell-extension.zip
-    rm user-themegnome-shell-extensions.gcampax.github.com.v60.shell-extension.zip
-    rm search-lighticedman.github.com.v37.shell-extension.zip
-    rm quake-terminaldiegodario88.github.io.v22.shell-extension.zip
+    rm blur-my-shellaunetx.v47.shell-extension.zip
+    rm transparent-top-barftpix.com.v16.shell-extension.zip
+    rm hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
+    rm compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
+    rm user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
+    rm search-lighticedman.github.com.v17.shell-extension.zip
+    rm quake-terminaldiegodario88.github.io.v17.shell-extension.zip
 
     finished "setup_extensions"
     echo "[✔] Success"
