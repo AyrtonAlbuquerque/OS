@@ -105,7 +105,7 @@ function SetupGit($name, $email) {
 
 function SetupPowerShell() {
     $configuration = @(
-        'oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\craver.omp.json" | Invoke-Expression',
+        'oh-my-posh init pwsh --config "craver" | Invoke-Expression',
         'Import-Module posh-git',
         'Set-PSReadLineOption -PredictionSource History',
         'Set-PSReadLineOption -PredictionViewStyle ListView'
@@ -113,8 +113,8 @@ function SetupPowerShell() {
 
     Install "Microsoft.PowerShell"
     Install "Microsoft.WindowsTerminal"
-    # Install "JanDeDobbeleer.OhMyPosh"
-    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+    Install "JanDeDobbeleer.OhMyPosh"
+    # Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
     Execute { pwsh.exe -noprofile -command "Install-Module oh-my-posh -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module posh-git -Force" }
     Execute { pwsh.exe -noprofile -command "Install-Module PSReadLine -Force" }
