@@ -153,6 +153,7 @@ install_nvm() {
     echo "[*] Installing NVM..."
     
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+    source ~/.zshrc
     nvm install node
     npm install -g @microsoft/inshellisense
     is init zsh >> ~/.zshrc
