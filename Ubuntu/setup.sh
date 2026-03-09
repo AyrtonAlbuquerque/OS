@@ -500,6 +500,11 @@ setup_terminal() {
 
     gnome-terminal --geometry=192x26+0+0 &
     wget https://raw.githubusercontent.com/safesintesi/terminal-guillotine/main/guillotine.sh -qO- | bash
+    sudo apt install guake
+    sudo add-apt-repository ppa:linuxuprising/guake
+    wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/guake.cfg
+    guake --restore-preferences=guake.cfg
+    rm guake.cfg
 
     finished "setup_terminal"
     echo "[✔] Success"
@@ -529,7 +534,7 @@ setup_extensions() {
     wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/search-lighticedman.github.com.v17.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/quake-terminaldiegodario88.github.io.v17.shell-extension.zip
+    # wget https://extensions.gnome.org/extension-data/quake-terminaldiegodario88.github.io.v17.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v47.shell-extension.zip
@@ -538,7 +543,7 @@ setup_extensions() {
     gnome-extensions install hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
     gnome-extensions install search-lighticedman.github.com.v17.shell-extension.zip
-    gnome-extensions install quake-terminaldiegodario88.github.io.v17.shell-extension.zip
+    # gnome-extensions install quake-terminaldiegodario88.github.io.v17.shell-extension.zip
 
     if [ "$version" -le 44 ]; then
         git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b legacy
@@ -558,7 +563,7 @@ setup_extensions() {
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
     rm user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
     rm search-lighticedman.github.com.v17.shell-extension.zip
-    rm quake-terminaldiegodario88.github.io.v17.shell-extension.zip
+    # rm quake-terminaldiegodario88.github.io.v17.shell-extension.zip
 
     finished "setup_extensions"
     echo "[✔] Success"
