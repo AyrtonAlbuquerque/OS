@@ -153,6 +153,9 @@ install_nvm() {
     echo "[*] Installing NVM..."
     
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+    nvm install node
+    npm install -g @microsoft/inshellisense
+    is init zsh >> ~/.zshrc
     source ~/.zshrc
 
     finished "install_nvm"
@@ -502,6 +505,7 @@ setup_terminal() {
     wget https://raw.githubusercontent.com/safesintesi/terminal-guillotine/main/guillotine.sh -qO- | bash
     sudo apt install guake
     sudo add-apt-repository ppa:linuxuprising/guake
+    sudo apt update && sudo apt upgrade -y
     wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/guake.cfg
     guake --restore-preferences=guake.cfg
     rm guake.cfg
