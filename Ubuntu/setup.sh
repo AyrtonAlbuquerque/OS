@@ -503,7 +503,7 @@ setup_terminal() {
 
     gnome-terminal --geometry=192x26+0+0 &
     wget https://raw.githubusercontent.com/safesintesi/terminal-guillotine/main/guillotine.sh -qO- | bash
-    sudo apt install guake
+    sudo apt install guake -y
     sudo add-apt-repository ppa:linuxuprising/guake
     sudo apt update && sudo apt upgrade -y
     wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/guake.cfg
