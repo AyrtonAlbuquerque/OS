@@ -532,7 +532,6 @@ setup_extensions() {
 
     wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v47.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
-    wget https://extensions.gnome.org/extension-data/unitehardpixel.eu.v72.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/transparent-top-barftpix.com.v16.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
@@ -541,7 +540,6 @@ setup_extensions() {
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v47.shell-extension.zip
-    gnome-extensions install unitehardpixel.eu.v72.shell-extension.zip
     gnome-extensions install transparent-top-barftpix.com.v16.shell-extension.zip
     gnome-extensions install hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
@@ -550,15 +548,20 @@ setup_extensions() {
 
     if [ "$version" -le 44 ]; then
         git clone https://github.com/jeffshee/gnome-ext-hanabi.git -b legacy
+        wget https://extensions.gnome.org/extension-data/unitehardpixel.eu.v72.shell-extension.zip
+        gnome-extensions install unitehardpixel.eu.v72.shell-extension.zip
+        rm unitehardpixel.eu.v72.shell-extension.zip
     else
         git clone https://github.com/jeffshee/gnome-ext-hanabi.git
+        wget https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip
+        gnome-extensions install --force unite-v84.zip
+        rm unite-v84.zip
     fi
 
     cd gnome-ext-hanabi
     ./run.sh install
     cd ..
 
-    rm unitehardpixel.eu.v72.shell-extension.zip
     rm -rf gnome-ext-hanabi
     rm blur-my-shellaunetx.v47.shell-extension.zip
     rm transparent-top-barftpix.com.v16.shell-extension.zip
