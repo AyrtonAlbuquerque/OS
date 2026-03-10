@@ -536,6 +536,7 @@ setup_extensions() {
     wget https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/search-lighticedman.github.com.v17.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/dash2dock-liteicedman.github.com.v83.shell-extension.zip
     # wget https://extensions.gnome.org/extension-data/quake-terminaldiegodario88.github.io.v17.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
@@ -544,6 +545,7 @@ setup_extensions() {
     gnome-extensions install hidetopbarmathieu.bidon.ca.v114.shell-extension.zip
     gnome-extensions install user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
     gnome-extensions install search-lighticedman.github.com.v17.shell-extension.zip
+    gnome-extensions install dash2dock-liteicedman.github.com.v83.shell-extension.zip
     # gnome-extensions install quake-terminaldiegodario88.github.io.v17.shell-extension.zip
 
     if [ "$version" -le 44 ]; then
@@ -569,6 +571,7 @@ setup_extensions() {
     rm compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
     rm user-themegnome-shell-extensions.gcampax.github.com.v49.shell-extension.zip
     rm search-lighticedman.github.com.v17.shell-extension.zip
+    rm dash2dock-liteicedman.github.com.v83.shell-extension.zip
     # rm quake-terminaldiegodario88.github.io.v17.shell-extension.zip
 
     finished "setup_extensions"
