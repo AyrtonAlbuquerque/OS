@@ -591,6 +591,7 @@ setup_ydotool() {
     echo "[*] Installing ydotool"
 
     sudo apt update && sudo apt install -y scdoc pkg-config
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/ubuntu-icon.png" -O "$HOME/.icons/ubuntu-icon.png"
 
     git clone https://github.com/ReimuNotMoe/ydotool.git "$ydotooldir/ydotool"
 
@@ -658,7 +659,7 @@ EOF
         Name=Applications
         Comment=Open Applications Grid
         Exec=$HOME/.local/bin/show-apps
-        Icon=view-app-grid-symbolic
+        Icon=$HOME/.icons/ubuntu-icon.png
         Terminal=false
         Categories=Utility;
         StartupNotify=false
