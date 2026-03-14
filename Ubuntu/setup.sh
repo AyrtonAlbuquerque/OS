@@ -578,6 +578,98 @@ setup_extensions() {
     echo "[✔] Success"
 }
 
+setup_ydotool() {
+    if executed "setup_ydotool"; then
+        echo "[✔] ydotool already installed, skipping"
+        return
+    fi
+
+    local user="$(whoami)"
+    local ydotooldir="$(mktemp -d)"
+    local socket="/run/ydotoold/ydotool.sock"
+    
+    echo "[*] Installing ydotool"
+
+    sudo apt update && sudo apt install -y scdoc pkg-config
+
+    git clone https://github.com/ReimuNotMoe/ydotool.git "$ydotooldir/ydotool"
+
+    (
+        cd "$ydotooldir/ydotool"
+        mkdir build
+        cd build
+        cmake ..
+        make -j "$(nproc)"
+        sudo make install
+    )
+
+    rm -rf "$ydotooldir"
+    sudo usermod -aG input "$user"
+
+    if [[ ! -f /etc/modules-load.d/uinput.conf ]] || ! grep -q '^uinput' /etc/modules-load.d/uinput.conf; then
+        echo 'uinput' | sudo tee /etc/modules-load.d/uinput.conf > /dev/null
+    fi
+
+    sudo modprobe uinput 2>/dev/null || true
+    sudo tee /etc/udev/rules.d/60-uinput.rules > /dev/null <<-'UDEV'
+	KERNEL=="uinput", GROUP="input", MODE="0660"
+UDEV
+    sudo udevadm control --reload-rules 
+    sudo udevadm trigger 
+    sudo tee /etc/systemd/system/ydotoold.service > /dev/null <<-EOF
+        [Unit]
+        Description=ydotool input-automation daemon
+        Documentation=man:ydotoold(8)
+        After=local-fs.target
+
+        [Service]
+        User=${user}
+        Group=input
+        RuntimeDirectory=ydotoold
+        RuntimeDirectoryMode=0750
+        ExecStart=/usr/local/bin/ydotoold --socket-path=${socket}
+        Restart=on-failure
+        RestartSec=3
+
+        [Install]
+        WantedBy=multi-user.target
+EOF
+
+    sudo systemctl daemon-reload 
+    sudo systemctl enable ydotoold.service 
+    sudo systemctl restart ydotoold.service 
+    sleep 2 
+
+    echo "export YDOTOOL_SOCKET=\"${socket}\"" >> "$HOME/.bashrc" 
+    echo "export YDOTOOL_SOCKET=\"${socket}\"" >> "$HOME/.zshrc" 
+
+    export YDOTOOL_SOCKET="${socket}"
+
+    install -Dm755 /dev/stdin "$HOME/.local/bin/show-apps" <<-'EOF'
+        #!/usr/bin/env bash
+        export YDOTOOL_SOCKET="/run/ydotoold/ydotool.sock"
+        exec /usr/local/bin/ydotool key 125:1 30:1 30:0 125:0
+EOF
+
+    install -Dm644 /dev/stdin "$HOME/.local/share/applications/show-apps.desktop" <<-EOF
+        [Desktop Entry]
+        Version=1.0
+        Type=Application
+        Name=Applications
+        Comment=Open Applications Grid
+        Exec=$HOME/.local/bin/show-apps
+        Icon=view-app-grid-symbolic
+        Terminal=false
+        Categories=Utility;
+        StartupNotify=false
+EOF
+
+    update-desktop-database "$HOME/.local/share/applications" || true
+
+    finished "setup_ydotool"
+    echo "[✔] Success"
+}
+
 setup_ui() {
     if [ "$disable_ui" = false ]; then
         if executed "setup_ui"; then
@@ -599,6 +691,7 @@ setup_ui() {
         setup_insomnia
         setup_terminal
         setup_extensions
+        setup_ydotool
 
         install_flatpack
         install_apps
