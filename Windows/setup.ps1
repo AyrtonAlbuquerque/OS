@@ -240,6 +240,23 @@ function SetupStart11($url) {
     }
 }
 
+function SetupNexus {
+    if ((OSVersion) -eq 10) {
+        Write-Host "---------------------- Installing NexusDock ----------------------"
+
+        try {
+            Install "WinStep.Nexus"
+
+            $backup = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nexus/nexus-backup.wbk" "$env:USERPROFILE\Downloads\nexus-backup.wbk"
+            $image = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Nexus/Windows10.png?download=" "$env:USERPROFILE\Pictures\Windows10.png"
+
+        }
+        catch {
+            Write-Warning "✖ Failed NexusDock installation: $_"
+        }           
+    }
+}
+
 function SetupNilesoft {
     Write-Host "---------------------- Installing Nilesoft ----------------------"
 
@@ -471,6 +488,7 @@ function SetupApplications($option) {
             Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
             SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
+            SetupNexus
 
             Write-Host "Done! You must restart your computer to apply the changes." 
         }
