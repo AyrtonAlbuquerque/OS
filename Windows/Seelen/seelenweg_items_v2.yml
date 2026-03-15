@@ -13,14 +13,14 @@ center:
   windows: []
   pinDisabled: false
 - type: Pinned
-  id: 1ae926e6-4084-46c5-ab33-9b815ac017b6
+  id: 3f404f19-7bf6-420c-be52-55f859c88be6
   subtype: App
   umid: F0DC299D809B9700
   path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Zen Browser.lnk
-  relaunchProgram: C:\Program Files\Zen Browser\zen.exe
-  relaunchArgs: ''
+  relaunchProgram: C:\Windows\explorer.exe
+  relaunchArgs: shell:AppsFolder\F0DC299D809B9700
   relaunchIn: null
-  displayName: Zen Browser.lnk
+  displayName: Zen Browser
   windows: []
   pinDisabled: false
 - type: Pinned
