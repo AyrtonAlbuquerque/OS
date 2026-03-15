@@ -246,13 +246,35 @@ function SetupNexus {
 
         try {
             Install "WinStep.Nexus"
-
-            $backup = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nexus/nexus-backup.wbk" "$env:USERPROFILE\Downloads\nexus-backup.wbk"
-            $image = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Nexus/Windows10.png?download=" "$env:USERPROFILE\Pictures\Windows10.png"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Nexus/nexus-backup.wbk" "$env:USERPROFILE\Downloads\nexus-backup.wbk"
+            Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Nexus/Windows10.png?download=" "$env:USERPROFILE\Pictures\Windows10.png"
 
         }
         catch {
             Write-Warning "✖ Failed NexusDock installation: $_"
+        }           
+    }
+}
+
+function SetupSeelen {
+    if ((OSVersion) -eq 10) {
+        Write-Host "---------------------- Installing Seelen ----------------------"
+
+        try {
+            Install "Seelen.SeelenUI"
+
+            $script = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Seelen/start.vbs" "$env:USERPROFILE\start.vbs"
+            $icon = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Seelen/Windows10.ico?download=" "$env:USERPROFILE\Pictures\Windows10.ico"
+            $shell = New-Object -ComObject WScript.Shell
+            $shortcut = $shell.CreateShortcut("$env:USERPROFILE\Desktop\Start.lnk")
+            $shortcut.TargetPath = "wscript.exe"
+            $shortcut.Arguments = "`"$script`""
+            $shortcut.IconLocation = "$icon,0"
+            $shortcut.Save()
+
+        }
+        catch {
+            Write-Warning "✖ Failed Seelen installation: $_"
         }           
     }
 }
@@ -488,7 +510,7 @@ function SetupApplications($option) {
             Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
             SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
-            SetupNexus
+            SetupSeelen
 
             Write-Host "Done! You must restart your computer to apply the changes." 
         }
