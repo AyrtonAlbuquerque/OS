@@ -261,16 +261,32 @@ function SetupSeelen {
         Write-Host "---------------------- Installing Seelen ----------------------"
 
         try {
+            $root = "$env:APPDATA\com.seelen.seelen-ui"
+            $themes = Join-Path $root "themes"
+
+            if (!(Test-Path $root)) {
+                New-Item -ItemType Directory -Path $root -Force | Out-Null
+            }
+
+            if (!(Test-Path $themes)) {
+                New-Item -ItemType Directory -Path $themes -Force | Out-Null
+            }
+
             Install "Seelen.SeelenUI"
 
             $script = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Seelen/start.vbs" "$env:USERPROFILE\start.vbs"
             $icon = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Seelen/Windows10.ico?download=" "$env:USERPROFILE\Pictures\Windows10.ico"
             $shell = New-Object -ComObject WScript.Shell
-            $shortcut = $shell.CreateShortcut("$env:USERPROFILE\Desktop\Start.lnk")
+            $shortcut = $shell.CreateShortcut("$env:USERPROFILE\Start.lnk")
             $shortcut.TargetPath = "wscript.exe"
             $shortcut.Arguments = "`"$script`""
             $shortcut.IconLocation = "$icon,0"
             $shortcut.Save()
+
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Seelen/settings.json" "$root\settings.json"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Seelen/seelenweg_items_v2.yml" "$root\seelenweg_items_v2.yml"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Seelen/ccc6f1a0-54a6-429c-9689-e55c46e5bf13.slu" "$themes\ccc6f1a0-54a6-429c-9689-e55c46e5bf13.slu"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Seelen/95493b72-90e9-45f5-a3cb-5059ebd90333.slu" "$themes\95493b72-90e9-45f5-a3cb-5059ebd90333.slu"
 
         }
         catch {
