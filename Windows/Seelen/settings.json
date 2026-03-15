@@ -1,0 +1,116 @@
+{
+  "activeIconPacks": [
+    "@system/icon-pack"
+  ],
+  "activeThemes": [
+    "@default/theme",
+    "@eythaann/dock-wave-animation",
+    "@nynele/transparent-dock"
+  ],
+  "byTheme": {
+    "@eythaann/dock-wave-animation": {
+      "--dock-item-zoom-size": "44px"
+    }
+  },
+  "byWallpaper": {},
+  "byWidget": {
+    "@seelen/fancy-toolbar": {
+      "delayToHide": 800,
+      "delayToShow": 100,
+      "enabled": false,
+      "height": 30,
+      "hideMode": "Never",
+      "position": "Top"
+    },
+    "@seelen/launcher": {
+      "enabled": false,
+      "monitor": "MouseOver",
+      "runners": [
+        {
+          "id": "RUN",
+          "label": "t:app_launcher.runners.explorer",
+          "program": "explorer.exe",
+          "readonly": true
+        },
+        {
+          "id": "CMD",
+          "label": "t:app_launcher.runners.cmd",
+          "program": "cmd.exe",
+          "readonly": true
+        }
+      ]
+    },
+    "@seelen/wallpaper-manager": {
+      "backgroundsV2": [],
+      "enabled": false,
+      "interval": 60,
+      "randomize": false
+    },
+    "@seelen/weg": {
+      "delayToHide": 150,
+      "delayToShow": 0,
+      "enabled": true,
+      "hideMode": "OnOverlap",
+      "margin": 0,
+      "mode": "MinContent",
+      "padding": 8,
+      "pinnedItemsVisibility": "Always",
+      "position": "Bottom",
+      "showEndTask": false,
+      "showInstanceCounter": false,
+      "showWindowTitle": false,
+      "size": 36,
+      "spaceBetweenItems": 8,
+      "temporalItemsVisibility": "All",
+      "thumbnailGenerationEnabled": true,
+      "visibleSeparators": false,
+      "zoomSize": 70
+    },
+    "@seelen/window-manager": {
+      "animations": {
+        "durationMs": 200,
+        "easeFunction": "EaseOut",
+        "enabled": false
+      },
+      "autoStackingByCategory": true,
+      "border": {
+        "enabled": true,
+        "offset": 0.0,
+        "width": 3.0
+      },
+      "defaultLayout": "@default/wm-bspwm",
+      "enabled": false,
+      "floating": {
+        "height": 500.0,
+        "width": 800.0
+      },
+      "resizeDelta": 10.0,
+      "workspaceGap": 10,
+      "workspaceMargin": {
+        "bottom": 0,
+        "left": 0,
+        "right": 0,
+        "top": 0
+      },
+      "workspacePadding": 10
+    }
+  },
+  "dateFormat": "ddd D MMM, hh:mm A",
+  "devTools": true,
+  "drpc": false,
+  "language": "en",
+  "monitorsV3": {
+    "NOEDID_80EE_BEEF_00000000_00020000_0": {
+      "byWidget": {}
+    }
+  },
+  "oldActiveThemes": [],
+  "performanceMode": {
+    "default": "Disabled",
+    "onBattery": "Minimal",
+    "onEnergySaver": "Extreme"
+  },
+  "updater": {
+    "channel": "Release"
+  }
+}

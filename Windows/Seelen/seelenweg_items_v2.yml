@@ -1,0 +1,70 @@
+isReorderDisabled: false
+left: []
+center:
+- type: Pinned
+  id: ce50ad72-c1ad-4595-8ee3-02a3268de024
+  subtype: App
+  umid: null
+  path: C:\Users\ayrton\Start.lnk
+  relaunchProgram: C:\Windows\system32\wscript.exe
+  relaunchArgs: '"C:\Users\ayrton\start.vbs"'
+  relaunchIn: null
+  displayName: Start.lnk
+  windows: []
+  pinDisabled: false
+- type: Pinned
+  id: 1ae926e6-4084-46c5-ab33-9b815ac017b6
+  subtype: App
+  umid: F0DC299D809B9700
+  path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Zen Browser.lnk
+  relaunchProgram: C:\Program Files\Zen Browser\zen.exe
+  relaunchArgs: ''
+  relaunchIn: null
+  displayName: Zen Browser.lnk
+  windows: []
+  pinDisabled: false
+- type: Pinned
+  id: 255a11c2-4dee-4a7f-b076-fa05372ef2b1
+  subtype: App
+  umid: null
+  path: C:\Windows\explorer.exe
+  relaunchProgram: C:\Windows\explorer.exe
+  relaunchArgs: null
+  relaunchIn: null
+  displayName: Explorer
+  windows: []
+  pinDisabled: false
+- type: Pinned
+  id: c7a0a51f-1dc4-47c4-b34b-ab64f180a7f4
+  subtype: App
+  umid: Microsoft.WindowsTerminal_8wekyb3d8bbwe!App
+  path: C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.24.10621.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe
+  relaunchProgram: C:\Windows\explorer.exe
+  relaunchArgs: shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App
+  relaunchIn: null
+  displayName: Terminal
+  windows: []
+  pinDisabled: false
+- type: Pinned
+  id: cf32c70a-49b1-4d33-8231-d9a8e781fc94
+  subtype: App
+  umid: Microsoft.VisualStudioCode
+  path: C:\Users\ayrton\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk
+  relaunchProgram: C:\Windows\explorer.exe
+  relaunchArgs: shell:AppsFolder\Microsoft.VisualStudioCode
+  relaunchIn: null
+  displayName: Visual Studio Code
+  windows: []
+  pinDisabled: false
+- type: Pinned
+  id: a0d38e1f-1163-4d6e-b158-14a9e932e77d
+  subtype: App
+  umid: null
+  path: C:\Users\ayrton\AppData\Local\insomnia\app-2022.6.0\Insomnia.exe
+  relaunchProgram: C:\Users\ayrton\AppData\Local\insomnia\app-2022.6.0\Insomnia.exe
+  relaunchArgs: null
+  relaunchIn: null
+  displayName: Insomnia
+  windows: []
+  pinDisabled: false
+right: []
