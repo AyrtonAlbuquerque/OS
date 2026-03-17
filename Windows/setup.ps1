@@ -295,6 +295,33 @@ function SetupSeelen {
     }
 }
 
+function SetupDockFinder {
+    if ((OSVersion) -eq 10) {
+        Write-Host "---------------------- Installing DockFinder ----------------------"
+
+        try {
+            $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/DockFinder/MyDockFinder.zip" "$env:TEMP\MyDockFinder.zip"
+            $folder = "$env:ProgramFiles"
+            $root = Join-Path $folder "MyDockFinder"
+            $exe = Join-Path $root "Dock_64.exe"
+
+            if (!(Test-Path $folder)) {
+                New-Item -Path $folder -ItemType Directory -Force | Out-Null
+            }
+
+            Expand-Archive -Path $zip -DestinationPath $folder -Force
+
+            if (Test-Path $exe) {
+                Start-Process -FilePath $exe -WindowStyle Minimized
+            }
+
+        }
+        catch {
+            Write-Warning "✖ Failed DockFinder installation: $_"
+        }           
+    }
+}
+
 function SetupNilesoft {
     Write-Host "---------------------- Installing Nilesoft ----------------------"
 
@@ -526,7 +553,7 @@ function SetupApplications($option) {
             Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
             SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
-            SetupSeelen
+            SetupDockFinder
 
             Write-Host "Done! You must restart your computer to apply the changes." 
         }
