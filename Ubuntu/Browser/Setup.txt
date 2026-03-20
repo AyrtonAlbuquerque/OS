@@ -5,8 +5,9 @@ Zen Setup
     4. Set zen.urlbar.replace-newtab to false (newer versions)
     5. Set browser.tabs.closeWindowWithLastTab to true (newer versions)
     6. Set zen.view.show-clear-tabs-button to false (newer versions)
-    7. Copy the userChrome.css file to your Zen "chrome" folder
-    8. Restart Zen.
+    7. Set zen.view.compact.show-background-tab-toast to false (newer version)
+    8. Copy the userChrome.css file to your Zen "chrome" folder
+    9. Restart Zen.
 
 Infinity New Tab Setup
     1. Open Configurations => Home
