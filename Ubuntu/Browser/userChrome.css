@@ -26,6 +26,10 @@
   display: none !important;
 }
 
+vbox.zen-workspace-tabs-section.zen-current-workspace-indicator {
+    display: none !important;
+}
+
 @-moz-document url-prefix("chrome:") {
 
   /* Remove Rounded Corners */
