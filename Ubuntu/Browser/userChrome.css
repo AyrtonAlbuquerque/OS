@@ -1,6 +1,9 @@
 /* Side Panel */
 #titlebar {
   outline: none !important;
+  margin-left: -5px !important;
+  border: solid 5px rgb(40, 44, 52) !important;
+  border-radius: 15px !important;
   background-color: rgb(40, 44, 52) !important;
 }
 
@@ -18,7 +21,7 @@
 
 /* Browser Window */
 #tabbrowser-tabpanels {
-  padding-bottom: 0 !important;
+  padding: 0 !important;
 }
 
 /* Status Panel */
@@ -55,6 +58,8 @@ vbox.zen-workspace-tabs-section.zen-current-workspace-indicator {
   .titlebar-close {
     display: none;
   }
+
+  .pinned-tabs-container-separator { display: none !important; }
 
   /* Hide Extension Name */
   #urlbar #identity-box.extensionPage #identity-icon-label {
