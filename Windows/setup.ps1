@@ -461,17 +461,17 @@ function SetupBrowser($browser) {
             if ($browser -eq "Zen-Team.Zen-Browser") {
                 $root = "${env:ProgramFiles}\Zen Browser"
                 $icon = Join-Path $root "firefox.ico"
-                $distribution = Join-Path $root "distribution"
+                $distribution = Join-Path $root "_distribution"
                 $policies = Join-Path $distribution "policies.json"
 
-                Install $browser "1.0.1-a.22"
+                Install $browser #"1.0.1-a.22"
 
                 if (!(Test-Path $distribution)) {
                     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
                 }
 
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" $icon
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" $policies
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/_distribution/policies.json" $policies
                 Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
                 Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Enhancer%20For%20Youtube.xpi" "$env:USERPROFILE\Downloads\Enhancer For Youtube.xpi"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
