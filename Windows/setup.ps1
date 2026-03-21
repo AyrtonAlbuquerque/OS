@@ -471,7 +471,7 @@ function SetupBrowser($browser) {
                 }
 
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" $icon
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/_distribution/policies.json" $policies
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" $policies
                 Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
                 Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Enhancer%20For%20Youtube.xpi" "$env:USERPROFILE\Downloads\Enhancer For Youtube.xpi"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
@@ -491,10 +491,22 @@ function SetupBrowser($browser) {
                 $profiles = "$env:APPDATA\zen\Profiles"
 
                 if (Test-Path $profiles) {
-                    $defaultProfile = Get-ChildItem -Path $profiles -Directory | Where-Object { $_.Name -like "*(alpha)" } | Select-Object -First 1
+                    $alphaProfile = Get-ChildItem -Path $profiles -Directory | Where-Object { $_.Name -like "*(alpha)" } | Select-Object -First 1
+                    $releaseProfile = Get-ChildItem -Path $profiles -Directory | Where-Object { $_.Name -like "*(release)" } | Select-Object -First 1
                     
-                    if ($defaultProfile) {
-                        $chromeFolder = Join-Path $defaultProfile.FullName "chrome"
+                    if ($releaseProfile) {
+                        $chromeFolder = Join-Path $releaseProfile.FullName "chrome"
+                        
+                        if (!(Test-Path $chromeFolder)) {
+                            New-Item -ItemType Directory -Path $chromeFolder -Force | Out-Null
+                        }
+
+                        $userChromeFile = Join-Path $chromeFolder "userChrome.css"
+                        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
+                    }
+
+                    if ($alphaProfile) {
+                        $chromeFolder = Join-Path $alphaProfile.FullName "chrome"
                         
                         if (!(Test-Path $chromeFolder)) {
                             New-Item -ItemType Directory -Path $chromeFolder -Force | Out-Null
