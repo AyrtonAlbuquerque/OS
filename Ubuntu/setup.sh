@@ -446,7 +446,7 @@ setup_browser() {
     kill $zen_pid 2>/dev/null || true
     wait $zen_pid 2>/dev/null || true
 
-    profiles_dir="$HOME/.config/.zen"
+    profiles_dir="$HOME/.config/zen"
 
     if [[ -d "$profiles_dir" ]]; then
         default_profile=$(find "$profiles_dir" -type d -name "*.Default Profile" | head -1)
