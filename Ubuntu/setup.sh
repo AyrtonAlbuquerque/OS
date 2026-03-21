@@ -446,10 +446,10 @@ setup_browser() {
     kill $zen_pid 2>/dev/null || true
     wait $zen_pid 2>/dev/null || true
 
-    profiles_dir="$HOME/.zen"
+    profiles_dir="$HOME/.config/.zen"
 
     if [[ -d "$profiles_dir" ]]; then
-        default_profile=$(find "$profiles_dir" -type d -name "*.default" | head -1)
+        default_profile=$(find "$profiles_dir" -type d -name "*.Default Profile" | head -1)
         
         if [[ -n "$default_profile" ]]; then
             chrome_folder="$default_profile/chrome"
