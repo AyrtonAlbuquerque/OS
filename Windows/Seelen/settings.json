@@ -9,7 +9,7 @@
   ],
   "byTheme": {
     "@eythaann/dock-wave-animation": {
-      "--dock-item-zoom-size": "44px"
+      "--dock-item-zoom-size": "42px"
     }
   },
   "byWallpaper": {},
@@ -59,8 +59,8 @@
       "showEndTask": false,
       "showInstanceCounter": false,
       "showWindowTitle": false,
-      "size": 36,
-      "spaceBetweenItems": 8,
+      "size": 34,
+      "spaceBetweenItems": 15,
       "temporalItemsVisibility": "All",
       "thumbnailGenerationEnabled": true,
       "visibleSeparators": false,
