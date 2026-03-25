@@ -9,7 +9,7 @@
   ],
   "byTheme": {
     "@eythaann/dock-wave-animation": {
-      "--dock-item-zoom-size": "42px"
+      "--dock-item-zoom-size": "44px"
     }
   },
   "byWallpaper": {},
