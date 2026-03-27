@@ -7,6 +7,7 @@ param (
     [string]$Java = "25",
     [string]$Python = "3.14",
     [string]$DotNet = "10",
+    [string]$Dock = $null,
     [string]$Browser = $null,
     [string]$GitUser = $null,
     [string]$GitEmail = $null
@@ -322,6 +323,41 @@ function SetupDockFinder {
     }
 }
 
+function SetupObjectDock {
+    if ((OSVersion) -eq 10) {
+        Write-Host "---------------------- Installing ObjectDock ----------------------"
+
+        try {
+            $dock = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/ObjectDock/ObjectDock3_setup.exe" "$env:TEMP\ObjectDock3_setup.exe"
+            $settings = "$env:LOCALAPPDATA\Stardock\ObjectDockPlus"
+            $theme = "${env:ProgramFiles(x86)}\Stardock\ObjectDock\Backgrounds\Zoomers\Speedy"
+
+            if (!(Test-Path $settings)) {
+                New-Item -Path $settings -ItemType Directory -Force | Out-Null
+            }
+
+            if (!(Test-Path $theme)) {
+                New-Item -Path $theme -ItemType Directory -Force | Out-Null
+            }
+
+            Start-Process -FilePath $dock -Wait
+
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/AppImages.ini" "$settings\AppImages.ini"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/CurrentTheme.ini" "$settings\CurrentTheme.ini"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/CurrentTheme_Backup.ini" "$settings\CurrentTheme_Backup.ini"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/CurrentTheme_v2_Legacy_Backup.ini" "$settings\CurrentTheme_v2_Legacy_Backup.ini"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/Recent.ini" "$settings\Recent.ini"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/Settings.ini" "$settings\Settings.ini"
+            Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/ObjectDock/Docktile.png?download=" "$theme\Docktile.png"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ObjectDock/config.ini" "$theme\config.ini"
+            Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/ObjectDock/Windows10.ico?download=" "$env:USERPROFILE\Windows10.ico"
+        }
+        catch {
+            Write-Warning "✖ Failed ObjectDock installation: $_"
+        }           
+    }
+}
+
 function SetupNilesoft {
     Write-Host "---------------------- Installing Nilesoft ----------------------"
 
@@ -562,10 +598,19 @@ function SetupApplications($option) {
             Install "TortoiseGit.TortoiseGit"
             Install "Stremio.StremioService"
             Install "BlastApps.FluentSearch"
+            Install "QL-Win.QuickLook"
             Install "Docker.DockerDesktop"
             SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
             SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
-            SetupDockFinder
+
+            if ($Dock) {
+                switch ($Dock.ToLower()) {
+                    "mydockfinder" { SetupDockFinder }
+                    "objectdock"   { SetupObjectDock }
+                    "nexusdock"    { SetupNexus }
+                    "seelen"       { SetupSeelen }
+                }
+            }
 
             Write-Host "Done! You must restart your computer to apply the changes." 
         }
