@@ -102,6 +102,26 @@ function SetupGit($name, $email) {
     if ($email) {
         Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
     }
+
+    $paths = @(
+        "Registry::HKEY_CLASSES_ROOT\Directory\shell\git_gui",
+        "Registry::HKEY_CLASSES_ROOT\Directory\shell\git_shell",
+        "Registry::HKEY_CLASSES_ROOT\LibraryFolder\background\shell\git_gui",
+        "Registry::HKEY_CLASSES_ROOT\LibraryFolder\background\shell\git_shell",
+        "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\git_gui",
+        "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\git_shell"
+    )
+
+    foreach ($path in $paths) {
+        if (Test-Path $path) {
+            try {
+                Remove-Item -Path $path -Recurse -Force
+            }
+            catch {
+                Write-Warning $_
+            }
+        }
+    }
 }
 
 function SetupPowerShell() {
@@ -399,6 +419,25 @@ function SetupExplorer($url) {
     }
 }
 
+function SetupRegistry() {
+    $favorites = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit\Favorites"
+    $keys = @(
+        @{ Name = "Startup I";   Path = "Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" },
+        @{ Name = "Startup II";  Path = "Computer\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" },
+        @{ Name = "Startup III"; Path = "Computer\HKEY_CURRENT_USER\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" },
+        @{ Name = "Startup IV";  Path = "Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" }
+    )
+
+    if (-not (Test-Path $favorites)) {
+        New-Item -Path $favorites -Force | Out-Null
+    }
+
+    foreach ($key in $keys) {
+        New-ItemProperty -Path $favorites -Name $key.Name -Value $key.Path -PropertyType String -Force | Out-Null
+        Write-Host "✔ Added: $($key.Name)" -ForegroundColor Green
+    }
+}
+
 function SetupUI {
     try {
         if ((OSVersion) -eq 11) {
@@ -632,6 +671,7 @@ SetupGit $GitUser $GitEmail
 SetupWSL
 SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
 SetupPowerShell
+SetupRegistry
 SetupMinGW "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
 SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
