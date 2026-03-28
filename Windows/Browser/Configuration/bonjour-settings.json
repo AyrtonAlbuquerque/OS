@@ -1,0 +1,239 @@
+{
+  "about": {
+    "browser": "firefox",
+    "version": "22.0.0"
+  },
+  "showall": true,
+  "lang": "en",
+  "dark": "system",
+  "favicon": "",
+  "tabtitle": "",
+  "greeting": "",
+  "greetingsize": "3",
+  "greetingsmode": "auto",
+  "pagegap": 8,
+  "pagewidth": 2200,
+  "time": false,
+  "main": false,
+  "dateformat": "auto",
+  "quicklinks": true,
+  "textShadow": 0.2,
+  "announcements": "major",
+  "review": 0,
+  "css": ".links img,\n.link img {\n    width: 128px !important;\n    height: 128px !important;\n}\n\n.link {\n    width: 128px !important;\n    height: 128px !important;\n\t\tmargin: 24px !important;\n}",
+  "hide": {},
+  "linkstyle": "large",
+  "linktitles": false,
+  "linkbackgrounds": false,
+  "linknewtab": false,
+  "linksrow": "10",
+  "linkiconradius": "1.2",
+  "linkgroups": {
+    "on": false,
+    "selected": "default",
+    "groups": [
+      "default"
+    ],
+    "pinned": [],
+    "synced": []
+  },
+  "backgrounds": {
+    "type": "color",
+    "fadein": 600,
+    "blur": 15,
+    "bright": 0.8,
+    "frequency": "hour",
+    "color": "#282c34",
+    "urls": "",
+    "images": "bonjourr-images-daylight",
+    "videos": "bonjourr-videos-daylight",
+    "mute": true,
+    "queries": {},
+    "texture": {
+      "type": "none"
+    }
+  },
+  "clock": {
+    "size": 1,
+    "ampm": false,
+    "analog": false,
+    "seconds": false,
+    "ampmlabel": false,
+    "ampmposition": "top-left",
+    "worldclocks": false,
+    "timezone": "auto"
+  },
+  "worldclocks": [],
+  "analogstyle": {
+    "face": "none",
+    "hands": "modern",
+    "shape": "round",
+    "border": "#ffff",
+    "background": "#fff2"
+  },
+  "weather": {
+    "city": "são-francisco",
+    "unit": "metric",
+    "provider": "",
+    "moreinfo": "none",
+    "forecast": "auto",
+    "temperature": "actual",
+    "geolocation": "approximate"
+  },
+  "greetingscustom": {
+    "morning": "",
+    "afternoon": "",
+    "evening": "",
+    "night": ""
+  },
+  "notes": {
+    "on": false,
+    "width": 40,
+    "opacity": 0.1,
+    "align": "left",
+    "text": "## Edit this note!\n\n[ ] With markdown titles, lists, and checkboxes\n\n[ ] Learn more on https://bonjourr.fr/docs/overview#notes"
+  },
+  "searchbar": {
+    "on": false,
+    "opacity": 0.1,
+    "newtab": false,
+    "suggestions": true,
+    "engine": "default",
+    "request": "",
+    "placeholder": ""
+  },
+  "quotes": {
+    "on": false,
+    "type": "classic",
+    "frequency": "day",
+    "author": false,
+    "last": 1774666927962
+  },
+  "pomodoro": {
+    "on": false,
+    "mode": "pomodoro",
+    "pause": 0,
+    "end": 0,
+    "timeFor": {
+      "pomodoro": 1500,
+      "break": 300,
+      "longbreak": 1200
+    },
+    "focus": false,
+    "sound": true,
+    "history": []
+  },
+  "font": {
+    "size": "14",
+    "family": "",
+    "system": true,
+    "weightlist": [],
+    "weight": "400"
+  },
+  "supporters": {
+    "enabled": true
+  },
+  "move": {
+    "selection": "single",
+    "layouts": {
+      "single": {
+        "grid": [
+          [
+            "quicklinks"
+          ]
+        ],
+        "items": {}
+      }
+    }
+  },
+  "linkslmnoor": {
+    "_id": "linkslmnoor",
+    "parent": "default",
+    "order": 4,
+    "title": "",
+    "url": "https://github.com/"
+  },
+  "linksffkbfk": {
+    "_id": "linksffkbfk",
+    "parent": "default",
+    "order": 7,
+    "title": "",
+    "url": "https://www.facebook.com/",
+    "icon": {
+      "type": "url",
+      "value": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/facebook.png"
+    }
+  },
+  "linksejhafc": {
+    "_id": "linksejhafc",
+    "parent": "default",
+    "order": 5,
+    "title": "",
+    "url": "https://warcraftunderground.freeforums.net/",
+    "icon": {
+      "type": "url",
+      "value": "https://pb.dashboardicons.com/api/files/community_gallery/7rszxa4jrmd4hdc/wcunderground_wbjldr96mj.png"
+    }
+  },
+  "linksadpkih": {
+    "_id": "linksadpkih",
+    "parent": "default",
+    "order": 1,
+    "title": "",
+    "url": "https://www.hiveworkshop.com",
+    "icon": {
+      "type": "url",
+      "value": "https://www.hiveworkshop.com/data/styles/8/styles/vindit-nightelf/hive-logo.png"
+    }
+  },
+  "linksmibijr": {
+    "_id": "linksmibijr",
+    "parent": "default",
+    "order": 9,
+    "title": "",
+    "url": "https://mail.google.com/mail/u/1/#inbox"
+  },
+  "linksjodqli": {
+    "_id": "linksjodqli",
+    "parent": "default",
+    "order": 0,
+    "title": "YouTube",
+    "url": "https://www.youtube.com/"
+  },
+  "linkskorfpo": {
+    "_id": "linkskorfpo",
+    "parent": "default",
+    "order": 2,
+    "title": "",
+    "url": "https://animekai.to/browser?keyword=&status[]=releasing&sort=updated_date&country[]=11",
+    "icon": {
+      "type": "url",
+      "value": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/anime-kai.png"
+    }
+  },
+  "linksocdpmd": {
+    "_id": "linksocdpmd",
+    "parent": "default",
+    "order": 3,
+    "title": "",
+    "url": "https://web.stremio.com/"
+  },
+  "linksmilliq": {
+    "_id": "linksmilliq",
+    "parent": "default",
+    "order": 8,
+    "title": "",
+    "url": "https://outlook.live.com/mail/",
+    "icon": {
+      "type": "url",
+      "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg/1280px-Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg.png"
+    }
+  },
+  "linksnbchcb": {
+    "_id": "linksnbchcb",
+    "parent": "default",
+    "order": 6,
+    "title": "",
+    "url": "https://discord.com/channels/@me"
+  }
+}
