@@ -1,6 +1,7 @@
 # -------------------------------------- Initial Setup -------------------------------------- #    
     # In a terminal as Administrator
     irm christitus.com/win | iex
+    irm https://get.activated.win | iex
 
     # Apps
     winget install StartIsBack.StartAllBack
