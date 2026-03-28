@@ -577,7 +577,9 @@ function SetupBrowser($browser) {
                         }
 
                         $userChromeFile = Join-Path $chromeFolder "userChrome.css"
+                        $userFile = Join-Path $releaseProfile.FullName "user.js"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
+                        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" $userFile
                     }
                     elseif ($alphaProfile) {
                         $chromeFolder = Join-Path $alphaProfile.FullName "chrome"
@@ -587,14 +589,18 @@ function SetupBrowser($browser) {
                         }
 
                         $userChromeFile = Join-Path $chromeFolder "userChrome.css"
+                        $userFile = Join-Path $alphaProfile.FullName "user.js"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
+                        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" $userFile
                     }
                     else {
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
+                        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" "$env:USERPROFILE\Downloads\user.js"
                     }
                 }
                 else {
                     Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
+                    Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" "$env:USERPROFILE\Downloads\user.js"
                 }
             }
             else {
