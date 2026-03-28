@@ -455,14 +455,15 @@ function SetupUI {
             Install "gerardog.gsudo"
             SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
             SetupNilesoft
-            Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7TSP%20Windows%2011.7z" "$env:USERPROFILE\Downloads\7TSP Windows 11.7z"
-            Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
+            # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7TSP%20Windows%2011.7z" "$env:USERPROFILE\Downloads\7TSP Windows 11.7z"
+            # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
         }
 
         Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Wallpaper/Wallpapper.png" "$env:USERPROFILE\Pictures\Wallpapper.png"
         Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Wallpaper/Wallpaper.mp4" "$env:USERPROFILE\Videos\Wallpaper.mp4"
         $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Cursor/Modern.zip" "$env:USERPROFILE\Downloads\Modern.zip"
         Expand-Archive -Path $zip -DestinationPath "$env:USERPROFILE\Downloads\Cursor" -Force
+        Remove-Item -Path $zip -Recurse -Force
     }
     catch {
         Write-Warning "✖ Failed UI Setup: $_"
@@ -547,12 +548,12 @@ function SetupBrowser($browser) {
 
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" $icon
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" $policies
-                Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
-                Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Enhancer%20For%20Youtube.xpi" "$env:USERPROFILE\Downloads\Enhancer For Youtube.xpi"
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
+                # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
+                # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Enhancer%20For%20Youtube.xpi" "$env:USERPROFILE\Downloads\Enhancer For Youtube.xpi"
+                # Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/AdBlocker.txt" "$env:USERPROFILE\Downloads\AdBlocker.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
+                # Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
                 Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
 
                 $zen = Join-Path $root "zen.exe"
