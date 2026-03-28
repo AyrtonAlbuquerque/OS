@@ -579,8 +579,7 @@ function SetupBrowser($browser) {
                         $userChromeFile = Join-Path $chromeFolder "userChrome.css"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
                     }
-
-                    if ($alphaProfile) {
+                    elseif ($alphaProfile) {
                         $chromeFolder = Join-Path $alphaProfile.FullName "chrome"
                         
                         if (!(Test-Path $chromeFolder)) {
