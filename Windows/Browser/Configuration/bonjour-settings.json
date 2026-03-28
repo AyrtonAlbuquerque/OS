@@ -18,10 +18,12 @@
   "dateformat": "auto",
   "quicklinks": true,
   "textShadow": 0.2,
-  "announcements": "major",
-  "review": 0,
+  "announcements": "off",
+  "review": -1,
   "css": ".links img,\n.link img {\n    width: 128px !important;\n    height: 128px !important;\n}\n\n.link {\n    width: 128px !important;\n    height: 128px !important;\n\t\tmargin: 24px !important;\n}",
-  "hide": {},
+  "hide": {
+    "settingsicon": true
+  },
   "linkstyle": "large",
   "linktitles": false,
   "linkbackgrounds": false,
@@ -131,7 +133,7 @@
     "weight": "400"
   },
   "supporters": {
-    "enabled": true
+    "enabled": false
   },
   "move": {
     "selection": "single",
@@ -152,6 +154,13 @@
     "order": 4,
     "title": "",
     "url": "https://github.com/"
+  },
+  "linksnbchcb": {
+    "_id": "linksnbchcb",
+    "parent": "default",
+    "order": 6,
+    "title": "",
+    "url": "https://discord.com/channels/@me"
   },
   "linksffkbfk": {
     "_id": "linksffkbfk",
@@ -228,12 +237,5 @@
       "type": "url",
       "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg/1280px-Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg.png"
     }
-  },
-  "linksnbchcb": {
-    "_id": "linksnbchcb",
-    "parent": "default",
-    "order": 6,
-    "title": "",
-    "url": "https://discord.com/channels/@me"
   }
 }
