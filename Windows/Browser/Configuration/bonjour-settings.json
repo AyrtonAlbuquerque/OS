@@ -20,7 +20,7 @@
   "textShadow": 0.2,
   "announcements": "off",
   "review": -1,
-  "css": ".links img,\n.link img {\n    width: 128px !important;\n    height: 128px !important;\n}\n\n.link {\n    width: 128px !important;\n    height: 128px !important;\n\t\tmargin: 24px !important;\n}",
+  "css": ".links img,\n.link img {\n    width: 128px !important;\n    height: 128px !important;\n    transition: transform 0.15s ease, filter 0.2s ease !important;\n}\n\n.link:hover img {\n    transform: scale(1.15);\n    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.4))\n            drop-shadow(0 0 20px rgba(255, 255, 255, 0.25));\n}\n\n.link:active img {\n    transform: scale(0.9);\n    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));\n}\n\n.link {\n    width: 128px !important;\n    height: 128px !important;\n    margin: 24px !important;\n}",
   "hide": {
     "settingsicon": true
   },
@@ -109,7 +109,7 @@
     "type": "classic",
     "frequency": "day",
     "author": false,
-    "last": 1774666927962
+    "last": 1774795687922
   },
   "pomodoro": {
     "on": false,
