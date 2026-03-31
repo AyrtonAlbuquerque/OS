@@ -20,7 +20,7 @@
   "textShadow": 0.2,
   "announcements": "off",
   "review": -1,
-  "css": ".links img,\n.link img {\n    width: 128px !important;\n    height: 128px !important;\n    transition: transform 0.15s ease, filter 0.2s ease !important;\n}\n\n.link:hover img {\n    transform: scale(1.15);\n    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.4))\n            drop-shadow(0 0 20px rgba(255, 255, 255, 0.25));\n}\n\n.link:active img {\n    transform: scale(0.9);\n    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));\n}\n\n.link {\n    width: 128px !important;\n    height: 128px !important;\n    margin: 24px !important;\n}",
+  "css": ".links img, .link img {\n    width: 96px !important;\n    height: 96px !important;\n    transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), filter 0.3s ease !important;\n    transform-style: preserve-3d;\n}\n\n.link:nth-child(odd):hover img {\n    transform: perspective(400px) rotateY(15deg) scale(1.12) translateY(-4px);\n    filter: drop-shadow(-12px 10px 20px rgba(0,0,0,0.6)) brightness(1.08);\n}\n\n.link:nth-child(even):hover img {\n    transform: perspective(400px) rotateY(-15deg) scale(1.12) translateY(-4px);\n    filter: drop-shadow(12px 10px 20px rgba(0, 0, 0, 0.6)) brightness(1.08);\n}\n\n.link:active img {\n    transform: perspective(400px) rotateY(0deg) scale(0.95) !important;\n    transition-duration: 0.1s !important;\n}\n\n.link { width: 96px !important; height: 96px !important; margin: 24px !important; }",
   "hide": {
     "settingsicon": true
   },
@@ -28,7 +28,7 @@
   "linktitles": false,
   "linkbackgrounds": false,
   "linknewtab": false,
-  "linksrow": "10",
+  "linksrow": "9",
   "linkiconradius": "1.2",
   "linkgroups": {
     "on": false,
@@ -109,7 +109,7 @@
     "type": "classic",
     "frequency": "day",
     "author": false,
-    "last": 1774795687922
+    "last": 1774956085088
   },
   "pomodoro": {
     "on": false,
@@ -146,6 +146,17 @@
         ],
         "items": {}
       }
+    }
+  },
+  "linksmilliq": {
+    "_id": "linksmilliq",
+    "parent": "default",
+    "order": 8,
+    "title": "",
+    "url": "https://outlook.live.com/mail/",
+    "icon": {
+      "type": "url",
+      "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg/1280px-Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg.png"
     }
   },
   "linkslmnoor": {
@@ -226,16 +237,5 @@
     "order": 3,
     "title": "",
     "url": "https://web.stremio.com/"
-  },
-  "linksmilliq": {
-    "_id": "linksmilliq",
-    "parent": "default",
-    "order": 8,
-    "title": "",
-    "url": "https://outlook.live.com/mail/",
-    "icon": {
-      "type": "url",
-      "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg/1280px-Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg.png"
-    }
   }
 }
