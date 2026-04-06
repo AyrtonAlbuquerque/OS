@@ -554,7 +554,7 @@ function SetupBrowser($browser) {
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/AdBlocker.txt" "$env:USERPROFILE\Downloads\AdBlocker.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
                 # Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
-                Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
+                # Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
 
                 $zen = Join-Path $root "zen.exe"
 
