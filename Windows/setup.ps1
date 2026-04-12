@@ -419,6 +419,27 @@ function SetupExplorer($url) {
     }
 }
 
+function SetupExplorerBlurMica {
+    Write-Host "---------------------- Installing Explorer ----------------------"
+
+    try {
+        $folder = "$env:ProgramFiles"
+        $root = Join-Path $folder "ExplorerBlurMica"
+
+        if (!(Test-Path $root)) {
+            New-Item -Path $root -ItemType Directory -Force | Out-Null
+        }
+
+        Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/ExplorerBlurMica/ExplorerBlurMica.dll" "$root\ExplorerBlurMica.dll"
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ExplorerBlurMica/config.ini" "$root\config.ini"
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ExplorerBlurMica/register.cmd" "$root\register.cmd"
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/ExplorerBlurMica/uninstall.cmd" "$root\uninstall.cmd"
+    }
+    catch {
+        Write-Warning "✖ Failed ExplorerBlurMica installation: $_"
+    }
+}
+
 function SetupRegistry() {
     $favorites = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit\Favorites"
     $keys = @(
@@ -445,6 +466,7 @@ function SetupUI {
 
             # SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
             SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+            SetupExplorerBlurMica
 
             if (Test-Path -Path $context) {
                 Remove-Item -Path $context -Recurse -Force
@@ -553,6 +575,8 @@ function SetupBrowser($browser) {
                 # Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Setup.txt" "$env:USERPROFILE\Downloads\Setup.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/AdBlocker.txt" "$env:USERPROFILE\Downloads\AdBlocker.txt"
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/Enhancer%20for%20Youtube.json" "$env:USERPROFILE\Downloads\Enhancer for Youtube.json"
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/sine-mods.json" "$env:USERPROFILE\Downloads\sine-mods.json"
+                Download "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-win-x64.exe" "$env:USERPROFILE\Downloads\sine-win-x64.exe"
                 # Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/Configuration/inifinity-backup.infinity" "$env:USERPROFILE\Downloads\inifinity-backup.infinity"
                 # Execute { pwsh.exe -noprofile -command "winget pin add Zen-Team.Zen-Browser" }
 
