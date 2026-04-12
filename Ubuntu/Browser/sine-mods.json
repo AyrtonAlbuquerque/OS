@@ -1,0 +1,57 @@
+[
+  {
+    "id": "Arc-2.0",
+    "homepage": "https://github.com/YashjitPal/Arc-2.0/",
+    "author": "YashjitPal",
+    "name": "Arc 2.0",
+    "description": "Arc-like Zen Browser theme.",
+    "version": "3.3",
+    "style": {
+      "chrome": "userChrome.css",
+      "content": "userContent.css"
+    },
+    "preferences": "preferences.json",
+    "readme": "https://raw.githubusercontent.com/YashjitPal/Arc-2.0/main/README.md",
+    "image": "https://github.com/user-attachments/assets/f9a25afb-2503-421a-bed0-6e94f2ab43db",
+    "tags": [
+      "content",
+      "chrome",
+      "sleek"
+    ],
+    "fork": [
+      "zen"
+    ],
+    "stars": 385,
+    "origin": "store",
+    "no-updates": false,
+    "enabled": true
+  },
+  {
+    "id": "42b8c4ac-76d5-4521-9917-2e478931ee53",
+    "name": "Zen Compact Transparent Mode",
+    "description": "Make popups UI menu transparent with custom settings.",
+    "homepage": "https://github.com/rasyidrafi/zen-compact-transparent-mode",
+    "image": "https://github.com/rasyidrafi/zen-compact-transparent-mode/blob/main/image.png?raw=true",
+    "style": {
+      "chrome": "chrome.css",
+      "content": ""
+    },
+    "readme": "https://raw.githubusercontent.com/rasyidrafi/zen-compact-transparent-mode/refs/heads/main/README.md",
+    "preferences": "preferences.json",
+    "author": "rasyidrafi",
+    "version": "2.0.0",
+    "tags": [
+      "UI"
+    ],
+    "createdAt": "2025-07-29",
+    "updatedAt": "2025-11-12",
+    "fork": [
+      "zen",
+      "firefox"
+    ],
+    "stars": 3,
+    "origin": "store",
+    "no-updates": false,
+    "enabled": true
+  }
+]
