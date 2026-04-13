@@ -126,7 +126,7 @@ function SetupGit($name, $email) {
 
 function SetupPowerShell() {
     $configuration = @(
-        'oh-my-posh init pwsh --config "craver" | Invoke-Expression',
+        'oh-my-posh init pwsh --config "star" | Invoke-Expression',
         'Import-Module posh-git',
         'Set-PSReadLineOption -PredictionSource History',
         'Set-PSReadLineOption -PredictionViewStyle ListView'
