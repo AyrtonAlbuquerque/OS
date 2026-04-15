@@ -534,16 +534,18 @@ function SetupUnite($url) {
     }
 }
 
-function SetupTheme($url) {
+function SetupThemes {
     Write-Host "---------------------- Installing Theme ----------------------"
 
     try {
-        $theme = Download $url "$env:TEMP\OneDark.zip"
+        $theme = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip" "$env:TEMP\OneDark.zip"
+        $windows12 = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/Windows12.zip" "$env:TEMP\Windows12.zip"
         $reg = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg" "$env:TEMP\explorer-colors.reg"
         $remove = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders.reg" "$env:TEMP\remove-folders.reg"
         $patcher = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" "$env:TEMP\ThemePatcher.exe"
 
         Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
+        Expand-Archive -Path $windows12 -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Start-Process -FilePath $patcher -Wait
         reg import $reg
         reg import $remove
@@ -704,7 +706,7 @@ SetupPowerShell
 SetupRegistry
 SetupMinGW "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe"
 SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
-SetupTheme "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip"
+SetupThemes
 SetupBrowser $Browser
 SetupUI
 
