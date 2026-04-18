@@ -511,7 +511,6 @@ function SetupUI {
 
             # SetupStartAllBack
             SetupWindHawk
-            SetupExplorerBlurMica
 
             if (Test-Path -Path $context) {
                 Remove-Item -Path $context -Recurse -Force
@@ -526,8 +525,10 @@ function SetupUI {
             # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
         }
 
+        SetupExplorerBlurMica
         Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Wallpaper/Wallpapper.png" "$env:USERPROFILE\Pictures\Wallpapper.png"
         Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Wallpaper/Wallpaper.mp4" "$env:USERPROFILE\Videos\Wallpaper.mp4"
+        Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Context%20Menu%20Manager.exe" "$env:USERPROFILE\Downloads\ContextMenuManager.exe"
         $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Cursor/Modern.zip" "$env:USERPROFILE\Downloads\Modern.zip"
         Expand-Archive -Path $zip -DestinationPath "$env:USERPROFILE\Downloads\Cursor" -Force
         Remove-Item -Path $zip -Recurse -Force
