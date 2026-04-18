@@ -587,14 +587,21 @@ function SetupThemes {
         $theme = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/One%20Dark.zip" "$env:TEMP\OneDark.zip"
         $windows12 = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Themes/Windows12.zip" "$env:TEMP\Windows12.zip"
         $reg = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/explorer-colors.reg" "$env:TEMP\explorer-colors.reg"
-        $remove = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders.reg" "$env:TEMP\remove-folders.reg"
         $patcher = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Theme%20Patcher.exe" "$env:TEMP\ThemePatcher.exe"
 
         Expand-Archive -Path $theme -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Expand-Archive -Path $windows12 -DestinationPath "$env:WINDIR\Resources\Themes" -Force
         Start-Process -FilePath $patcher -Wait
         reg import $reg
-        reg import $remove
+
+        if ((OSVersion) -eq 11) {
+            $remove = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders.reg" "$env:TEMP\remove-folders.reg"
+            reg import $remove
+        }
+        else {
+            $remove = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Themes/remove-folders-win10.reg" "$env:TEMP\remove-folders-win10.reg"
+            reg import $remove
+        }
     }
     catch {
         Write-Warning "✖ Failed Theme installation: $_"
