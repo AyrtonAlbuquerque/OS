@@ -134,7 +134,7 @@ install_zsh() {
         git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
         git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
 
-        echo 'eval "$(oh-my-posh init zsh --config ~/.poshthemes/craver.omp.json)"' >> ~/.zshrc
+        echo 'eval "$(oh-my-posh init zsh --config ~/.poshthemes/space.omp.json)"' >> ~/.zshrc
         echo 'source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
         echo 'source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
         source ~/.zshrc

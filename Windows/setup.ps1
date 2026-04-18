@@ -14,7 +14,7 @@ param (
 )
 
 # ---------------------------------------- Functions ---------------------------------------- #
-function OSVersion() {
+function OSVersion {
     $version = [System.Environment]::OSVersion.Version
 
     if ($version.Major -eq 10 -and $version.Build -lt 22000) {
@@ -24,7 +24,7 @@ function OSVersion() {
     return 11
 }
 
-function RefreshPath() {
+function RefreshPath {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
@@ -92,15 +92,15 @@ function Download($url, $path) {
     }
 }
 
-function SetupGit($name, $email) {
+function SetupGit {
     Install "Git.Git"
 
-    if ($name) {
-        Execute { pwsh.exe -noprofile -command "git config --global user.name '$name'" }
+    if ($GitUser) {
+        Execute { pwsh.exe -noprofile -command "git config --global user.name '$GitUser'" }
     }
 
-    if ($email) {
-        Execute { pwsh.exe -noprofile -command "git config --global user.email '$email'" }
+    if ($GitEmail) {
+        Execute { pwsh.exe -noprofile -command "git config --global user.email '$GitEmail'" }
     }
 
     $paths = @(
@@ -124,9 +124,18 @@ function SetupGit($name, $email) {
     }
 }
 
-function SetupPowerShell() {
+function SetupFrameworks {
+    Install "Oracle.JDK.$Java"
+    Install "Python.Python.$Python"
+    Install "Microsoft.DotNet.SDK.$DotNet"
+    Install "Kitware.CMake"
+    Install "CoreyButler.NVMforWindows"
+    Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
+}
+
+function SetupPowerShell {
     $configuration = @(
-        'oh-my-posh init pwsh --config "star" | Invoke-Expression',
+        'oh-my-posh init pwsh --config "space" | Invoke-Expression',
         'Import-Module posh-git',
         'Set-PSReadLineOption -PredictionSource History',
         'Set-PSReadLineOption -PredictionViewStyle ListView'
@@ -152,7 +161,7 @@ function SetupPowerShell() {
     }
 }
 
-function SetupWSL() {
+function SetupWSL {
     Write-Host "---------------------- Installing WSL2 ----------------------"
     
     try {
@@ -174,11 +183,11 @@ function SetupWSL() {
     }
 }
 
-function SetupMinGW($url) {
+function SetupMinGW {
     Write-Host "---------------------- Installing MinGW ----------------------"
 
     try {
-        $mingw = Download $url "$env:TEMP\mingwInstaller.exe"
+        $mingw = Download "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe" "$env:TEMP\mingwInstaller.exe"
         $bin = "$env:USERPROFILE\mingw64\bin"
         $path = [Environment]::GetEnvironmentVariable("Path", "User")
 
@@ -197,9 +206,9 @@ function SetupMinGW($url) {
     }
 }
 
-function SetupStartAllBack($url) {
+function SetupStartAllBack {
     try {
-        $file = Download $url "$env:TEMP\start-is-back.reg"
+        $file = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg" "$env:TEMP\start-is-back.reg"
 
         Install "StartIsBack.StartAllBack"
         reg import $file
@@ -209,11 +218,11 @@ function SetupStartAllBack($url) {
     }
 }
 
-function SetupWindHawk($url) {
+function SetupWindHawk {
     try {
         if ((OSVersion) -eq 11) {
             $root = "C:\ProgramData\Windhawk"
-            $file = Download $url "$env:TEMP\windhawk-backup.zip"
+            $file = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip" "$env:TEMP\windhawk-backup.zip"
             $folder = Join-Path $env:TEMP "WindhawkRestore"
         
             Install "RamenSoftware.Windhawk"
@@ -239,12 +248,12 @@ function SetupWindHawk($url) {
     }
 }
 
-function SetupStart11($url) {
+function SetupStart11 {
     if ((OSVersion) -eq 10) {
         Write-Host "---------------------- Installing Start11 ----------------------"
 
         try {
-            $start11 = Download $url "$env:TEMP\Start11.exe"
+            $start11 = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe" "$env:TEMP\Start11.exe"
             $backup = Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Start11/start11-backup.S11Backup" "$env:USERPROFILE\Downloads\start11-backup.S11Backup"
             $image = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Images/Windows%2011.png?download=" "${env:ProgramFiles(x86)}\Stardock\Start11\StartButtons\Windows 11.png"
             $folder = Split-Path $image
@@ -401,11 +410,47 @@ function SetupNilesoft {
     }
 }
 
-function SetupExplorer($url) {
+function SetupLauncher {
+    Write-Host "---------------------- Installing Launcher ----------------------"
+
+    try {
+        $root = "$env:APPDATA\FlowLauncher"
+        $themes = Join-Path $root "Themes"
+        $settings = Join-Path $root "Settings"
+
+        if (!(Test-Path $root)) {
+            New-Item -ItemType Directory -Path $root -Force | Out-Null
+        }
+
+        if (!(Test-Path $themes)) {
+            New-Item -ItemType Directory -Path $themes -Force | Out-Null
+        }
+
+        if (!(Test-Path $settings)) {
+            New-Item -ItemType Directory -Path $settings -Force | Out-Null
+        }
+
+        if ((OSVersion) -eq 11) {
+            Install "Flow-Launcher.Flow-Launcher"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Launcher/CircleDarkBlur.xaml" "$themes\CircleDarkBlur.xaml"
+        }
+        else {
+            Install "Flow-Launcher.Flow-Launcher" "1.19.5"
+            Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Launcher/CircleDarkBlur10.xaml" "$themes\CircleDarkBlur.xaml"
+        }
+
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Launcher/Settings.json" "$settings\Settings.json"
+    }
+    catch {
+        Write-Warning "✖ Failed Launcher Setup: $_"
+    }
+}
+
+function SetupExplorer {
     Write-Host "---------------------- Installing Explorer ----------------------"
 
     try {
-        $zip = Download $url "$env:TEMP\OldNewExplorer.zip"
+        $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip" "$env:TEMP\OldNewExplorer.zip"
         $folder = "$env:ProgramFiles"
 
         if (!(Test-Path $folder)) {
@@ -440,7 +485,7 @@ function SetupExplorerBlurMica {
     }
 }
 
-function SetupRegistry() {
+function SetupRegistry {
     $favorites = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit\Favorites"
     $keys = @(
         @{ Name = "Startup I";   Path = "Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" },
@@ -464,8 +509,8 @@ function SetupUI {
         if ((OSVersion) -eq 11) {
             $context = 'HKCU:\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}'
 
-            # SetupStartAllBack "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/StartAllBack/start-is-back.reg"
-            SetupWindHawk "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/WindHawk/windhawk-backup.zip"
+            # SetupStartAllBack
+            SetupWindHawk
             SetupExplorerBlurMica
 
             if (Test-Path -Path $context) {
@@ -475,7 +520,7 @@ function SetupUI {
         else {
             Install "chanplecai.smarttaskbar"
             Install "gerardog.gsudo"
-            SetupExplorer "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/OldNewExplorer.zip"
+            SetupExplorer
             SetupNilesoft
             # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7TSP%20Windows%2011.7z" "$env:USERPROFILE\Downloads\7TSP Windows 11.7z"
             # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
@@ -492,11 +537,11 @@ function SetupUI {
     }
 }
 
-function SetupFont($url) {
+function SetupFont {
     Write-Host "---------------------- Installing Font ----------------------"
 
     try {
-        $file = Download $url "$env:TEMP\FiraCode.zip"
+        $file = Download "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip" "$env:TEMP\FiraCode.zip"
         $folder = "$env:TEMP\FiraCodeFonts"
 
         Expand-Archive -Path $file -DestinationPath $folder -Force
@@ -515,7 +560,7 @@ function SetupFont($url) {
     }
 }
 
-function SetupUnite($url) {
+function SetupUnite {
     Write-Host "---------------------- Installing Unite ----------------------"
 
     try {
@@ -523,7 +568,7 @@ function SetupUnite($url) {
         $target = Join-Path $folder "Unite.exe"
 
         if (!(Test-Path $target)) {
-            Download $url $target
+            Download "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe" $target
         }
         else {
             Write-Host "Unite already installed."
@@ -555,16 +600,16 @@ function SetupThemes {
     }
 }
 
-function SetupBrowser($browser) {
+function SetupBrowser {
     try {
-        if ($browser) { 
-            if ($browser -eq "Zen-Team.Zen-Browser") {
+        if ($Browser) { 
+            if ($Browser -eq "Zen-Team.Zen-Browser") {
                 $root = "${env:ProgramFiles}\Zen Browser"
                 $icon = Join-Path $root "firefox.ico"
                 $distribution = Join-Path $root "_distribution"
                 $policies = Join-Path $distribution "policies.json"
 
-                Install $browser #"1.0.1-a.22"
+                Install $Browser #"1.0.1-a.22"
 
                 if (!(Test-Path $distribution)) {
                     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
@@ -631,7 +676,7 @@ function SetupBrowser($browser) {
                 }
             }
             else {
-                Install $browser
+                Install $Browser
             }
         }
     }
@@ -640,11 +685,11 @@ function SetupBrowser($browser) {
     }
 }
 
-function SetupInsomnia($url) {
+function SetupInsomnia {
     Write-Host "---------------------- Installing Insomnia ----------------------"
     
     try {
-        $insomnia = Download $url "$env:TEMP\Insomnia.exe"
+        $insomnia = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe" "$env:TEMP\Insomnia.exe"
 
         Start-Process -FilePath $insomnia -Wait
 
@@ -668,11 +713,11 @@ function SetupApplications($option) {
             Install "JetBrains.Toolbox"
             Install "TortoiseGit.TortoiseGit"
             Install "Stremio.StremioService"
-            Install "BlastApps.FluentSearch"
             Install "QL-Win.QuickLook"
-            Install "Docker.DockerDesktop"
-            SetupInsomnia "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Insomnia.exe"
-            SetupStart11 "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Start11/Start11.exe"
+            # Install "Docker.DockerDesktop"
+            SetupLauncher
+            SetupInsomnia
+            SetupStart11
 
             if ($Dock) {
                 switch ($Dock.ToLower()) {
@@ -691,23 +736,16 @@ function SetupApplications($option) {
 }
 
 # ---------------------------------------- Execution ---------------------------------------- #
-Install "Oracle.JDK.$Java"
-Install "Python.Python.$Python"
-Install "Microsoft.DotNet.SDK.$DotNet"
-Install "Kitware.CMake"
-Install "CoreyButler.NVMforWindows"
-
-Execute { pwsh.exe -noprofile -command "dotnet tool install --global dotnet-ef" }
-
-SetupGit $GitUser $GitEmail
+SetupFrameworks
+SetupGit
 SetupWSL
-SetupFont "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip"
+SetupFont
 SetupPowerShell
 SetupRegistry
-SetupMinGW "https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe"
-SetupUnite "https://github.com/AyrtonAlbuquerque/Unite/releases/download/v1.0/Unite.exe"
+SetupMinGW
+SetupUnite
 SetupThemes
-SetupBrowser $Browser
+SetupBrowser
 SetupUI
 
 Write-Host "Setup completed. Do you wish to install extra tools?"
