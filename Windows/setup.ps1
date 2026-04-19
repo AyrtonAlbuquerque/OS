@@ -165,18 +165,21 @@ function SetupWSL {
     Write-Host "---------------------- Installing WSL2 ----------------------"
     
     try {
-        if ((OSVersion) -eq 10) {
-            $installer = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/WSL%20Update.msi" "$env:TEMP\wsl_update_x64.msi"
+        Execute { wsl --install --no-distribution }
+        Execute { wsl --set-default-version 2 }
 
-            dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-            dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-            Start-Process msiexec.exe -ArgumentList "/i `"$installer`" /quiet /norestart" -Wait
-            Write-Host "✔ Success. After rebooting, install a distribution: wsl --install -d Ubuntu-24.04"
-        }
-        else {
-            Execute { wsl --install --no-distribution }
-            Execute { wsl --set-default-version 2 }
-        }
+        # if ((OSVersion) -eq 10) {
+        #     $installer = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/WSL%20Update.msi" "$env:TEMP\wsl_update_x64.msi"
+
+        #     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+        #     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+        #     Start-Process msiexec.exe -ArgumentList "/i `"$installer`" /quiet /norestart" -Wait
+        #     Write-Host "✔ Success. After rebooting, install a distribution: wsl --install -d Ubuntu-24.04"
+        # }
+        # else {
+        #     Execute { wsl --install --no-distribution }
+        #     Execute { wsl --set-default-version 2 }
+        # }
     }
     catch {
         Write-Warning "✖ Failed WSL2 installation: $_"
