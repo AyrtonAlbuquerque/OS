@@ -344,13 +344,17 @@ setup_theme() {
     mkdir -p "$HOME/.config/gtk-4.0"
 
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/OneDark.zip" -O OneDark.zip
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/Windows12.zip" -O Windows12.zip
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
 
     unzip OneDark.zip -d "$HOME/.themes"
+    unzip Windows12.zip -d "$HOME/.themes"
 
-    cp -r "$HOME/.themes/OneDark/gtk-4.0/"* "$HOME/.config/gtk-4.0/"
+    # cp -r "$HOME/.themes/OneDark/gtk-4.0/"* "$HOME/.config/gtk-4.0/"
+    cp -r "$HOME/.themes/Windows12/gtk-4.0/"* "$HOME/.config/gtk-4.0/"
 
     rm OneDark.zip
+    rm Windows12.zip
 
     finished "setup_theme"
     echo "[✔] Success"
@@ -513,6 +517,37 @@ setup_terminal() {
     rm guake.cfg
 
     finished "setup_terminal"
+    echo "[✔] Success"
+}
+
+setup_launcher() {
+    if executed "setup_launcher"; then
+        echo "[✔] Launcher already installed, skipping"
+        return
+    fi
+
+    echo "[*] Setting up launcher..."
+
+    sudo add-apt-repository universe -y && sudo add-apt-repository ppa:agornostal/ulauncher -y && sudo apt update && sudo apt install ulauncher -y
+
+    if [ ! -d "$HOME/.config/ulauncher" ]; then
+        mkdir -p "$HOME/.config/ulauncher"
+    fi
+
+    git clone https://github.com/kayozxo/ulauncher-liquid-glass.git
+
+    {
+        (
+            cd ulauncher-liquid-glass
+            ./install.sh
+        )
+    } || {
+        echo "[!] Failed to set up Ulauncher theme."
+    }
+
+    rm -rf ulauncher-liquid-glass
+
+    finished "setup_launcher"
     echo "[✔] Success"
 }
 
@@ -700,6 +735,7 @@ setup_ui() {
         setup_terminal
         setup_extensions
         setup_ydotool
+        setup_launcher
 
         install_flatpack
         install_apps
