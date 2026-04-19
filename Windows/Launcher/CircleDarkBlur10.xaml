@@ -65,10 +65,10 @@
         BasedOn="{StaticResource BaseWindowBorderStyle}"
         TargetType="{x:Type Border}">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#50FFFFFF" />
+        <Setter Property="BorderBrush" Value="#26FFFFFF" />
         <Setter Property="Background" Value="#A8282C34"/>
         <Setter Property="Opacity" Value="1" />
-        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="CornerRadius" Value="10" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
     </Style>
