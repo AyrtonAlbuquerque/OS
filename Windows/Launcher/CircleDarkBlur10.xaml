@@ -1,5 +1,5 @@
 <!--
-    Name: CircleDarkBlur
+    Name: CircleDarkAcrylic
     IsDark: True
     HasBlur: True
 -->
@@ -15,7 +15,7 @@
 
     <system:Boolean x:Key="ThemeBlurEnabled">True</system:Boolean>
     <system:String x:Key="SystemBG">Dark</system:String>
-    <Color x:Key="DarkBG">#33000000</Color> 
+    <Color x:Key="DarkBG">#1A000000</Color>
 
     <!-- Styles for bullet on the selected result item -->
     <Style
@@ -117,7 +117,7 @@
         <Setter Property="Foreground" Value="#ffffff" />
     </Style>
     <SolidColorBrush x:Key="ItemSelectedBackgroundColor"
-        Color="#36AEAEAE" />
+        Color="#2EAEAEAE" />
         
     <!-- Search pending bar -->
     <Style
