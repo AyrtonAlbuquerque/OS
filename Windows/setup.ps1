@@ -439,6 +439,7 @@ function SetupLauncher {
         }
         else {
             Install "Flow-Launcher.Flow-Launcher" "1.19.5"
+            Execute { pwsh.exe -noprofile -command "winget pin add Flow-Launcher.Flow-Launcher" }
             Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Launcher/CircleDarkBlur10.xaml" "$themes\CircleDarkBlur.xaml"
         }
 
