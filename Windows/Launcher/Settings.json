@@ -3,7 +3,7 @@
   "OpenResultModifiers": "Alt",
   "ColorScheme": "System",
   "ShowOpenResultHotkey": true,
-  "WindowSize": 972,
+  "WindowSize": 788,
   "PreviewHotkey": "F1",
   "AutoCompleteHotkey": "Ctrl \u002B Tab",
   "AutoCompleteHotkey2": "",
@@ -146,8 +146,8 @@
   "AlwaysStartEn": false,
   "QuerySearchPrecision": "Regular",
   "AutoUpdates": true,
-  "WindowLeft": -1446,
-  "WindowTop": 259.5,
+  "WindowLeft": 982,
+  "WindowTop": 277.6,
   "PreviousScreenWidth": 0,
   "PreviousScreenHeight": 0,
   "PreviousDpiX": 0,
@@ -156,7 +156,7 @@
   "CustomWindowTop": 0,
   "KeepMaxResults": false,
   "MaxResultsToShow": 8,
-  "ActivateTimes": 381,
+  "ActivateTimes": 452,
   "CustomPluginHotkeys": [],
   "CustomShortcuts": [],
   "DontPromptUpdateMsg": false,
@@ -350,7 +350,7 @@
         "Name": "Windows Settings",
         "Version": "2.1.1",
         "ActionKeywords": [
-          "s"
+          "*"
         ],
         "Priority": 0,
         "SearchDelayTime": null,
