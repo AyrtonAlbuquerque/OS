@@ -21,36 +21,28 @@
     "fork": [
       "zen"
     ],
-    "stars": 385,
+    "stars": 387,
     "origin": "store",
     "no-updates": false,
     "enabled": true
   },
   {
-    "id": "42b8c4ac-76d5-4521-9917-2e478931ee53",
-    "name": "Zen Compact Transparent Mode",
-    "description": "Make popups UI menu transparent with custom settings.",
-    "homepage": "https://github.com/rasyidrafi/zen-compact-transparent-mode",
-    "image": "https://github.com/rasyidrafi/zen-compact-transparent-mode/blob/main/image.png?raw=true",
+    "id": "642854b5-88b4-4c40-b256-e035532109df",
+    "name": "Transparent Zen",
+    "description": "Make the Zen Browser's tab background transparent, get smooth animations and more. Enable  features in mod settings and visit the homepage below to learn more about the features. 👇",
+    "homepage": "https://www.sameerasw.com/zen",
     "style": {
       "chrome": "chrome.css",
       "content": ""
     },
-    "readme": "https://raw.githubusercontent.com/rasyidrafi/zen-compact-transparent-mode/refs/heads/main/README.md",
+    "readme": "https://raw.githubusercontent.com/zen-browser/theme-store/main/themes/642854b5-88b4-4c40-b256-e035532109df/readme.md",
+    "image": "https://raw.githubusercontent.com/zen-browser/theme-store/main/themes/642854b5-88b4-4c40-b256-e035532109df/image.png",
+    "author": "sameerasw",
+    "version": "1.17.16",
+    "tags": [],
+    "createdAt": "2025-02-04",
+    "updatedAt": "2026-03-11",
     "preferences": "preferences.json",
-    "author": "rasyidrafi",
-    "version": "2.0.0",
-    "tags": [
-      "UI"
-    ],
-    "createdAt": "2025-07-29",
-    "updatedAt": "2025-11-12",
-    "fork": [
-      "zen",
-      "firefox"
-    ],
-    "stars": 3,
-    "origin": "store",
     "no-updates": false,
     "enabled": true
   }

@@ -5,3 +5,5 @@ user_pref("browser.tabs.closeWindowWithLastTab", true);
 user_pref("zen.view.show-clear-tabs-button", false);
 user_pref("zen.view.compact.show-background-tab-toast", false);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("arc-compact-mode-no-sidebar-bg", true);
+
