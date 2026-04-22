@@ -37,7 +37,7 @@ The script is hosted in this repository:
 You can download and run the script directly using the command below:
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -Java "25" -Python "3.14" -DotNet "10" -Dock "MyDockFinder" -Browser "Zen-Team.Zen-Browser" -GitUser "ayrton" -GitEmail "ayrton_ito@hotmail.com"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/main/Windows/setup.ps1" -OutFile "$env:USERPROFILE\Downloads\setup.ps1"; pwsh.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\setup.ps1" -Java "26" -Python "3.14" -DotNet "10" -Dock "MyDockFinder" -Browser "Zen-Team.Zen-Browser" -GitUser "ayrton" -GitEmail "ayrton_ito@hotmail.com"
 ```
 
 You can customize the parameters if needed:
@@ -45,7 +45,7 @@ You can customize the parameters if needed:
 ### 🧠 Available Parameters:
 | Parameter   | Description                                                  | Default Value |
 | ----------- | ------------------------------------------------------------ | ------------- |
-| `-Java`     | Java JDK version                                             | `25`          |
+| `-Java`     | Java JDK version                                             | `26`          |
 | `-Python`   | Python version                                               | `3.14`        |
 | `-DotNet`   | .NET SDK version                                             | `10`          |
 | `-Dock`     | Dock of choice (MyDockFinder, ObjectDock, NexusDock, Seelen) | `none`        |

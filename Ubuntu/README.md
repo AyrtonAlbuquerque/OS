@@ -49,7 +49,7 @@ zsh setup.sh \
   --git_email="ayrton_ito@hotmail.com" \
   --python="3.14" \
   --dotnet="10" \
-  --java="25" \
+  --java="26" \
   --noui
 ```
 
@@ -58,7 +58,7 @@ You can customize the parameters if needed:
 ### 🧠 Available Parameters:
 | Parameter          | Description                            | Default Value |
 | ------------------ | -------------------------------------- | ------------- |
-| `--java`           | Java JDK version                       | `25`          |
+| `--java`           | Java JDK version                       | `26`          |
 | `--python`         | Python version                         | `3.14`        |
 | `--dotnet`         | .NET SDK version                       | `10`          |
 | `--git_user`       | Git global username                    | `none`        |

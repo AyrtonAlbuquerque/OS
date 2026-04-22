@@ -10,7 +10,7 @@ git_email=""
 git_credencial=""
 python="3.14"
 dotnet="10"
-java="25"
+java="26"
 disable_ui=false
 
 for arg in "$@"; do
@@ -212,7 +212,7 @@ install_dotnet() {
     if [[ -n "$dotnet" ]]; then
         ./.dotnet-install.sh --channel "$dotnet".0
     else
-        ./.dotnet-install.sh --channel 9.0
+        ./.dotnet-install.sh --channel 10.0
     fi
 
     echo 'export PATH="$PATH:$HOME/.dotnet/"' >> ~/.zshrc

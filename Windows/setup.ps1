@@ -4,7 +4,7 @@
 
 # ---------------------------------------- Parameters ---------------------------------------- #
 param (
-    [string]$Java = "25",
+    [string]$Java = "26",
     [string]$Python = "3.14",
     [string]$DotNet = "10",
     [string]$Dock = $null,
