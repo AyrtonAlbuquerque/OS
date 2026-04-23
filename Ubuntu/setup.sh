@@ -51,7 +51,7 @@ cleanup() {
     echo "[✔] Markers cleared"
 }
 
-trap 'echo "[!] Script interrupted. Partial state saved in $MARKERS"' ERR
+trap 'echo "[!] State saved in $MARKERS"' ERR
 trap cleanup EXIT
 
 # ---------------------------------------- Functions ---------------------------------------- #
@@ -164,38 +164,42 @@ install_nvm() {
 }
 
 install_python() {
-    if executed "install_python"; then
-        echo "[✔] Python already installed, skipping"
-        return
-    fi
+    {
+        if executed "install_python"; then
+            echo "[✔] Python already installed, skipping"
+            return
+        fi
 
-    echo "[*] Installing Python..."
+        echo "[*] Installing Python..."
 
-    if lsb_release -d | grep -q "LTS"; then
-        {
-            sudo add-apt-repository ppa:deadsnakes/ppa -y
-            sudo apt update &&
-        } || {
-            echo "[!] Failed to install Python. Most likely reason is that your distribution is not supported by the deadsnakes PPA."
-            sudo add-apt-repository --remove ppa:deadsnakes/ppa -y
-            sudo apt update
-        }
-    fi
+        if lsb_release -d | grep -q "LTS"; then
+            {
+                sudo add-apt-repository ppa:deadsnakes/ppa -y
+                sudo apt update &&
+            } || {
+                echo "[!] Failed to install Python. Most likely reason is that your distribution is not supported by the deadsnakes PPA."
+                sudo add-apt-repository --remove ppa:deadsnakes/ppa -y
+                sudo apt update
+            }
+        fi
 
-    if [[ -n "$python" ]]; then
-        sudo apt install python"$python" -y
-        sudo apt install python3-pip -y
-        sudo apt install python"$python"-venv -y
-        sudo ln -s /usr/bin/python"$python" /usr/bin/python
-    else
-        sudo apt install python3.14 -y
-        sudo apt install python3-pip -y
-        sudo apt install python3.14-venv -y
-        sudo ln -s /usr/bin/python3.14 /usr/bin/python
-    fi
+        if [[ -n "$python" ]]; then
+            sudo apt install python"$python" -y
+            sudo apt install python3-pip -y
+            sudo apt install python"$python"-venv -y
+            sudo ln -s /usr/bin/python"$python" /usr/bin/python
+        else
+            sudo apt install python3.14 -y
+            sudo apt install python3-pip -y
+            sudo apt install python3.14-venv -y
+            sudo ln -s /usr/bin/python3.14 /usr/bin/python
+        fi
 
-    finished "install_python"
-    echo "[✔] Success"
+        finished "install_python"
+        echo "[✔] Success"
+    } || {
+        echo "[!] Failed to install Python. Most likely reason is that your distribution is not supported by the deadsnakes PPA."
+    }
 }
 
 install_dotnet() {
