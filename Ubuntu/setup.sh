@@ -88,9 +88,16 @@ install_git() {
 
     echo "[*] Installing Git LFS..."
 
-    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-    sudo apt install git-lfs -y
-    git-lfs install
+    {
+        curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+        sudo apt install git-lfs -y
+        git-lfs install
+        sudo apt update
+    } || {
+        echo "[!] Failed to install Git LFS. Most likely reason is that your distribution is not supported by the Git LFS installation script."
+        sudo rm /etc/apt/sources.list.d/github_git-lfs.list
+        sudo apt update
+    }
 
     finished "install_git"
     echo "[✔] Success"
