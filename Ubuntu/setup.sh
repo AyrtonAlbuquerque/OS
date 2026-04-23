@@ -63,9 +63,16 @@ install_git() {
 
     echo "[*] Installing Git..."
 
-    sudo add-apt-repository -y ppa:git-core/ppa
-    sudo apt-get update
-    sudo apt-get install git -y
+    {
+        sudo add-apt-repository -y ppa:git-core/ppa
+        sudo apt update &&
+    } || {
+        echo "[!] Failed to install git. Most likely reason is that your distribution is not supported by the PPA."
+        sudo add-apt-repository --remove ppa:git-core/ppa -y
+        sudo apt update
+    }
+
+    sudo apt install git -y
 
     if [[ -n "$git_user" ]]; then
         git config --global user.name "$git_user"
@@ -82,7 +89,7 @@ install_git() {
     echo "[*] Installing Git LFS..."
 
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-    sudo apt-get install git-lfs -y
+    sudo apt install git-lfs -y
     git-lfs install
 
     finished "install_git"
@@ -299,8 +306,13 @@ install_apps() {
     echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
     rm -f packages.microsoft.gpg
     sudo apt install apt-transport-https -y
-    sudo apt update
-    sudo apt install code -y
+
+    { 
+        sudo apt update
+        sudo apt install code -y
+    } || { 
+        echo "[!] Failed to install Visual Studio Code. Most likely reason is that your distribution is not supported by the Visual Studio Code repository yet." 
+    }
 
     # stremio service
     flatpak install flathub com.stremio.Service -y
@@ -400,8 +412,14 @@ setup_browser() {
 
     echo "[*] Setting up browser..."
 
-    sudo add-apt-repository universe
-    sudo apt update
+    {
+        sudo add-apt-repository universe
+        sudo apt update
+    } || {
+        echo "[!] Failed to set up browser. Most likely reason is that your distribution is not supported by universe package yet."
+        sudo add-apt-repository --remove universe -y
+        sudo apt update
+    }
 
     {
         sudo apt install -y libfuse2
@@ -553,7 +571,14 @@ setup_launcher() {
 
     echo "[*] Setting up launcher..."
 
-    sudo add-apt-repository universe -y && sudo add-apt-repository ppa:agornostal/ulauncher -y && sudo apt update && sudo apt install ulauncher -y
+    { 
+        sudo add-apt-repository universe -y && sudo add-apt-repository ppa:agornostal/ulauncher -y && sudo apt update && sudo apt install ulauncher -y 
+    } || { 
+        echo "[!] Failed to install Ulauncher. Most likely reason is that your distribution is not supported by the Ulauncher PPA yet."
+        sudo add-apt-repository --remove universe -y
+        sudo add-apt-repository --remove ppa:agornostal/ulauncher -y
+        sudo apt update
+    }
 
     if [ ! -d "$HOME/.config/ulauncher" ]; then
         mkdir -p "$HOME/.config/ulauncher"
@@ -657,7 +682,7 @@ setup_ydotool() {
     
     echo "[*] Installing ydotool"
 
-    sudo apt update && sudo apt install -y scdoc pkg-config
+    sudo apt install -y scdoc pkg-config
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/ubuntu-icon.png" -O "$HOME/.icons/ubuntu-icon.png"
 
     git clone https://github.com/ReimuNotMoe/ydotool.git "$ydotooldir/ydotool"
