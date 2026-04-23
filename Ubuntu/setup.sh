@@ -295,7 +295,7 @@ install_apps() {
     sudo apt install code -y
 
     # stremio service
-    flatpak install flathub com.stremio.Service
+    flatpak install flathub com.stremio.Service -y
     # wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
     # sudo dpkg -i stremio-service_amd64.deb
     # rm stremio-service_amd64.deb
@@ -457,9 +457,9 @@ setup_browser() {
     flatpak run app.zen_browser.zen &
     zen_pid=$!
     sleep 5
+    pkill -f "app.zen_browser.zen" 2>/dev/null || true
     # kill $zen_pid 2>/dev/null || true
-    kill -- -$zen_pid 2>/dev/null || true
-    wait $zen_pid 2>/dev/null || true
+    # wait $zen_pid 2>/dev/null || true
 
     # profiles_dir="$HOME/.config/zen"
     profiles_dir="$HOME/.var/app/app.zen_browser.zen/.zen"
@@ -487,6 +487,7 @@ setup_browser() {
     fi
 
     ./sine-flatpak.sh -y
+    rm sine-flatpak.sh
 
     finished "setup_browser"
     echo "[✔] Success"
