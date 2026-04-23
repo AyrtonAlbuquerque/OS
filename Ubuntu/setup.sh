@@ -417,9 +417,9 @@ setup_browser() {
     # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Infinity%20New%20Tab.xpi" -O "$HOME/Zen/Infinity New Tab.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
-    wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh" -O "$HOME/Zen/zen-flatpak.sh"
+    wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh"
 
-    chmod +x "$HOME/Zen/zen-flatpak.sh"
+    chmod +x ./sine-flatpak.sh
     chmod +x "$HOME/Applications/zen/zen.AppImage"
     # cat <<-EOF > ~/.local/share/applications/zen.desktop
 	# 	[Desktop Entry]
@@ -457,7 +457,8 @@ setup_browser() {
     flatpak run app.zen_browser.zen &
     zen_pid=$!
     sleep 5
-    kill $zen_pid 2>/dev/null || true
+    # kill $zen_pid 2>/dev/null || true
+    kill -- -$zen_pid 2>/dev/null || true
     wait $zen_pid 2>/dev/null || true
 
     # profiles_dir="$HOME/.config/zen"
@@ -485,7 +486,7 @@ setup_browser() {
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
     fi
 
-    ./"$HOME/Zen/zen-flatpak.sh"
+    ./sine-flatpak.sh -y
 
     finished "setup_browser"
     echo "[✔] Success"
