@@ -417,6 +417,7 @@ setup_browser() {
     # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Infinity%20New%20Tab.xpi" -O "$HOME/Zen/Infinity New Tab.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.json" -O "$HOME/Zen/sine-mods.json"
     wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh"
 
     chmod +x ./sine-flatpak.sh
