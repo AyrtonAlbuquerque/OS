@@ -295,9 +295,10 @@ install_apps() {
     sudo apt install code -y
 
     # stremio service
-    wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
-    sudo dpkg -i stremio-service_amd64.deb
-    rm stremio-service_amd64.deb
+    flatpak install flathub com.stremio.Service
+    # wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
+    # sudo dpkg -i stremio-service_amd64.deb
+    # rm stremio-service_amd64.deb
 
     # jetbrains toolbox
     sudo apt install -y libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
@@ -311,6 +312,9 @@ install_apps() {
     # rabbitvcs
     sudo apt-get update
     sudo apt install -y rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
+
+    # Flatseal
+    flatpak install flathub com.github.tchx84.Flatseal -y
 
     finished "install_apps"
     echo "[✔] Success"
@@ -413,47 +417,55 @@ setup_browser() {
     # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Infinity%20New%20Tab.xpi" -O "$HOME/Zen/Infinity New Tab.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
+    wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh" -O "$HOME/Zen/zen-flatpak.sh"
 
+    chmod +x "$HOME/Zen/zen-flatpak.sh"
     chmod +x "$HOME/Applications/zen/zen.AppImage"
-    cat <<-EOF > ~/.local/share/applications/zen.desktop
-		[Desktop Entry]
-		Name=Zen Browser
-		Comment=Experience tranquillity while browsing the web without people tracking you!
-		Exec=$HOME/Applications/zen/zen.AppImage %u
-		Icon=$HOME/Applications/zen/firefox.png
-		Type=Application
-		MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-		StartupWMClass=zen-alpha
-		Categories=Network;WebBrowser;
-		StartupNotify=true
-		Terminal=false
-		X-MultipleArgs=false
-		Keywords=Internet;WWW;Browser;Web;Explorer;
-		Actions=new-window;new-private-window;profilemanager;
+    # cat <<-EOF > ~/.local/share/applications/zen.desktop
+	# 	[Desktop Entry]
+	# 	Name=Zen Browser
+	# 	Comment=Experience tranquillity while browsing the web without people tracking you!
+	# 	Exec=$HOME/Applications/zen/zen.AppImage %u
+	# 	Icon=$HOME/Applications/zen/firefox.png
+	# 	Type=Application
+	# 	MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+	# 	StartupWMClass=zen-alpha
+	# 	Categories=Network;WebBrowser;
+	# 	StartupNotify=true
+	# 	Terminal=false
+	# 	X-MultipleArgs=false
+	# 	Keywords=Internet;WWW;Browser;Web;Explorer;
+	# 	Actions=new-window;new-private-window;profilemanager;
 
-		[Desktop Action new-window]
-		Name=Open a New Window
-		Exec=$HOME/Applications/zen/zen.AppImage %u
+	# 	[Desktop Action new-window]
+	# 	Name=Open a New Window
+	# 	Exec=$HOME/Applications/zen/zen.AppImage %u
 
-		[Desktop Action new-private-window]
-		Name=Open a New Private Window
-		Exec=$HOME/Applications/zen/zen.AppImage --private-window %u
+	# 	[Desktop Action new-private-window]
+	# 	Name=Open a New Private Window
+	# 	Exec=$HOME/Applications/zen/zen.AppImage --private-window %u
 
-		[Desktop Action profilemanager]
-		Name=Open the Profile Manager
-		Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
-	EOF
+	# 	[Desktop Action profilemanager]
+	# 	Name=Open the Profile Manager
+	# 	Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
+	# EOF
 
-    "$HOME/Applications/zen/zen.AppImage" &
+    flatpak install flathub app.zen_browser.zen -y
+    flatpak --user override app.zen_browser.zen --filesystem=/home/$USER/.icons/:ro
+
+    # "$HOME/Applications/zen/zen.AppImage" &
+    flatpak run app.zen_browser.zen &
     zen_pid=$!
     sleep 5
     kill $zen_pid 2>/dev/null || true
     wait $zen_pid 2>/dev/null || true
 
-    profiles_dir="$HOME/.config/zen"
+    # profiles_dir="$HOME/.config/zen"
+    profiles_dir="$HOME/.var/app/app.zen_browser.zen/.zen"
 
     if [[ -d "$profiles_dir" ]]; then
-        default_profile=$(find "$profiles_dir" -type d -name "*.Default Profile" | head -1)
+        # default_profile=$(find "$profiles_dir" -type d -name "*.Default Profile" | head -1)
+        default_profile=$(find "$profiles_dir" -type d -name "*.Default (release)" | head -1)
         
         if [[ -n "$default_profile" ]]; then
             chrome_folder="$default_profile/chrome"
@@ -472,6 +484,8 @@ setup_browser() {
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
     fi
+
+    ./"$HOME/Zen/zen-flatpak.sh"
 
     finished "setup_browser"
     echo "[✔] Success"
@@ -728,6 +742,8 @@ setup_ui() {
         sudo apt install dconf-editor -y
         sudo apt install gnome-tweaks -y
 
+        install_flatpack
+
         setup_theme
         setup_cursor
         setup_browser
@@ -737,7 +753,6 @@ setup_ui() {
         setup_ydotool
         setup_launcher
 
-        install_flatpack
         install_apps
 
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings.ini"
