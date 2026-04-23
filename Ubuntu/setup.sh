@@ -653,9 +653,16 @@ setup_extensions() {
         rm unitehardpixel.eu.v72.shell-extension.zip
     else
         git clone https://github.com/jeffshee/gnome-ext-hanabi.git
-        wget https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip
-        gnome-extensions install --force unite-v84.zip
-        rm unite-v84.zip
+
+        if [ "$version" -le 49 ]; then
+            wget https://github.com/hardpixel/unite-shell/releases/download/v84/unite-v84.zip
+            gnome-extensions install --force unite-v84.zip
+            rm unite-v84.zip
+        else
+            wget https://github.com/hardpixel/unite-shell/releases/download/v85/unite-v85.zip
+            gnome-extensions install --force unite-v85.zip
+            rm unite-v85.zip
+        fi
     fi
 
     cd gnome-ext-hanabi
@@ -672,6 +679,15 @@ setup_extensions() {
     rm dash-to-paneljderose9.github.com.v56.shell-extension.zip
     rm arcmenuarcmenu.com.v48.shell-extension.zip
     rm start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
+
+    git clone https://github.com/icedman/search-light
+
+    (
+        cd search-light
+        make
+    )
+
+    rm -rf search-light
 
     finished "setup_extensions"
     echo "[✔] Success"
