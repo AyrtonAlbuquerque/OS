@@ -188,10 +188,10 @@ install_python() {
         sudo apt install python"$python"-venv -y
         sudo ln -s /usr/bin/python"$python" /usr/bin/python
     else
-        sudo apt install python3.13 -y
+        sudo apt install python3.14 -y
         sudo apt install python3-pip -y
-        sudo apt install python3.13-venv -y
-        sudo ln -s /usr/bin/python3.13 /usr/bin/python
+        sudo apt install python3.14-venv -y
+        sudo ln -s /usr/bin/python3.14 /usr/bin/python
     fi
 
     finished "install_python"
