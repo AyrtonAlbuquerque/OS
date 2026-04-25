@@ -15,7 +15,7 @@
 
     <system:Boolean x:Key="ThemeBlurEnabled">True</system:Boolean>
     <system:String x:Key="SystemBG">Dark</system:String>
-    <Color x:Key="DarkBG">#33000000</Color> 
+    <Color x:Key="DarkBG">#7F282C34</Color> 
 
     <!-- Styles for bullet on the selected result item -->
     <Style
