@@ -624,6 +624,7 @@ setup_extensions() {
     sudo apt install -y git meson
     sudo apt install -y libgtk-4-media-gstreamer
     sudo apt install -y gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
+    sudo apt install -y imagemagick
 
     wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v47.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
@@ -788,12 +789,16 @@ EOF
 
 setup_ui() {
     if [ "$disable_ui" = false ]; then
+        local version
+
         if executed "setup_ui"; then
             echo "[✔] UI already installed, skipping"
             return
         fi
 
         echo "[*] Setting up UI..."
+
+        version=$(lsb_release -rs | cut -d'.' -f1)
 
         sudo apt install gnome-software -y
         sudo apt install gnome-shell-extension-manager -y
@@ -814,7 +819,12 @@ setup_ui() {
 
         install_apps
 
-        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings.ini"
+        {
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings-${version}.ini" -O dconf-settings.ini
+        } || {
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings-26.ini" -O dconf-settings.ini
+        }
+
         dconf load / < dconf-settings.ini
         rm dconf-settings.ini
 
