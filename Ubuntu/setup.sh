@@ -440,21 +440,21 @@ setup_browser() {
         echo "[!] Failed to install libfuse2t64"
     }
 
-    mkdir -p "$HOME/Zen"
-    mkdir -p "$HOME/Applications"
-    mkdir -p "$HOME/Applications/zen"
+    # mkdir -p "$HOME/Zen"
+    # mkdir -p "$HOME/Applications"
+    # mkdir -p "$HOME/Applications/zen"
 
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen/zen.AppImage"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Applications/zen/firefox.png"
+    # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen/zen.AppImage"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Pictures/firefox.png"
     # wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt" -O "$HOME/Zen/Setup.txt"
     # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Infinity%20New%20Tab.xpi" -O "$HOME/Zen/Infinity New Tab.xpi"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.json" -O "$HOME/Zen/sine-mods.json"
+    # wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.json" -O "$HOME/Zen/sine-mods.json"
     wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh"
 
     chmod +x ./sine-flatpak.sh
-    chmod +x "$HOME/Applications/zen/zen.AppImage"
+    # chmod +x "$HOME/Applications/zen/zen.AppImage"
     # cat <<-EOF > ~/.local/share/applications/zen.desktop
 	# 	[Desktop Entry]
 	# 	Name=Zen Browser
