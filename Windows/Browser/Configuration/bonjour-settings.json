@@ -20,7 +20,7 @@
   "textShadow": 0.2,
   "announcements": "off",
   "review": -1,
-  "css": ".links img, .link img {\n    width: 96px !important;\n    height: 96px !important;\n    transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), filter 0.3s ease !important;\n    transform-style: preserve-3d;\n}\n\n.link:nth-child(odd):hover img {\n    transform: perspective(400px) rotateY(15deg) scale(1.12) translateY(-4px);\n    filter: drop-shadow(-12px 10px 20px rgba(0,0,0,0.6)) brightness(1.08);\n}\n\n.link:nth-child(even):hover img {\n    transform: perspective(400px) rotateY(-15deg) scale(1.12) translateY(-4px);\n    filter: drop-shadow(12px 10px 20px rgba(0, 0, 0, 0.6)) brightness(1.08);\n}\n\n.link:active img {\n    transform: perspective(400px) rotateY(0deg) scale(0.95) !important;\n    transition-duration: 0.1s !important;\n}\n\n.link { width: 96px !important; height: 96px !important; margin: 24px !important; }",
+  "css": ".links img, .link img {\n    width: 96px !important;\n    height: 96px !important;\n    transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), filter 0.3s ease !important;\n    transform-style: preserve-3d;\n}\n\n.link:nth-child(odd):hover img {\n    transform: perspective(400px) rotateY(15deg) scale(1.12) translateY(-4px);\n    filter:\n    drop-shadow(-12px 10px 20px rgba(0, 0, 0, 0.6))\n    drop-shadow(0 0 12px rgba(0, 0, 0, 0.2))\n    brightness(1.08);\n}\n\n.link:nth-child(even):hover img {\n    transform: perspective(400px) rotateY(-15deg) scale(1.12) translateY(-4px);\n    filter:\n    drop-shadow(12px 10px 20px rgba(0, 0, 0, 0.6))\n    drop-shadow(0 0 12px rgba(0, 0, 0, 0.2))\n    brightness(1.08);\n}\n\n.link:active img {\n    transform: perspective(400px) rotateY(0deg) scale(0.95) !important;\n    transition-duration: 0.1s !important;\n}\n\n.link { width: 96px !important; height: 96px !important; margin: 24px !important; }\n\n#background {\n    background-color: transparent !important;\n}\n#background {background-image: none !important; background-color: transparent !important;}\n   .tabbing {background-color: transparent !important;} \n    body {background-color: transparent !important;}\n#background-wrapper {\n    opacity: 0 !important;\n}",
   "hide": {
     "settingsicon": true
   },
@@ -42,12 +42,12 @@
   "backgrounds": {
     "type": "color",
     "fadein": 600,
-    "blur": 15,
-    "bright": 0.8,
-    "frequency": "hour",
+    "blur": 34,
+    "bright": 0.62,
+    "frequency": "pause",
     "color": "#282c34",
     "urls": "",
-    "images": "bonjourr-images-daylight",
+    "images": "unsplash-images-collections",
     "videos": "bonjourr-videos-daylight",
     "mute": true,
     "queries": {},
@@ -109,7 +109,7 @@
     "type": "classic",
     "frequency": "day",
     "author": false,
-    "last": 1774956085088
+    "last": 1777172407990
   },
   "pomodoro": {
     "on": false,
@@ -139,12 +139,12 @@
     "selection": "single",
     "layouts": {
       "single": {
+        "items": {},
         "grid": [
           [
             "quicklinks"
           ]
-        ],
-        "items": {}
+        ]
       }
     }
   },
@@ -173,17 +173,6 @@
     "title": "",
     "url": "https://discord.com/channels/@me"
   },
-  "linksffkbfk": {
-    "_id": "linksffkbfk",
-    "parent": "default",
-    "order": 7,
-    "title": "",
-    "url": "https://www.facebook.com/",
-    "icon": {
-      "type": "url",
-      "value": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/facebook.png"
-    }
-  },
   "linksejhafc": {
     "_id": "linksejhafc",
     "parent": "default",
@@ -193,6 +182,17 @@
     "icon": {
       "type": "url",
       "value": "https://pb.dashboardicons.com/api/files/community_gallery/7rszxa4jrmd4hdc/wcunderground_wbjldr96mj.png"
+    }
+  },
+  "linksffkbfk": {
+    "_id": "linksffkbfk",
+    "parent": "default",
+    "order": 7,
+    "title": "",
+    "url": "https://www.facebook.com/",
+    "icon": {
+      "type": "url",
+      "value": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/facebook.png"
     }
   },
   "linksadpkih": {
