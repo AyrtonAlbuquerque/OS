@@ -440,7 +440,7 @@ setup_browser() {
         echo "[!] Failed to install libfuse2t64"
     }
 
-    # mkdir -p "$HOME/Zen"
+    mkdir -p "$HOME/Zen"
     # mkdir -p "$HOME/Applications"
     # mkdir -p "$HOME/Applications/zen"
 
