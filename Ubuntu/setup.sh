@@ -511,13 +511,18 @@ setup_browser() {
 
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$default_profile/user.js"
+            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
+
+            unzip "$HOME/Zen/sine-mods.zip" -d "$chrome_folder"
         else
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
+            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
         fi
     else
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
+        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
     fi
 
     ./sine-flatpak.sh -y

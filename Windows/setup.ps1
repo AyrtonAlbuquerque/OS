@@ -662,8 +662,11 @@ function SetupBrowser {
 
                         $userChromeFile = Join-Path $chromeFolder "userChrome.css"
                         $userFile = Join-Path $releaseProfile.FullName "user.js"
+                        $mods = Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/sine-mods.zip" "$env:USERPROFILE\Downloads\sine-mods.zip"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" $userFile
+
+                        Expand-Archive -Path $mods -DestinationPath $chromeFolder -Force
                     }
                     elseif ($alphaProfile) {
                         $chromeFolder = Join-Path $alphaProfile.FullName "chrome"
@@ -674,17 +677,22 @@ function SetupBrowser {
 
                         $userChromeFile = Join-Path $chromeFolder "userChrome.css"
                         $userFile = Join-Path $alphaProfile.FullName "user.js"
+                        $mods = Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/sine-mods.zip" "$env:USERPROFILE\Downloads\sine-mods.zip"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" $userChromeFile
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" $userFile
+
+                        Expand-Archive -Path $mods -DestinationPath $chromeFolder -Force
                     }
                     else {
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
                         Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" "$env:USERPROFILE\Downloads\user.js"
+                        Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/sine-mods.zip" "$env:USERPROFILE\Downloads\sine-mods.zip"
                     }
                 }
                 else {
                     Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/userChrome.css" "$env:USERPROFILE\Downloads\userChrome.css"
                     Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/user.js" "$env:USERPROFILE\Downloads\user.js"
+                    Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/sine-mods.zip" "$env:USERPROFILE\Downloads\sine-mods.zip"
                 }
             }
             else {
