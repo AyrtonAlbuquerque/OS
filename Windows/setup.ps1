@@ -506,6 +506,22 @@ function SetupRegistry {
         New-ItemProperty -Path $favorites -Name $key.Name -Value $key.Path -PropertyType String -Force | Out-Null
         Write-Host "✔ Added: $($key.Name)" -ForegroundColor Green
     }
+
+    try
+    {
+        if ((OSVersion) -eq 11) {
+            $path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+
+            New-Item -Path $path -Force | Out-Null
+            New-ItemProperty -Path $path -Name "NoStartMenuMorePrograms" -PropertyType DWord -Value 1 -Force | Out-Null
+
+            Stop-Process -Name explorer -Force
+            Start-Process explorer.exe
+        }
+    }
+    catch {
+        Write-Warning "✖ Failed Windows 11 Start Menu Category removal: $_"
+    }
 }
 
 function SetupUI {
@@ -523,13 +539,13 @@ function SetupUI {
         else {
             Install "chanplecai.smarttaskbar"
             Install "gerardog.gsudo"
-            Install "winaero.tweaker"
             SetupExplorer
             SetupNilesoft
             # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7TSP%20Windows%2011.7z" "$env:USERPROFILE\Downloads\7TSP Windows 11.7z"
             # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7tsp.exe" "$env:USERPROFILE\Downloads\7tsp.exe"
         }
 
+        Install "winaero.tweaker"
         SetupExplorerBlurMica
         Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Wallpaper/Wallpapper.png" "$env:USERPROFILE\Pictures\Wallpapper.png"
         Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Wallpaper/Wallpaper.mp4" "$env:USERPROFILE\Videos\Wallpaper.mp4"
@@ -734,7 +750,7 @@ function SetupApplications($option) {
             Install "Microsoft.VisualStudioCode"
             Install "JetBrains.Toolbox"
             Install "TortoiseGit.TortoiseGit"
-            Install "Stremio.StremioService"
+            Install "Stremio.StremioService" "0.1.14"
             Install "QL-Win.QuickLook"
             # Install "Docker.DockerDesktop"
             SetupLauncher
