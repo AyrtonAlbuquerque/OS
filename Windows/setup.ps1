@@ -523,6 +523,7 @@ function SetupUI {
         else {
             Install "chanplecai.smarttaskbar"
             Install "gerardog.gsudo"
+            Install "winaero.tweaker"
             SetupExplorer
             SetupNilesoft
             # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Icons/7TSP%20Windows%2011.7z" "$env:USERPROFILE\Downloads\7TSP Windows 11.7z"
@@ -533,6 +534,7 @@ function SetupUI {
         Download "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Wallpaper/Wallpapper.png" "$env:USERPROFILE\Pictures\Wallpapper.png"
         Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Wallpaper/Wallpaper.mp4" "$env:USERPROFILE\Videos\Wallpaper.mp4"
         Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Programs/Context%20Menu%20Manager.exe" "$env:USERPROFILE\Downloads\ContextMenuManager.exe"
+        Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Utilities/tweaker.ini" "$env:USERPROFILE\Downloads\tweaker.ini"
         $zip = Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Cursor/Modern.zip" "$env:USERPROFILE\Downloads\Modern.zip"
         Expand-Archive -Path $zip -DestinationPath "$env:USERPROFILE\Downloads\Cursor" -Force
         Remove-Item -Path $zip -Recurse -Force
