@@ -640,6 +640,7 @@ setup_extensions() {
     wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v56.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/arcmenuarcmenu.com.v48.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/dhruvanarkagni.v4.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v47.shell-extension.zip
@@ -650,6 +651,7 @@ setup_extensions() {
     gnome-extensions install dash-to-paneljderose9.github.com.v56.shell-extension.zip
     gnome-extensions install arcmenuarcmenu.com.v48.shell-extension.zip
     gnome-extensions install start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
+    gnome-extensions install dhruvanarkagni.v4.shell-extension.zip
 
 
     if [ "$version" -le 44 ]; then
@@ -685,6 +687,7 @@ setup_extensions() {
     rm dash-to-paneljderose9.github.com.v56.shell-extension.zip
     rm arcmenuarcmenu.com.v48.shell-extension.zip
     rm start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
+    rm dhruvanarkagni.v4.shell-extension.zip
 
     git clone https://github.com/icedman/search-light
 
@@ -810,7 +813,9 @@ setup_ui() {
         sudo apt install x11-utils -y
         sudo apt install dconf-editor -y
         sudo apt install gnome-tweaks -y
+
         echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/20_lofree_fn_mode_fix.conf
+        echo "snap" > .hidden
 
         install_flatpack
 
