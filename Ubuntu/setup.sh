@@ -810,6 +810,7 @@ setup_ui() {
         sudo apt install x11-utils -y
         sudo apt install dconf-editor -y
         sudo apt install gnome-tweaks -y
+        echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/20_lofree_fn_mode_fix.conf
 
         install_flatpack
 
