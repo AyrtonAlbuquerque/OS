@@ -815,7 +815,9 @@ setup_ui() {
         sudo apt install gnome-tweaks -y
 
         echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/20_lofree_fn_mode_fix.conf
-        echo "snap" > .hidden
+        echo "snap" >> .hidden
+        echo "Public" >> .hidden
+        echo "Templates" >> .hidden
 
         install_flatpack
 
