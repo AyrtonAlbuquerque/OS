@@ -630,6 +630,7 @@ setup_extensions() {
     sudo apt install -y libgtk-4-media-gstreamer
     sudo apt install -y gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0
     sudo apt install -y imagemagick
+    sudo apt install -y mpv ffmpeg
 
     wget https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v47.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
@@ -641,6 +642,7 @@ setup_extensions() {
     wget https://extensions.gnome.org/extension-data/arcmenuarcmenu.com.v48.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
     wget https://extensions.gnome.org/extension-data/dhruvanarkagni.v4.shell-extension.zip
+    wget https://extensions.gnome.org/extension-data/gnome-wallpaper-enginegjs.com.v7.shell-extension.zip
     
     gnome-extensions install compiz-alike-magic-lamp-effecthermes83.github.com.v17.shell-extension.zip
     gnome-extensions install blur-my-shellaunetx.v47.shell-extension.zip
@@ -652,6 +654,7 @@ setup_extensions() {
     gnome-extensions install arcmenuarcmenu.com.v48.shell-extension.zip
     gnome-extensions install start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
     gnome-extensions install dhruvanarkagni.v4.shell-extension.zip
+    gnome-extensions install gnome-wallpaper-enginegjs.com.v7.shell-extension.zip
 
 
     if [ "$version" -le 44 ]; then
@@ -688,6 +691,7 @@ setup_extensions() {
     rm arcmenuarcmenu.com.v48.shell-extension.zip
     rm start-overlay-in-application-viewHex_cz.v5.shell-extension.zip
     rm dhruvanarkagni.v4.shell-extension.zip
+    rm gnome-wallpaper-enginegjs.com.v7.shell-extension.zip
 
     git clone https://github.com/icedman/search-light
 
