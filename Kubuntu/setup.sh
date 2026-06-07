@@ -254,9 +254,9 @@ install_java() {
         sudo dpkg -i jdk-"$java"_linux-x64_bin.deb
         rm jdk-"$java"_linux-x64_bin.deb
     else
-        wget https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.deb
-        sudo dpkg -i jdk-25_linux-x64_bin.deb
-        rm jdk-25_linux-x64_bin.deb
+        wget https://download.oracle.com/java/26/latest/jdk-26_linux-x64_bin.deb
+        sudo dpkg -i jdk-26_linux-x64_bin.deb
+        rm jdk-26_linux-x64_bin.deb
     fi
 
     JAVA_HOME_PATH=$(dirname $(dirname $(readlink -f $(which javac))))
@@ -321,9 +321,6 @@ install_apps() {
 
     # stremio service
     flatpak install flathub com.stremio.Service -y
-    # wget "https://dl.strem.io/stremio-service/v0.1.13/stremio-service_amd64.deb"
-    # sudo dpkg -i stremio-service_amd64.deb
-    # rm stremio-service_amd64.deb
 
     # jetbrains toolbox
     sudo apt install -y libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
@@ -334,78 +331,26 @@ install_apps() {
         echo "[!] Failed to install JetBrains Toolbox"
     }
 
-    # rabbitvcs
-    # sudo apt-get update
-    # sudo apt install -y rabbitvcs-core rabbitvcs-cli rabbitvcs-nautilus rabbitvcs-gedit
-
     # Flatseal
-    # flatpak install flathub com.github.tchx84.Flatseal -y
+    flatpak install flathub com.github.tchx84.Flatseal -y
 
     finished "install_apps"
     echo "[✔] Success"
 }
 
-install_flatpack() {
-    if executed "install_flatpack"; then
-        echo "[✔] Flatpack already installed, skipping"
+install_flatpak() {
+    if executed "install_flatpak"; then
+        echo "[✔] Flatpak already installed, skipping"
         return
     fi
 
-    echo "[*] Installing Flatpack..."
+    echo "[*] Installing Flatpak..."
 
     sudo apt install flatpak -y
     sudo apt install gnome-software-plugin-flatpak -y
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-    finished "install_flatpack"
-    echo "[✔] Success"
-}
-
-setup_theme() {
-    if executed "setup_theme"; then
-        echo "[✔] Theme already installed, skipping"
-        return
-    fi
-
-    echo "[*] Setting up theme..."
-
-    mkdir -p "$HOME/.themes"
-    mkdir -p "$HOME/.config/gtk-4.0"
-
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/OneDark.zip" -O OneDark.zip
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Themes/Windows12.zip" -O Windows12.zip
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
-
-    unzip OneDark.zip -d "$HOME/.themes"
-    unzip Windows12.zip -d "$HOME/.themes"
-
-    # cp -r "$HOME/.themes/OneDark/gtk-4.0/"* "$HOME/.config/gtk-4.0/"
-    cp -r "$HOME/.themes/Windows12/gtk-4.0/"* "$HOME/.config/gtk-4.0/"
-
-    rm OneDark.zip
-    rm Windows12.zip
-
-    finished "setup_theme"
-    echo "[✔] Success"
-}
-
-setup_cursor() {
-    if executed "setup_cursor"; then
-        echo "[✔] Cursor already installed, skipping"
-        return
-    fi
-
-    echo "[*] Setting up cursor..."
-
-    mkdir -p "$HOME/.icons"
-
-    wget https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Cursor/Bibata-Modern-Ice.zip
-    
-    unzip Bibata-Modern-Ice.zip -d "$HOME/.icons"
-
-    rm Bibata-Modern-Ice.zip
-
-    finished "setup_cursor"
+    finished "install_flatpak"
     echo "[✔] Success"
 }
 
@@ -442,61 +387,23 @@ setup_browser() {
     # mkdir -p "$HOME/Applications"
     # mkdir -p "$HOME/Applications/zen"
 
-    # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/zen.AppImage" -O "$HOME/Applications/zen/zen.AppImage"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/firefox.png" -O "$HOME/Pictures/firefox.png"
-    # wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Setup.txt" -O "$HOME/Zen/Setup.txt"
-    # wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Browser/Extensions/Infinity%20New%20Tab.xpi" -O "$HOME/Zen/Infinity New Tab.xpi"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
-    # wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.json" -O "$HOME/Zen/sine-mods.json"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Browser/firefox.png" -O "$HOME/Pictures/firefox.png"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
     wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh"
 
     chmod +x ./sine-flatpak.sh
-    # chmod +x "$HOME/Applications/zen/zen.AppImage"
-    # cat <<-EOF > ~/.local/share/applications/zen.desktop
-	# 	[Desktop Entry]
-	# 	Name=Zen Browser
-	# 	Comment=Experience tranquillity while browsing the web without people tracking you!
-	# 	Exec=$HOME/Applications/zen/zen.AppImage %u
-	# 	Icon=$HOME/Applications/zen/firefox.png
-	# 	Type=Application
-	# 	MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-	# 	StartupWMClass=zen-alpha
-	# 	Categories=Network;WebBrowser;
-	# 	StartupNotify=true
-	# 	Terminal=false
-	# 	X-MultipleArgs=false
-	# 	Keywords=Internet;WWW;Browser;Web;Explorer;
-	# 	Actions=new-window;new-private-window;profilemanager;
-
-	# 	[Desktop Action new-window]
-	# 	Name=Open a New Window
-	# 	Exec=$HOME/Applications/zen/zen.AppImage %u
-
-	# 	[Desktop Action new-private-window]
-	# 	Name=Open a New Private Window
-	# 	Exec=$HOME/Applications/zen/zen.AppImage --private-window %u
-
-	# 	[Desktop Action profilemanager]
-	# 	Name=Open the Profile Manager
-	# 	Exec=$HOME/Applications/zen/zen.AppImage --ProfileManager %u
-	# EOF
 
     flatpak install flathub app.zen_browser.zen -y
 
-    # "$HOME/Applications/zen/zen.AppImage" &
     flatpak run app.zen_browser.zen &
     zen_pid=$!
     sleep 5
     pkill -f "app.zen_browser.zen" 2>/dev/null || true
-    # kill $zen_pid 2>/dev/null || true
-    # wait $zen_pid 2>/dev/null || true
 
-    # profiles_dir="$HOME/.config/zen"
     profiles_dir="$HOME/.var/app/app.zen_browser.zen/.zen"
 
     if [[ -d "$profiles_dir" ]]; then
-        # default_profile=$(find "$profiles_dir" -type d -name "*.Default Profile" | head -1)
         default_profile=$(find "$profiles_dir" -type d -name "*.Default (release)" | head -1)
         
         if [[ -n "$default_profile" ]]; then
@@ -506,20 +413,20 @@ setup_browser() {
                 mkdir -p "$chrome_folder"
             fi
 
-            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
-            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$default_profile/user.js"
-            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/user.js" -O "$default_profile/user.js"
+            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
 
             unzip "$HOME/Zen/sine-mods.zip" -d "$chrome_folder"
         else
-            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
-            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
-            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
+            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
+            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
         fi
     else
-        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
-        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
-        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
+        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
+        wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/user.js" -O "$HOME/Zen/user.js"
+        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
     fi
 
     ./sine-flatpak.sh -y
@@ -537,38 +444,19 @@ setup_insomnia() {
 
     echo "[*] Setting up Insomnia..."
 
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Programs/Insomnia.deb"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Insomnia/Insomnia"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Programs/Insomnia.deb"
+    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Utilities/Insomnia/Insomnia"
 
     sudo dpkg -i Insomnia.deb
     rm Insomnia.deb
 
     mkdir -p "$HOME/.config/Insomnia/plugins/insomnia-plugin-save-variables"
-    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Ubuntu/Utilities/Insomnia/insomnia-plugin-one-dark-theme.zip"
+    wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Utilities/Insomnia/insomnia-plugin-one-dark-theme.zip"
     unzip insomnia-plugin-one-dark-theme.zip -d "$HOME/.config/Insomnia/plugins"
     rm insomnia-plugin-one-dark-theme.zip
     git clone "https://github.com/fabiosousapro/insomnia-plugin-query-parameter-tag.git" "$HOME/.config/Insomnia/plugins/insomnia-plugin-query-parameter-tag"
 
     finished "setup_insomnia"
-    echo "[✔] Success"
-}
-
-setup_terminal() {
-    if executed "setup_terminal"; then
-        echo "[✔] Terminal already installed, skipping"
-        return
-    fi
-
-    echo "[*] Setting up terminal..."
-
-    gnome-terminal --geometry=192x26+0+0 &
-    wget https://raw.githubusercontent.com/safesintesi/terminal-guillotine/main/guillotine.sh -qO- | bash
-    sudo apt install guake -y
-    wget https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/guake.cfg
-    guake --restore-preferences=guake.cfg
-    rm guake.cfg
-
-    finished "setup_terminal"
     echo "[✔] Success"
 }
 
@@ -678,30 +566,18 @@ setup_ui() {
         echo "org.vicko.wavetask" >> .hidden
         echo "Templates" >> .hidden
 
-        install_flatpack
-
-        # setup_theme
-        # setup_cursor
+        install_flatpak
         setup_browser
         setup_insomnia
-        # setup_terminal
         setup_launcher
         setup_dock
-
         install_apps
 
         pipx ensurepath
         pipx install konsave
         source ~/.zshrc
 
-        {
-            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings-${version}.ini" -O dconf-settings.ini
-        } || {
-            wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/DConf/dconf-settings-26.ini" -O dconf-settings.ini
-        }
-
-        dconf load / < dconf-settings.ini
-        rm dconf-settings.ini
+        wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
 
         finished "setup_ui"
         echo "[✔] Success"

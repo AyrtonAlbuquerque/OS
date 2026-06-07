@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🖥️ Ubuntu Setup Script
+# 🖥️ Kubuntu Setup Script
 
 </div>
 

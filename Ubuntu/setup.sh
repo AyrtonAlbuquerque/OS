@@ -256,9 +256,9 @@ install_java() {
         sudo dpkg -i jdk-"$java"_linux-x64_bin.deb
         rm jdk-"$java"_linux-x64_bin.deb
     else
-        wget https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.deb
-        sudo dpkg -i jdk-25_linux-x64_bin.deb
-        rm jdk-25_linux-x64_bin.deb
+        wget https://download.oracle.com/java/26/latest/jdk-26_linux-x64_bin.deb
+        sudo dpkg -i jdk-26_linux-x64_bin.deb
+        rm jdk-26_linux-x64_bin.deb
     fi
 
     JAVA_HOME_PATH=$(dirname $(dirname $(readlink -f $(which javac))))
