@@ -1,0 +1,16 @@
+Zen Setup
+    1. Type about:config into your urlbar and go to the page.
+    2. Set zen.theme.content-element-separation to 0.
+    3. Set zen.workspaces.show-workspace-indicator to false
+    4. Set zen.urlbar.replace-newtab to false (newer versions)
+    5. Set browser.tabs.closeWindowWithLastTab to true (newer versions)
+    6. Set zen.view.show-clear-tabs-button to false (newer versions)
+    7. Set zen.view.compact.show-background-tab-toast to false (newer version)
+    8. Set toolkit.legacyUserProfileCustomizations.stylesheets to true (newer version)
+    9. Copy the userChrome.css file to your Zen "chrome" folder
+    10. Restart Zen.
+
+Infinity New Tab Setup
+    1. Open Configurations => Home
+    2. In Homepage and New Window choose Personalized URLs and paste: moz-extension://<UUID>/newtab/index.html
+    3. Replace UUID with the extensions ID found at: about:debugging#/runtime/this-firefox
