@@ -508,7 +508,7 @@ setup_dock() {
     echo "[*] Setting up dock..."
 
     {
-        sudo apt install -y libplasma-dev libplasmaactivities-dev libplasmaactivitiesstats-dev libdrm-dev plasma-workspace-dev libksysguard-dev
+        sudo apt install -y libplasma-dev libplasmaactivities-dev libplasmaactivitiesstats-dev libdrm-dev plasma-workspace-dev libksysguard-dev libkf6service-dev kwin-dev libkf6configwidgets-dev libkf6notifications-dev libkf6kio-dev libkf6bookmarks-dev
 
         if [ ! -d "$HOME/.local/share/applications" ]; then
             mkdir -p "$HOME/.local/share/applications"
@@ -582,7 +582,7 @@ setup_ui() {
         {
             konsave -i kubuntu26.knsv
             konsave -a kubuntu26
-            rm kubuntu26.knsv
+            # rm kubuntu26.knsv
         } || {
             echo "[!] Failed to import Konsave configuration."
         }
