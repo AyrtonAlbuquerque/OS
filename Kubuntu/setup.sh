@@ -546,7 +546,6 @@ setup_ui() {
         sudo apt install x11-utils -y
         sudo apt install xdotool -y
         sudo apt install yakuake -y
-        sudo apt install pipx -y
 
         {
             sudo add-apt-repository ppa:papirus/papirus
@@ -570,9 +569,9 @@ setup_ui() {
         setup_dock
         install_apps
 
-        pipx ensurepath
-        pipx install konsave
-        source ~/.zshrc
+        # pipx ensurepath
+        # pipx install konsave
+        # source ~/.zshrc
 
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Invisible.png" -O "$HOME/Pictures/Invisible.png"
