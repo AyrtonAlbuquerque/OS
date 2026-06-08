@@ -581,6 +581,7 @@ setup_ui() {
 
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Invisible.png" -O "$HOME/Pictures/Invisible.png"
+        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Wallpaper/Wallpapper.png?download=true" -O "$HOME/Pictures/Wallpaper.png"
         wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Konsave/kubuntu26.knsv" -O "$HOME/kubuntu26.knsv"
 
         {
