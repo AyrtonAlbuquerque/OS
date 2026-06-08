@@ -347,7 +347,6 @@ install_flatpak() {
     echo "[*] Installing Flatpak..."
 
     sudo apt install flatpak -y
-    sudo apt install gnome-software-plugin-flatpak -y
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     finished "install_flatpak"
@@ -544,11 +543,7 @@ setup_ui() {
 
         echo "[*] Setting up UI..."
 
-        sudo apt install gnome-software -y
-        sudo apt install gnome-shell-extension-manager -y
         sudo apt install x11-utils -y
-        sudo apt install dconf-editor -y
-        sudo apt install gnome-tweaks -y
         sudo apt install xdotool -y
         sudo apt install yakuake -y
         sudo apt install pipx -y
