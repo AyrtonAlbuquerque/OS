@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------------------------------------- #
-#                                     Ubuntu Setup Script                                     #
+#                                     Kubuntu Setup Script                                    #
 # ------------------------------------------------------------------------------------------- #
 set -e
 
@@ -326,7 +326,7 @@ install_apps() {
     sudo apt install -y libfuse2 libxi6 libxrender1 libxtst6 mesa-utils libfontconfig libgtk-3-bin
     {
         echo "[*] Installing JetBrains Toolbox..."
-        curl -fsSL https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Ubuntu/Utilities/Toolbox/toolbox-install.sh | bash &&
+        curl -fsSL https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Utilities/Toolbox/toolbox-install.sh | bash &&
     } || {
         echo "[!] Failed to install JetBrains Toolbox"
     }
