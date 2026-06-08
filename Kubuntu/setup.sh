@@ -467,10 +467,9 @@ setup_launcher() {
 
     echo "[*] Setting up launcher..."
 
-    sudo apt install gir1.2-gtklayershell-0.1 -y
-
     { 
         sudo add-apt-repository universe -y && sudo add-apt-repository ppa:agornostal/ulauncher -y && sudo apt update && sudo apt install ulauncher -y 
+        sudo apt install gir1.2-gtklayershell-0.1 -y
     } || { 
         echo "[!] Failed to install Ulauncher. Most likely reason is that your distribution is not supported by the Ulauncher PPA yet."
         sudo add-apt-repository --remove universe -y
@@ -569,10 +568,6 @@ setup_ui() {
         setup_dock
         install_apps
 
-        # pipx ensurepath
-        # pipx install konsave
-        # source ~/.zshrc
-
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Invisible.png" -O "$HOME/Pictures/Invisible.png"
         wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Wallpaper/Wallpapper.png?download=true" -O "$HOME/Pictures/Wallpaper.png"
@@ -581,7 +576,7 @@ setup_ui() {
         {
             konsave -i kubuntu26.knsv
             konsave -a kubuntu26
-            # rm kubuntu26.knsv
+            rm kubuntu26.knsv
         } || {
             echo "[!] Failed to import Konsave configuration."
         }

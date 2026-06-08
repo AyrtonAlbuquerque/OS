@@ -38,7 +38,12 @@ sudo apt install -y build-essential curl unzip gnupg \
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-### ✅ Step 2: Execute the script from terminal
+### ✅ Step 2: After a reboot, install Konsave using pipx
+```bash
+pipx ensurepath && pipx install konsave && source ~/.zshrc
+```
+
+### ✅ Step 3: Execute the script from terminal
 You can download and run the script directly using the command below:
 
 ```bash
