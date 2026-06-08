@@ -511,11 +511,13 @@ setup_dock() {
     {
         sudo apt install -y libplasma-dev libplasmaactivities-dev libplasmaactivitiesstats-dev libdrm-dev plasma-workspace-dev libksysguard-dev
 
-        git clone https://github.com/vickoc911/org.vicko.wavetask.git
-
         if [ ! -d "$HOME/.local/share/applications" ]; then
             mkdir -p "$HOME/.local/share/applications"
         fi
+
+        wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Programs/applications.desktop" -O "$HOME/.local/share/applications/applications.desktop"
+        chmod +x "$HOME/.local/share/applications/applications.desktop"
+        git clone https://github.com/vickoc911/org.vicko.wavetask.git
 
         (
             cd org.vicko.wavetask
@@ -578,6 +580,16 @@ setup_ui() {
         source ~/.zshrc
 
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
+        wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Invisible.png" -O "$HOME/Pictures/Invisible.png"
+        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Konsave/kubuntu26.knsv" -O "$HOME/kubuntu26.knsv"
+
+        {
+            konsave -i kubuntu26.knsv
+            konsave -a kubuntu26
+            rm kubuntu26.knsv
+        } || {
+            echo "[!] Failed to import Konsave configuration."
+        }
 
         finished "setup_ui"
         echo "[✔] Success"
