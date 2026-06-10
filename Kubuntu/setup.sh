@@ -545,6 +545,8 @@ setup_ui() {
         sudo apt install x11-utils -y
         sudo apt install xdotool -y
         sudo apt install yakuake -y
+        sudo apt install -y git cmake g++ extra-cmake-modules qt6-tools-dev kwin-dev libkf6configwidgets-dev gettext libkf6crash-dev libkf6globalaccel-dev libkf6kio-dev libkf6service-dev libkf6notifications-dev libkf6kcmutils-dev libkdecorations3-dev libxcb-composite0-dev libxcb-randr0-dev libxcb-shm0-dev libplasma-dev libdrm-dev
+
 
         {
             sudo add-apt-repository ppa:papirus/papirus
@@ -556,9 +558,25 @@ setup_ui() {
             sudo apt update
         }
 
+        git clone https://github.com/4v3ngR/kwin-effects-glass
+
+        {
+            (
+                cd kwin-effects-glass
+                mkdir build
+                cd build
+                cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+                make -j$(nproc)
+                sudo make install
+            )
+        } || {
+            echo "[!] Failed to set up kwin-effects-glass"
+        }
+
         echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/20_lofree_fn_mode_fix.conf
         echo "snap" >> .hidden
         echo "org.vicko.wavetask" >> .hidden
+        echo "kwin-effects-glass" >> .hidden
         echo "Templates" >> .hidden
 
         install_flatpak
@@ -571,15 +589,15 @@ setup_ui() {
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Invisible.png" -O "$HOME/Pictures/Invisible.png"
         wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Wallpaper/Wallpapper.png?download=true" -O "$HOME/Pictures/Wallpaper.png"
-        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Konsave/kubuntu26.knsv" -O "$HOME/kubuntu26.knsv"
+        # wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Konsave/kubuntu26.knsv" -O "$HOME/kubuntu26.knsv"
 
-        {
-            konsave -i kubuntu26.knsv
-            konsave -a kubuntu26
-            rm kubuntu26.knsv
-        } || {
-            echo "[!] Failed to import Konsave configuration."
-        }
+        # {
+        #     konsave -i kubuntu26.knsv
+        #     konsave -a kubuntu26
+        #     rm kubuntu26.knsv
+        # } || {
+        #     echo "[!] Failed to import Konsave configuration."
+        # }
 
         finished "setup_ui"
         echo "[✔] Success"
