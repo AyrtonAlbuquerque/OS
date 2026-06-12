@@ -573,10 +573,25 @@ setup_ui() {
             echo "[!] Failed to set up kwin-effects-glass"
         }
 
+        git clone https://github.com/tsujan/BreezeEnhanced.git
+
+        {
+            (
+                cd BreezeEnhanced
+                mkdir build && cd build
+                cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_LIBDIR=lib -DBUILD_TESTING=OFF -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+                make
+                sudo make install
+            )
+        } || {
+            echo "[!] Failed to set up Breeze Enhanced"
+        }
+
         echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/20_lofree_fn_mode_fix.conf
         echo "snap" >> .hidden
         echo "org.vicko.wavetask" >> .hidden
         echo "kwin-effects-glass" >> .hidden
+        echo "BreezeEnhanced" >> .hidden
         echo "Templates" >> .hidden
 
         install_flatpak
@@ -589,15 +604,15 @@ setup_ui() {
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Kubuntu/Invisible.png" -O "$HOME/Pictures/Invisible.png"
         wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Wallpaper/Wallpapper.png?download=true" -O "$HOME/Pictures/Wallpaper.png"
-        # wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Konsave/kubuntu26.knsv" -O "$HOME/kubuntu26.knsv"
+        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/Kubuntu/Konsave/kubuntu26.knsv" -O "$HOME/kubuntu26.knsv"
 
-        # {
-        #     konsave -i kubuntu26.knsv
-        #     konsave -a kubuntu26
-        #     rm kubuntu26.knsv
-        # } || {
-        #     echo "[!] Failed to import Konsave configuration."
-        # }
+        {
+            konsave -i kubuntu26.knsv
+            konsave -a kubuntu26
+            rm kubuntu26.knsv
+        } || {
+            echo "[!] Failed to import Konsave configuration."
+        }
 
         finished "setup_ui"
         echo "[✔] Success"
