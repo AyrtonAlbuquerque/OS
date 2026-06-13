@@ -295,15 +295,13 @@ setup_browser() {
     wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3/sine-flatpak.sh"
 
     chmod +x ./sine-flatpak.sh
-
-    flatpak install flathub app.zen_browser.zen -y
-
-    flatpak run app.zen_browser.zen &
+    sudo paru -S zen-browser-bin 
+    zen-browser >/dev/null 2>&1 &
     zen_pid=$!
     sleep 5
-    pkill -f "app.zen_browser.zen" 2>/dev/null || true
+    kill "$zen_pid" 2>/dev/null || true
 
-    profiles_dir="$HOME/.var/app/app.zen_browser.zen/.zen"
+    profiles_dir="$HOME/.config/.zen"
 
     if [[ -d "$profiles_dir" ]]; then
         default_profile=$(find "$profiles_dir" -type d -name "*.Default (release)" | head -1)
