@@ -235,7 +235,7 @@ install_apps() {
     echo "[*] Installing Applications..."
 
     # vscode
-    paru -S visual-studio-code-bin || {
+    paru -S --noconfirm visual-studio-code-bin || {
         echo "[!] Failed to install Visual Studio Code."
     }
 
@@ -292,6 +292,8 @@ setup_browser() {
     wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/CachyOS/Browser/firefox.png" -O "$HOME/Pictures/firefox.png"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/Configuration/AdBlocker.txt" -O "$HOME/Zen/AdBlocker.txt"
     wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/Configuration/Enhancer%20for%20Youtube.json" -O "$HOME/Zen/Enhancer for Youtube.json"
+    wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
+    wget "https://github.com/CosmoCreeper/Sine/releases/download/v2.3.3/sine-linux-x64" -O "$HOME/Zen/sine-linux-x64"
 
     sudo paru -S --noconfirm zen-browser-bin 
     zen-browser >/dev/null 2>&1 &
@@ -313,42 +315,14 @@ setup_browser() {
 
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/user.js" -O "$default_profile/user.js"
-            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
-
             unzip "$HOME/Zen/sine-mods.zip" -d "$chrome_folder"
-
-            (
-                cd "$chrome_folder"
-                mkdir -p  JS
-                mkdir -p  utils
-
-                cd utils
-                wget -O chrome.manifest https://raw.githubusercontent.com/sineorg/bootloader/main/profile/utils/chrome.manifest > /dev/null 2>&1
-                wget -O fs.sys.mjs https://raw.githubusercontent.com/sineorg/bootloader/main/profile/utils/fs.sys.mjs > /dev/null 2>&1
-                wget -O uc_api.sys.mjs https://raw.githubusercontent.com/sineorg/bootloader/main/profile/utils/uc_api.sys.mjs > /dev/null 2>&1
-                wget -O utils.sys.mjs https://raw.githubusercontent.com/sineorg/bootloader/main/profile/utils/utils.sys.mjs > /dev/null 2>&1
-
-                cd ../
-
-                wget https://github.com/CosmoCreeper/Sine/releases/download/v2.3/engine.zip > /dev/null 2>&1
-                unzip -o engine.zip > /dev/null 2>&1
-                rm engine.zip
-
-                wget https://github.com/CosmoCreeper/Sine/releases/download/v2.3/locales.zip > /dev/null 2>&1
-                unzip -o locales.zip > /dev/null 2>&1
-                rm locales.zip
-
-                echo -e "\nSuccessfully installed Sine on your system!"
-            )
         else
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/user.js" -O "$HOME/Zen/user.js"
-            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
         fi
     else
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/userChrome.css" -O "$HOME/Zen/userChrome.css"
         wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/user.js" -O "$HOME/Zen/user.js"
-        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
     fi
 
     finished "setup_browser"
@@ -363,6 +337,7 @@ setup_insomnia() {
 
     echo "[*] Setting up Insomnia..."
 
+    sudo pacman -S --noconfirm fuse2
     mkdir -p "$HOME/Applications"
     wget "https://github.com/Kong/insomnia/releases/download/core%402022.6.0/Insomnia.Core-2022.6.0.AppImage" -O "$HOME/Applications/Insomnia.AppImage"
     chmod +x "$HOME/Applications/Insomnia.AppImage"
@@ -382,7 +357,7 @@ setup_insomnia() {
     cat <<-EOF > ~/.local/share/applications/insomnia.desktop
         [Desktop Entry]
         Exec=$HOME/Applications/Insomnia.AppImage
-        Icon=$HOME/.config/Insomnia/icon.png
+        Icon=insomnia
         Name[en_US]=Insomnia
         Name=Insomnia
         StartupNotify=true
