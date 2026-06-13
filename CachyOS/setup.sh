@@ -351,8 +351,6 @@ setup_insomnia() {
     chmod +x "$HOME/Applications/Insomnia.AppImage"
     sudo ln -sf "$HOME/Applications/Insomnia.AppImage" /usr/local/bin/insomnia
     mkdir -p "$HOME/.config/Insomnia"
-    wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Programs/Insomnia/insomnia.png" -O "$HOME/.config/Insomnia/icon.png" 2>/dev/null || \
-    wget "https://raw.githubusercontent.com/Kong/insomnia/develop/packages/insomnia/app-icon.png" -O "$HOME/.config/Insomnia/icon.png" 2>/dev/null || true
 
     if [ ! -d "$HOME/.local/share/applications" ]; then
         mkdir -p "$HOME/.local/share/applications"
