@@ -351,9 +351,6 @@ setup_browser() {
         wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
     fi
 
-    ./sine-flatpak.sh -y
-    rm sine-flatpak.sh
-
     finished "setup_browser"
     echo "[✔] Success"
 }
