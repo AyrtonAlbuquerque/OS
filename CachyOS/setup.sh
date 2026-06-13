@@ -235,7 +235,7 @@ install_apps() {
     echo "[*] Installing Applications..."
 
     # vscode
-    sudo pacman -S --noconfirm code || {
+    paru -S visual-studio-code-bin || {
         echo "[!] Failed to install Visual Studio Code."
     }
 
@@ -531,6 +531,7 @@ setup_ui() {
         echo "org.vicko.wavetask" >> .hidden
         echo "kwin-effects-glass" >> .hidden
         echo "BreezeEnhanced" >> .hidden
+        echo "Music" >> .hidden
         echo "Templates" >> .hidden
         
         install_flatpak
@@ -542,15 +543,15 @@ setup_ui() {
 
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/CachyOS/Wallpaper/Wallpaper.mp4" -O "$HOME/Videos/Wallpaper.mp4"
         wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Wallpaper/Wallpapper.png?download=true" -O "$HOME/Pictures/Wallpaper.png"
-        # wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Konsave/cachyos.knsv" -O "$HOME/cachyos.knsv"
+        wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Konsave/cachyos.knsv" -O "$HOME/cachyos.knsv"
 
-        # {
-        #     konsave -i cachyos.knsv
-        #     konsave -a cachyos
-        #     rm cachyos.knsv
-        # } || {
-        #     echo "[!] Failed to import Konsave configuration."
-        # }
+        {
+            konsave -i cachyos.knsv
+            konsave -a cachyos
+            rm cachyos.knsv
+        } || {
+            echo "[!] Failed to import Konsave configuration."
+        }
 
         finished "setup_ui"
         echo "[✔] Success"
