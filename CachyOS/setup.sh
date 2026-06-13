@@ -313,6 +313,7 @@ setup_browser() {
 
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/userChrome.css" -O "$chrome_folder/userChrome.css"
             wget "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/user.js" -O "$default_profile/user.js"
+            wget "https://media.githubusercontent.com/media/AyrtonAlbuquerque/OS/refs/heads/main/CachyOS/Browser/sine-mods.zip" -O "$HOME/Zen/sine-mods.zip"
 
             unzip "$HOME/Zen/sine-mods.zip" -d "$chrome_folder"
 
