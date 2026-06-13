@@ -1,0 +1,17 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=xdotool key Super_L
+GenericName[en_US]=
+GenericName=
+Icon=plasmashell
+MimeType=
+Name[en_US]=Applications
+Name=Applications
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

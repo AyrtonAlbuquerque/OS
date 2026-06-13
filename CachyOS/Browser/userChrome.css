@@ -1,0 +1,68 @@
+/* Side Panel */
+#titlebar {
+  /* outline: none !important; */
+  margin-left: -5px !important;
+  /* border: solid 5px rgb(40, 44, 52) !important; */
+  /* border-radius: 10px !important; */
+  /* background-color: rgb(40, 44, 52) !important; */
+}
+
+/* Top Bar */
+/* #nav-bar {
+  outline: none !important;
+  background-color: rgb(40, 44, 52) !important;
+} */
+
+/* Url Bar */
+/* #urlbar-background {
+  outline: none !important;
+  background-color: rgb(40, 44, 52) !important;
+} */
+
+/* Browser Window */
+#tabbrowser-tabpanels {
+  padding: 0 !important;
+}
+
+/* Status Panel */
+#statuspanel {
+  display: none !important;
+}
+
+vbox.zen-workspace-tabs-section.zen-current-workspace-indicator {
+    display: none !important;
+}
+
+@-moz-document url-prefix("chrome:") {
+
+  /* Remove Rounded Corners */
+  :root {
+    --zen-webview-border-radius: 0;
+  }
+
+  /* Remove minimize window button */
+  .titlebar-min {
+    display: none;
+  }
+
+  /* Remove maximize window button */
+  .titlebar-max {
+    display: none;
+  }
+
+  .titlebar-restore {
+    display: none;
+  }
+
+  /* Remove close window button */
+  .titlebar-close {
+    display: none;
+  }
+
+  .pinned-tabs-container-separator { display: none !important; }
+
+  /* Hide Extension Name */
+  #urlbar #identity-box.extensionPage #identity-icon-label {
+    display: none !important;
+  }
+}
