@@ -1,0 +1,10 @@
+        [Desktop Entry]
+        Exec=/home/ayrton/Applications/Insomnia.AppImage
+        Icon=insomnia
+        Name[en_US]=Insomnia
+        Name=Insomnia
+        StartupNotify=true
+        Terminal=false
+        Type=Application
+        Categories=Development;
+        X-KDE-SubstituteUID=false
