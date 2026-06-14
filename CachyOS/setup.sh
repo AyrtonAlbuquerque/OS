@@ -526,7 +526,10 @@ setup_ui() {
         echo "kwin-effects-glass" >> .hidden
         echo "BreezeEnhanced" >> .hidden
         echo "Music" >> .hidden
+        echo "Public" >> .hidden
         echo "Templates" >> .hidden
+        echo "PyCharmMiscProject" >> .hidden
+        echo "DataGripProjects" >> .hidden
         
         install_flatpak
         setup_browser
