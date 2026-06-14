@@ -240,7 +240,9 @@ install_apps() {
     }
 
     # stremio service
-    flatpak install flathub com.stremio.Service -y
+    paru -S --noconfirm stremio-service-bin || {
+        echo "[!] Failed to install Stremio Service."
+    }
 
     # jetbrains toolbox
     sudo pacman -S --noconfirm libxi libxrender libxtst mesa fontconfig gtk3 || {
