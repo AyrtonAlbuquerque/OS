@@ -425,7 +425,9 @@ setup_dock() {
             knotifications \
             kio \
             kbookmarks \
-            layer-shell-qt || {
+            layer-shell-qt \
+            vulkan-headers \
+            vulkan-icd-loader || {
             echo "[!] Failed to install dependencies."
         }
 
@@ -437,15 +439,19 @@ setup_dock() {
 
         wget "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/CachyOS/Programs/applications.desktop" -O "$HOME/.local/share/applications/applications.desktop"
         chmod +x "$HOME/.local/share/applications/applications.desktop"
-        git clone https://github.com/vickoc911/org.vicko.wavetask.git
+        paru -S --noconfirm wavetask-git --rebuild --overwrite '*' || {
+            echo "[!] Failed to install Wavetask from AUR."
+        }
 
-        (
-            cd org.vicko.wavetask
-            mkdir build && cd build
-            cmake .. -DCMAKE_BUILD_TYPE=Release
-            make -j$(nproc)
-            sudo make install
-        )
+        # git clone https://github.com/vickoc911/org.vicko.wavetask.git
+
+        # (
+        #     cd org.vicko.wavetask
+        #     mkdir build && cd build
+        #     cmake .. -DCMAKE_BUILD_TYPE=Release
+        #     make -j$(nproc)
+        #     sudo make install
+        # )
 
         echo "[✔] Success"
     } || {
@@ -491,19 +497,22 @@ setup_ui() {
         }
 
         # kwin-effects-glass
-        git clone https://github.com/4v3ngR/kwin-effects-glass
-
-        {
-            (
-                cd kwin-effects-glass
-                mkdir build && cd build
-                cmake .. -DCMAKE_INSTALL_PREFIX=/usr
-                make -j$(nproc)
-                sudo make install
-            )
-        } || {
-            echo "[!] Failed to set up kwin-effects-glass"
+        paru -S --noconfirm kwin-effects-glass-git --rebuild --overwrite '*' || {
+            echo "[!] Failed to install kwin-effects-glass from AUR."
         }
+        # git clone https://github.com/4v3ngR/kwin-effects-glass
+
+        # {
+        #     (
+        #         cd kwin-effects-glass
+        #         mkdir build && cd build
+        #         cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+        #         make -j$(nproc)
+        #         sudo make install
+        #     )
+        # } || {
+        #     echo "[!] Failed to set up kwin-effects-glass"
+        # }
 
         # BreezeEnhanced
         git clone https://github.com/tsujan/BreezeEnhanced.git
