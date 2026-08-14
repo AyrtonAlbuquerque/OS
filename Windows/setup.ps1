@@ -635,7 +635,7 @@ function SetupBrowser {
         if ($Browser) { 
             if ($Browser -eq "Zen-Team.Zen-Browser") {
                 $root = "${env:ProgramFiles}\Zen Browser"
-                $icon = Join-Path $root "firefox.ico"
+                $icon = Join-Path $root "zen.ico"
                 $distribution = Join-Path $root "_distribution"
                 $policies = Join-Path $distribution "policies.json"
 
@@ -645,7 +645,7 @@ function SetupBrowser {
                     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
                 }
 
-                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/firefox.ico" $icon
+                Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/zen.ico" $icon
                 Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/Browser/distribution/policies.json" $policies
                 # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Infinity%20New%20Tab.xpi" "$env:USERPROFILE\Downloads\Infinity New Tab.xpi"
                 # Download "https://github.com/AyrtonAlbuquerque/OS/raw/refs/heads/main/Windows/Browser/Extensions/Enhancer%20For%20Youtube.xpi" "$env:USERPROFILE\Downloads\Enhancer For Youtube.xpi"
@@ -744,6 +744,18 @@ function SetupInsomnia {
     }
 }
 
+function SetupPowerToys {
+    Write-Host "---------------------- Installing PowerToys ----------------------"
+    
+    try {
+        Install "Microsoft.PowerToys"
+        Download "https://raw.githubusercontent.com/AyrtonAlbuquerque/OS/refs/heads/main/Windows/PowerToys/powertoys_backup.ptb" "$env:USERPROFILE\Downloads\powertoys_backup.ptb"
+    }
+    catch {
+        Write-Warning "✖ Failed PowerToys installation: $_"
+    }
+}
+
 function SetupApplications($option) {
     switch ($option.ToUpper()) {
         'Y' { 
@@ -751,11 +763,11 @@ function SetupApplications($option) {
             Install "JetBrains.Toolbox"
             Install "TortoiseGit.TortoiseGit"
             Install "Stremio.StremioService" "0.1.14"
-            Install "QL-Win.QuickLook"
             # Install "Docker.DockerDesktop"
             SetupLauncher
             SetupInsomnia
             SetupStart11
+            SetupPowerToys
 
             if ($Dock) {
                 switch ($Dock.ToLower()) {
