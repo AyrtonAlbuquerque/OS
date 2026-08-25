@@ -764,7 +764,7 @@ function SetupApplications($option) {
             Install "TortoiseGit.TortoiseGit"
             Install "Stremio.StremioService" "0.1.14"
             # Install "Docker.DockerDesktop"
-            SetupLauncher
+            # SetupLauncher
             SetupInsomnia
             SetupStart11
             SetupPowerToys
