@@ -537,7 +537,7 @@ function SetupUI {
             }
         }
         else {
-            Install "chanplecai.smarttaskbar"
+            # Install "chanplecai.smarttaskbar"
             Install "gerardog.gsudo"
             SetupExplorer
             SetupNilesoft
